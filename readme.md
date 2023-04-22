@@ -50,6 +50,8 @@ Go to the project directory
 To run the server
 
 ```bash
+    cd server
+
     # To build the server
     docker compose build
 
