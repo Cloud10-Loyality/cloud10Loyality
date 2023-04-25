@@ -1,5 +1,13 @@
 version: '3.9'
 services:
+  nats:
+    image: 'nats:0.8.0'
+    entrypoint: "/gnatsd -DV"
+    expose:
+      - "4222"
+    ports:
+      - "8222:8222"
+    hostname: nats-server
   gateway-1:
     build:
       context: './gateway1'
@@ -14,6 +22,25 @@ services:
     volumes:
       - ./gateway1:/app
       - /app/node_modules
+    depends_on:
+      - nats
+  integration-service:
+    build:
+      context: './integration'
+      dockerfile: Dockerfile
+    ports:
+      - 6000:6000
+    container_name: integration-service
+    env_file:
+      - ./integration/.env
+    networks:
+      - integration-network
+    volumes:
+      - ./integration:/app
+      - /app/node_modules
+    depends_on:
+      - nats
 networks:
   gateway-1-network:
+  integration-network:
     
