@@ -18,6 +18,10 @@ Customer Engagement: Tools for engaging customers, such as targeted messaging, p
 Analytics and reporting: A dashboard that provides insights into customer behavior, program performance, and ROI.
 Administration and security: Tools for managing program rules, settings, and access levels, as well as ensuring compliance with data protection regulations
 
+# Admin Panel User Interface
+
+![Admin panel user interface](images\WhatsApp Image 2023-04-25 at 17.38.30.jpg)
+
 
 # Prerequisites
 
