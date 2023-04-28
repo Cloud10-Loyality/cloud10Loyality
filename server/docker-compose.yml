@@ -1,13 +1,33 @@
 version: '3.9'
 services:
-  nats:
-    image: 'nats:0.8.0'
-    entrypoint: "/gnatsd -DV"
-    expose:
-      - "4222"
+  nats-streaming:
+    image: nats-streaming:latest
+    command: [
+      '-p',
+      '4222',
+      '-m',
+      '8222',
+      '-hbi',
+      '5s',
+      '-hbt',
+      '5s',
+      '-hbf',
+      '2',
+      '-SD',
+      '-cid',
+      'cloud10LMS',
+    ]
+    labels:
+      app: nats
+  nats-srv:
+    image: nats:latest
+    labels:
+      - "app=nats"
     ports:
-      - "8222:8222"
-    hostname: nats-server
+      - published: 4222
+        target: 4222
+      - published: 8222
+        target: 8222
   gateway-1:
     build:
       context: './gateway1'
@@ -22,8 +42,6 @@ services:
     volumes:
       - ./gateway1:/app
       - /app/node_modules
-    depends_on:
-      - nats
   integration-service:
     build:
       context: './integration'
@@ -38,9 +56,6 @@ services:
     volumes:
       - ./integration:/app
       - /app/node_modules
-    depends_on:
-      - nats
 networks:
   gateway-1-network:
   integration-network:
-    

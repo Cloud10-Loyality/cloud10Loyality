@@ -1,4 +1,3 @@
-
 # Cloud10 Loyality Management Syestem
 
 Cloud10 LMS (Loyalty Management System) is a platform that helps businesses to integrate, implement and manage their loyalty programs. It provides a centralized platform for tracking customer interactions, managing rewards and incentives, and analyzing customer behavior and preferences. The system is designed as a pluggable module for Channels or Booking Engines of the hospitality domain.
@@ -21,6 +20,10 @@ Administration and security: Tools for managing program rules, settings, and acc
 # Admin Panel User Interface
 
 ![Admin panel user interface](./images/admin-panel.jpg)
+![Admin panel user interface](./images/image-2.jpg)
+![Admin panel user interface](./images/image-3.jpg)
+![Admin panel user interface](./images/image-4.jpg)
+
 
 
 # Prerequisites
@@ -30,7 +33,6 @@ Administration and security: Tools for managing program rules, settings, and acc
 * Make sure you have Docker installed in your system. To install docker in windows or mac download the docker applicaion from [https://www.docker.com/](https://www.docker.com).
 * To install docker in linux refer to this [how to install docker in ubuntu/linux](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04) website.
 * In Ubuntu you will also need the install the docker-compose separately. To install docker-compose refer to this [docker-compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04) website.
-
 
 
 ## Run Locally

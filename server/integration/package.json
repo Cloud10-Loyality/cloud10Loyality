@@ -9,7 +9,7 @@
     "debug": "ndb server.ts"
   },
   "dependencies": {
-    "@cloud10lms/shared": "^1.0.11",
+    "@cloud10lms/shared": "^1.0.13",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "mongoose": "^7.0.4",
@@ -21,11 +21,14 @@
     "@types/express": "^4.17.17",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.15.13",
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
     "dotenv": "^16.0.3",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.7",
     "ts-node": "^10.9.1",
