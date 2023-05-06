@@ -26,6 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1/integrations", integrationRoutes);
 
 app.all("*", (req: Request, _res: Response, next: NextFunction) => {
+  console.log(req, "Request---");
   next(new AppError(`Can't find ${req.originalUrl} path on the server`, 404));
 });
 

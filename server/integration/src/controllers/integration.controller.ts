@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 
 import { AppError } from "@cloud10lms/shared/build/utils/appError";
 import Integration from "../models/integration.model";
+import { IntegrationCreatedPublisher } from "../events/publishers/integration-created-publisher";
 import { catchAsync } from "@cloud10lms/shared/build/utils/catchAsync";
 
 export const getIntegrations = catchAsync(
@@ -49,7 +50,12 @@ export const createIntegration = catchAsync(
       );
     }
 
-    await Integration.create({ ...body });
+    const newIntegration = await Integration.create({ ...body });
+
+    // await new IntegrationCreatedPublisher(client).publish({
+    //   id: newIntegration.id,
+    //   name: newIntegration.name,
+    // })
 
     res.status(201).json({
       message: "success",

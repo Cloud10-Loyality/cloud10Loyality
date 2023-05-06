@@ -1,22 +1,22 @@
-import nats, { Stan } from "node-nats-streaming";
+// import nats, { Stan } from "node-nats-streaming";
 
-class NatsClient {
-  private _client?: Stan;
+// class NatsClient {
+//   private _client?: Stan;
 
-  connect(clusterId: string, clientId: string, url: string) {
-    this._client = nats.connect(clusterId, clientId, { url });
+//   connect(clusterId: string, clientId: string, url: string) {
+//     this._client = nats.connect(clusterId, clientId, { url });
 
-    return new Promise<void>((resolve, reject) => {
-      this._client!.on("connect", () => {
-        console.log("Connected to NATS");
-        resolve();
-      });
+//     return new Promise<void>((resolve, reject) => {
+//       this._client!.on("connect", () => {
+//         console.log("Connected to NATS");
+//         resolve();
+//       });
 
-      this._client!.on("error", (err) => {
-        reject(err);
-      });
-    });
-  }
-}
+//       this._client!.on("error", (err) => {
+//         reject(err);
+//       });
+//     });
+//   }
+// }
 
-export const natsClient = new NatsClient();
+// export const natsClient = new NatsClient();

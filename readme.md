@@ -19,10 +19,10 @@ Administration and security: Tools for managing program rules, settings, and acc
 
 # Admin Panel User Interface
 
-![Admin panel user interface](./images/admin-panel.jpg)
-![Admin panel user interface](./images/image-2.jpg)
-![Admin panel user interface](./images/image-3.jpg)
-![Admin panel user interface](./images/image-4.jpg)
+![Admin panel user interface](./resources/admin-panel.jpg)
+![Admin panel user interface](./resources/image-2.jpg)
+![Admin panel user interface](./resources/image-3.jpg)
+![Admin panel user interface](./resources/image-4.jpg)
 
 
 

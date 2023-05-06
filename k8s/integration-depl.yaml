@@ -14,4 +14,17 @@ spec:
     spec:
       containers:
        - name: integration
-         image: cloud10lms:integration
+         image: cloud10lms/integration
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: integration-srv
+spec:
+  selector:
+    app: integration
+  ports:
+    - name: integration
+      protocol: TCP
+      port: 6000
+      targetPort: 6000

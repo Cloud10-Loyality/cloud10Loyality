@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway1-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway1
+  template:
+    metadata:
+      labels:
+        app: gateway1
+    spec:
+      containers:
+        - name: gateway1
+          image: cloud10lms/gateway1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway1-srv
+spec:
+  selector:
+    app: gateway1
+  ports:
+    - name: gateway1
+      protocol: TCP
+      port: 5000
+      targetPort: 5000

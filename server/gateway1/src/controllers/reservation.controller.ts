@@ -17,6 +17,28 @@ export const getReservations = catchAsync(
   }
 );
 
+export const updateReservation = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+
+    const reservation = Reservation.findById(id);
+
+    if (!reservation) {
+      return next(new AppError("Reservation not found", 404));
+    }
+
+    const body = req.body;
+
+    await Reservation.findByIdAndUpdate(id, { ...body });
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      data: null,
+    });
+  }
+);
+
 export const createReservation = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const body = req.body;

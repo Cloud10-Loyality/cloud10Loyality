@@ -1,0 +1,31 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - "./k8s/*"
+build:
+  local:
+    concurrency: 0
+    useDockerCLI: false
+    push: false
+  artifacts:
+    - image: cloud10lms/gateway1
+      context: gateway1
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    - image: cloud10lms/integration
+      context: integration
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+  
