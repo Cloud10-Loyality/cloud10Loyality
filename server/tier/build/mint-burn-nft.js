@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mod_ts_1 = require("https://deno.land/x/lucid/mod.ts");
-const seed_ts_1 = require("./seed.js");
+const seed_ts_1 = require("./seed.ts");
 /*
     MintSimpleNFT Example
     Mint or burn a simple NFT.
