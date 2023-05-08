@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 
 const lucid = await Lucid.new(undefined, "Preview");
 
-export const getWallet = async (
+export const getWallets = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -19,7 +19,7 @@ export const getWallet = async (
   }
 };
 
-export const getWalletId = async (
+export const getWalletById = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -102,7 +102,7 @@ export const updateWallet = async (
   }
 };
 
-export const deleteUserData = async (
+export const deleteUser = async (
   req: Request,
   res: Response,
   next: NextFunction
