@@ -11,7 +11,7 @@ build:
     push: false
   artifacts:
     - image: cloud10lms/gateway1
-      context: gateway1
+      context: ./server/gateway1
       docker:
         dockerfile: Dockerfile
         noCache: false
@@ -20,7 +20,7 @@ build:
           - src: "src/**/*.ts"
             dest: .
     - image: cloud10lms/integration
-      context: integration
+      context: ./server/integration
       docker:
         dockerfile: Dockerfile
         noCache: false

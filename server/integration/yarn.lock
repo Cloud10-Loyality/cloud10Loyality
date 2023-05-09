@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@cloud10lms/shared@^1.0.13":
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/@cloud10lms/shared/-/shared-1.0.13.tgz#dacbb7b03cda120e165ed7a6712b35fbecf55656"
-  integrity sha512-H1xuPBlGGmrMggpS/n8WPq6eRYUFYkosU2HoneKbR89qfpYlMeJb8M+xLtMuu9uQvc79f+GrPEsgxhgeo1uRCA==
+"@cloud10lms/shared@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@cloud10lms/shared/-/shared-1.0.15.tgz#d15958e07cb26d184499a8d7d8a88dbf1b71f8da"
+  integrity sha512-7JCz3uKytcC9c5RCwdurGIxPjlV5VPEFePNp71FdJXqx+ZSCHqOZOjrObkL7JxKbTqBANekMkw25egba+5CDOQ==
   dependencies:
     express "^4.18.2"
     mongodb "^5.3.0"

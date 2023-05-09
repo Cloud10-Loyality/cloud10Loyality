@@ -16,8 +16,8 @@ class NatsClient {
     this._client = nats.connect(clusterId, clientId, { url });
 
     this._client.on("close", () => {
-      console.log("NATS connection closed!");
-      process.exit();
+        console.log("NATS connection closed!");
+        process.exit();
     });
 
     process.on("SIGINT", () => this.client.close());
