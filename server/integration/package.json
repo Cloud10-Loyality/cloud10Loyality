@@ -9,7 +9,7 @@
     "debug": "ndb server.ts"
   },
   "dependencies": {
-    "@cloud10lms/shared": "^1.0.13",
+    "@cloud10lms/shared": "^1.0.15",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "mongoose": "^7.0.4",

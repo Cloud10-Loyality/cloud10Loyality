@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { errorHandler } from "@cloud10lms/shared/build/middleware/error.handler";
 import express from "express";
+import { generateRandomString } from "@cloud10lms/shared/build/utils/generateRandomStrings";
 import morgan from "morgan";
 import reservationRoutes from "./routes/reservation.routes";
 
@@ -31,4 +32,5 @@ app.all("*", (req: Request, _res: Response, next: NextFunction) => {
 
 app.use(errorHandler);
 
+export const CLIENT_ID = generateRandomString(10);
 export default app;

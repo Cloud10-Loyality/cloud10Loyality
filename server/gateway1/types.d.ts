@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export interface Reservations {
   hotel_name: string;
   hotel_id: string;
@@ -10,6 +12,11 @@ export interface Reservations {
   amount: number;
   payment_card: PaymentCard;
   user: User;
+}
+
+export interface Integration {
+  _id: ObjectId;
+  name: string;
 }
 
 export interface User {

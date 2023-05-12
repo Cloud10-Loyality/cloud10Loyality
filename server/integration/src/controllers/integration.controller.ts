@@ -3,11 +3,26 @@ import { NextFunction, Request, Response } from "express";
 import { AppError } from "@cloud10lms/shared/build/utils/appError";
 import Integration from "../models/integration.model";
 import { IntegrationCreatedPublisher } from "../events/publishers/integration-created-publisher";
+import { IntegrationUpdatedPublisher } from "../events/publishers/integration-updated-publisher";
 import { catchAsync } from "@cloud10lms/shared/build/utils/catchAsync";
+import { integrationService } from "../services/reservations.db";
+import { natsClient } from "../nats-client";
 
 export const getIntegrations = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const integrations = await Integration.find();
+    const queryObj = { ...req.query };
+
+    const options = {
+      populate: req.query.populate,
+      fields: req.query.fields,
+      limit: req.query.limit,
+      sort: req.query.sort,
+    };
+
+    const integrations = await integrationService.getAllIntegrations(
+      queryObj,
+      options
+    );
 
     res.status(200).json({
       message: "success",
@@ -26,7 +41,7 @@ export const getIntegration = catchAsync(
       return next(new AppError("Please provide the integration id", 400));
     }
 
-    const integration = await Integration.findById(id);
+    const integration = await integrationService.getIntegrationById(id);
 
     if (!integration) {
       return next(new AppError("Integration not found", 404));
@@ -50,12 +65,14 @@ export const createIntegration = catchAsync(
       );
     }
 
-    const newIntegration = await Integration.create({ ...body });
+    const newIntegration = await integrationService.createIntegration({
+      ...body,
+    });
 
-    // await new IntegrationCreatedPublisher(client).publish({
-    //   id: newIntegration.id,
-    //   name: newIntegration.name,
-    // })
+    await new IntegrationCreatedPublisher(natsClient.client).publish({
+      id: newIntegration.id,
+      name: newIntegration.name,
+    });
 
     res.status(201).json({
       message: "success",
@@ -80,7 +97,12 @@ export const updateIntegration = catchAsync(
       );
     }
 
-    const newData = await Integration.findByIdAndUpdate(id, { ...body });
+    const newData = await integrationService.updateIntegration(id, { ...body });
+
+    await new IntegrationUpdatedPublisher(natsClient.client).publish({
+      id: newData!.id,
+      name: newData!.name,
+    });
 
     res.status(200).json({
       message: "success",
@@ -98,7 +120,13 @@ export const deleteIntegration = catchAsync(
       return next(new AppError("Please provide the integration id", 400));
     }
 
-    await Integration.findByIdAndDelete(id);
+    const foundIntegration = await integrationService.getIntegrationById(id);
+
+    if (!foundIntegration) {
+      return next(new AppError("Integration not found", 404));
+    }
+
+    await integrationService.deleteIntegration(id);
 
     res.status(204).json({
       message: "success",

@@ -1,22 +1,38 @@
-// import nats, { Stan } from "node-nats-streaming";
+import nats, { Stan } from "node-nats-streaming";
 
-// class NatsClient {
-//   private _client?: Stan;
+import { AppError } from "@cloud10lms/shared/build/utils/appError";
 
-//   connect(clusterId: string, clientId: string, url: string) {
-//     this._client = nats.connect(clusterId, clientId, { url });
+class NatsClient {
+  private _client?: Stan;
 
-//     return new Promise<void>((resolve, reject) => {
-//       this._client!.on("connect", () => {
-//         console.log("Connected to NATS");
-//         resolve();
-//       });
+  get client(): Stan {
+    if (!this._client)
+      throw new AppError("Can't access NATS client before connecting", 400);
 
-//       this._client!.on("error", (err) => {
-//         reject(err);
-//       });
-//     });
-//   }
-// }
+    return this._client;
+  }
 
-// export const natsClient = new NatsClient();
+  connect(clusterId: string, clientId: string, url: string) {
+    this._client = nats.connect(clusterId, clientId, { url });
+
+    this._client.on("close", () => {
+      console.log("NATS connection closed!");
+      process.exit();
+    });
+
+    process.on("SIGINT", () => this.client.close());
+    process.on("SIGTERM", () => this.client.close());
+
+    return new Promise<void>((resolve, reject) => {
+      this.client.on("connect", () => {
+        resolve();
+      });
+
+      this.client.on("error", (err) => {
+        reject(err);
+      });
+    });
+  }
+}
+
+export const natsClient = new NatsClient();
