@@ -1,113 +1,292 @@
-import Image from 'next/image'
-
+"use client";
+import Layoutpoint from "@/components/Layout";
+import Header from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
+import Marketplace from "./../assets/marketplace.png";
+import Image from "next/image";
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="bg-[#20232A] to-gray-50 h-full ">
+      <div className="grid grid-cols-4 gap-2">
+        <div className="col-span-2 bg-primaryColor h-24 rounded-lg  mt-4 my-4 ml-4 mr-4">
+          <div className="flex justify-between py-4 px-4">
+            <span className="text-secondaryColor text-sm">
+              Exchange activity
+            </span>
+            <div className="bg-btColor w-8 h-8 rounded-full flex items-center justify-center">
+              <Image src={Marketplace} alt="" className="h-2 w-2" />
+            </div>
+          </div>
+          <div className="flex justify-between px-4">
+            <span className="text-btColor text-md">0</span>
+          </div>
+        </div>
+        <div className="col-span-2 bg-primaryColor h-24 rounded-lg  mt-4 my-4 ml-4 mr-4">
+          <div className="flex justify-between py-4 px-4">
+            <span className="text-secondaryColor text-sm">
+              Exchange activity
+            </span>
+            <span>
+              <div className="bg-btColor w-8 h-8 rounded-full flex items-center justify-center">
+                <Image src={Marketplace} alt="" className="h-2 w-2" />
+              </div>
+            </span>
+          </div>
+          <div className="flex justify-between px-4">
+            <span className="text-btColor text-md">0</span>
+          </div>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="grid grid-cols-3 gap-4 px-4 py-4">
+        <div className="colspan2 overflow-hidden">
+          <div className="max-w-sm p-6 bg-[#33383E] border border-none rounded-lg shadow ">
+            <div className="inner-text">
+              <h5 className="mb-2 text-1xl font-bold text-secondaryColor">
+                Let's get you started
+              </h5>
+              <p className="text-secondaryColor text-sm">
+                Complete your setup to get access to the whole dashboard and get
+                rewarded with 20 Cloud 10 reward points (QRP)(QRP =1 USD) that
+                can be exchanged for crypto, miles,loyalty points and more.
+              </p>
+              <div className="inner-text-1">
+                <p className="text-secondaryColor text-xs py-4 px-0">
+                  Brand details
+                </p>
+                <div className="flex justify-between py-2 px-0 border-b-2 border-solid border-gray-500">
+                  <span className="text-greyColor text-xs">
+                    Step 1 of the setup
+                  </span>
+                  <span>
+                    <div className="text-greyColor  text-xs flex items-center justify-center">
+                      50%
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div className="inner-text-1">
+                <p className="text-secondaryColor text-xs py-4 px-0">
+                  Loyalty point details
+                </p>
+                <div className="flex justify-between py-2 px-0 border-b-2 border-solid border-gray-500">
+                  <span className="text-greyColor text-xs">
+                    Step 2 of the setup
+                  </span>
+                  <span>
+                    <div className="text-greyColor  text-xs flex items-center justify-center">
+                      0%
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div className="inner-text-1">
+                <p className="text-secondaryColor text-xs py-4 px-0">
+                  Subscription package
+                </p>
+                <div className="flex justify-between py-2 px-0 border-b-2 border-solid border-gray-500">
+                  <span className="text-greyColor text-xs">
+                    Step 3 of the setup
+                  </span>
+                  <span>
+                    <div className="text-greyColor  text-xs flex items-center justify-center">
+                      0%
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div className="inner-text-1">
+                <p className="text-secondaryColor text-xs py-4 px-0">
+                  Status verification
+                </p>
+                <div className="flex justify-between py-2 px-0 border-b-2 border-solid border-gray-500">
+                  <span className="text-greyColor text-xs">
+                    Step 4 of the setup
+                  </span>
+                  <span>
+                    <div className="text-greyColor  text-xs flex items-center justify-center">
+                      0%
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="text-secondaryColor focus:outline-none mt-5 py-2 px-5 mr-2 w-full mb-2 text-sm bg-btColor rounded-lg border:none "
+              >
+                Continue setup
+              </button>
+            </div>
+          </div>
+          <div className="max-w-sm p-6 bg-[#33383E] border border-none rounded-lg shadow h-1/3 mt-4">
+            <div className="inner-text">
+              <h5 className="mb-2 text-1xl font-bold text-secondaryColor">
+                Integration
+              </h5>
+              <p className="text-secondaryColor text-sm">
+                Select the integration option best suited to you and get started
+              </p>
+              <button
+                type="button"
+                className="text-secondaryColor focus:outline-none mt-16 py-2 px-5 mr-2 w-full mb-2 text-sm bg-btColor rounded-lg border:none"
+              >
+                Explore integration
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="colspan2 overflow-hidden">
+          <div className="max-w-sm p-6 bg-[#33383E] border border-none rounded-lg shadow h-auto">
+            <div className="inner-text">
+              <h5 className="mb-2 text-1xl font-bold text-secondaryColor">
+                Read to success{" "}
+              </h5>
+              <p className="text-secondaryColor text-sm">
+                Complete all the milestones listed below to boost your loyalty
+                program and get rewarded with 500 Cloud 10 reward points (QRP)
+                (1 QRP = 1 USD) that can be exchanged for crypto, miles, loyalty
+                points and more.
+              </p>
+              <div className="inner-text-1">
+                <p className="text-secondaryColor text-xs py-4 px-0">
+                  Mandatory:Have 3 active reward partnerships
+                </p>
+                <div className="flex justify-between py-2 px-0 border-b-2 border-solid border-gray-500">
+                  <span className="text-greyColor text-xs">Reward:50 QRP</span>
+                  <span>
+                    <div className="text-greyColor  text-xs flex items-center justify-center">
+                      50%
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div className="inner-text-1">
+                <p className="text-secondaryColor text-xs py-4 px-0">
+                  Record 100 exchange transactions
+                </p>
+                <div className="flex justify-between py-2 px-0 border-b-2 border-solid border-gray-500">
+                  <span className="text-greyColor text-xs">Reward :50 QRP</span>
+                  <span>
+                    <div className="text-greyColor  text-xs flex items-center justify-center">
+                      0%
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div className="inner-text-1">
+                <p className="text-secondaryColor text-xs py-4 px-0">
+                  Have 10 active reward partnerships
+                </p>
+                <div className="flex justify-between py-2 px-0 border-b-2 border-solid border-gray-500">
+                  <span className="text-greyColor text-xs">Reward :50 QRP</span>
+                  <span>
+                    <div className="text-greyColor  text-xs flex items-center justify-center">
+                      0%
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div className="inner-text-1">
+                <p className="text-secondaryColor text-xs py-4 px-0">
+                  Total value of exchanged is over USD 1’000
+                </p>
+                <div className="flex justify-between py-2 px-0 border-b-2 border-solid border-gray-500">
+                  <span className="text-greyColor text-xs">Reward :50 QRP</span>
+                  <span>
+                    <div className="text-greyColor  text-xs flex items-center justify-center">
+                      0%
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div className="inner-text-1">
+                <p className="text-secondaryColor text-xs py-4 px-0">
+                  Total value of exchanged is over USD 5’000
+                </p>
+                <div className="flex justify-between py-2 px-0 border-b-2 border-solid border-gray-500">
+                  <span className="text-greyColor text-xs">Reward :50 QRP</span>
+                  <span>
+                    <div className="text-greyColor  text-xs flex items-center justify-center">
+                      0%
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div className="inner-text-1">
+                <p className="text-secondaryColor text-xs py-4 px-0">
+                  Total value of exchanged is over USD 20’000
+                </p>
+                <div className="flex justify-between py-2 px-0 border-b-2 border-solid border-gray-500">
+                  <span className="text-greyColor text-xs">Reward :50 QRP</span>
+                  <span>
+                    <div className="text-greyColor  text-xs flex items-center justify-center">
+                      0%
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="text-secondaryColor focus:outline-none mt-5 py-2 px-5 mr-2 w-full mb-2 text-sm bg-btColor rounded-lg border:none"
+              >
+                Continue setup
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="colspan2 overflow-hidden">
+          <div className="max-w-sm p-6 bg-[#33383E] border border-none rounded-lg shadow h-1/3">
+            <div className="inner-text">
+              <h5 className="mb-2 text-1xl font-bold text-secondaryColor">
+                Rewards Marketplace
+              </h5>
+              <p className="text-secondaryColor text-sm">
+                List your own loyality currency,request new reward partnerships
+                and manage existing.{" "}
+              </p>
+              <button
+                type="button"
+                className="text-secondaryColor focus:outline-none mt-16 py-2 px-5 mr-2 w-full mb-2 text-sm bg-btColor rounded-lg border:none"
+              >
+                Continue setup
+              </button>
+            </div>
+          </div>
+          <div className="max-w-sm p-6 bg-[#33383E] border border-none rounded-lg shadow h-1/3 mt-4">
+            <div className="inner-text">
+              <h5 className="mb-2 text-1xl font-bold text-secondaryColor">
+                Analytics
+              </h5>
+              <p className="text-secondaryColor text-sm">
+                Get valuable insights to manage and boost your loyalty program
+                in the right direction.
+              </p>
+              <button
+                type="button"
+                className="text-secondaryColor focus:outline-none mt-16 py-2 px-5 mr-2 w-full mb-2 text-sm bg-btColor rounded-lg border:none"
+              >
+                View analytics
+              </button>
+            </div>
+          </div>
+          <div className="max-w-sm p-6 bg-[#33383E] border border-none rounded-lg shadow h-1/3 mt-4">
+            <div className="inner-text">
+              <h5 className="mb-2 text-1xl font-bold text-secondaryColor">
+                Help center
+              </h5>
+              <p className="text-secondaryColor text-sm">
+                Learn more about the Cloud10 Loyalty Admin Dashboard(LAD) and
+                our products.{" "}
+              </p>
+              <button
+                type="button"
+                className="text-secondaryColor focus:outline-none mt-16 py-2 px-5 mr-2 w-full mb-2 text-sm bg-btColor rounded-lg border:none"
+              >
+                Go to help center
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </div>
+  );
 }
