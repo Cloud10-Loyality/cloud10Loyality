@@ -1,8 +1,7 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 
-import { AppError } from "@cloud10lms/shared/build/utils/appError";
+import { AppError, catchAsync, Request } from "@cloud10lms/shared";
 import Reservation from "../models/reservation.model";
-import { catchAsync } from "@cloud10lms/shared/build/utils/catchAsync";
 import { reservationService } from "../services/reservations.db";
 
 export const getReservations = catchAsync(

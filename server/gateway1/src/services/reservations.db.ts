@@ -1,4 +1,5 @@
-import Reservation from "../models/reservation.model";
+import { HydratedDocument } from "mongoose";
+import Reservation, { ReservationType } from "../models/reservation.model";
 
 class ReservationService {
   private model = Reservation;
@@ -11,7 +12,7 @@ class ReservationService {
       fields?: string[] | any;
       populate?: string[] | any;
     }
-  ): Promise<(typeof Reservation)[] | any> {
+  ): Promise<ReservationType[]> {
     const { limit, fields, sort, populate } = options ?? {};
 
     let queryStr;
@@ -27,40 +28,37 @@ class ReservationService {
     }
     if (limit) query = query.limit(limit);
     if (fields) query = query.select(fields);
-    if (populate) query = query.populate(populate);
+    // if (populate) query = query.populate(populate);
 
     const reservations = await query.sort(sort);
 
     return reservations;
   }
 
-  public async getReservationById(
-    id?: string
-  ): Promise<typeof Reservation | any> {
+  public async getReservationById(id?: string): Promise<ReservationType> {
     const reservation = await this.model.findById(id);
-    return reservation;
+    return reservation!;
   }
 
   public async createReservation(
     data: Record<string, any>
-  ): Promise<typeof Reservation | any> {
-    const newReservation = await this.model.create(data);
+  ): Promise<ReservationType> {
+    const newReservation: HydratedDocument<ReservationType> =
+      await this.model.create(data);
     return newReservation;
   }
 
   public async updateReservation(
     id: string,
     data: Record<string, any>
-  ): Promise<typeof Reservation | any> {
+  ): Promise<ReservationType> {
     const updatedReservation = await this.model.findByIdAndUpdate(id, data);
-    return updatedReservation;
+    return updatedReservation!;
   }
 
-  public async deleteReservation(
-    id: string
-  ): Promise<typeof Reservation | any> {
+  public async deleteReservation(id: string): Promise<ReservationType> {
     const deletedReservation = await this.model.findByIdAndDelete(id);
-    return deletedReservation;
+    return deletedReservation!;
   }
 }
 

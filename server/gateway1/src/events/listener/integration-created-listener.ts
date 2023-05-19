@@ -3,6 +3,7 @@ import { Listener } from "@cloud10lms/shared/build/events/base-listener";
 import { Message } from "node-nats-streaming";
 import { Subjects } from "@cloud10lms/shared/build/events/subjects";
 import { integrationService } from "../../services/integrations.db";
+import { Types } from "mongoose";
 
 export class IntegrationCreatedListener extends Listener<IntegrationCreatedEvent> {
   subject: Subjects.IntegrationCreated = Subjects.IntegrationCreated;
@@ -11,7 +12,7 @@ export class IntegrationCreatedListener extends Listener<IntegrationCreatedEvent
   async onMessage(data: IntegrationCreatedEvent["data"], msg: Message) {
     console.log("Event data!", data);
     await integrationService.createIntegration({
-      _id: data.id,
+      _id: data.id as unknown as Types.ObjectId,
       name: data.name,
     });
     msg.ack();

@@ -1,4 +1,5 @@
 import { Types } from "mongoose";
+import { Request as BaseRequest } from "express-serve-static-core";
 
 export interface Reservations {
   hotel_name: string;
@@ -38,3 +39,11 @@ export interface PaymentCard {
   card_holder_name: string;
   card_number: string;
 }
+
+type Role = "ADMIN" | "MANAGER" | "USER";
+
+export type Request<Manager = unknown, Role = unknown> = BaseRequest & {
+  jwt: string;
+  manager: Manager;
+  role: Role;
+};

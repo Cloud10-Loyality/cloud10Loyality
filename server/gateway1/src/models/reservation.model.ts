@@ -1,11 +1,12 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, InferSchemaType } from "mongoose";
 
-import { NextFunction } from "express";
-import { Reservations } from "../../types";
-
-const reservationSchema = new Schema<Reservations>(
+const reservationSchema = new Schema(
   {
-    hotel_name: {
+    _id: {
+      type: Schema.Types.ObjectId,
+      auto: true,
+    },
+    hotelName: {
       type: String,
       required: [true, "Hotel name is required"],
     },
@@ -21,27 +22,27 @@ const reservationSchema = new Schema<Reservations>(
       type: String,
       required: [true, "Pin is required"],
     },
-    check_in: {
+    checkIn: {
       type: Date,
       default: Date.now(),
       required: [true, "Check-in date is required"],
     },
-    check_out: {
+    checkOut: {
       type: Date,
       required: [true, "Check-out date is required"],
     },
-    payment_method: {
+    paymentMethod: {
       type: String,
     },
     amount: {
       type: Number,
       required: [true, "Amount is required"],
     },
-    payment_card: {
-      card_holder_name: {
+    paymentCard: {
+      cardHolderName: {
         type: String,
       },
-      card_number: {
+      cardNumber: {
         type: String,
       },
     },
@@ -57,8 +58,10 @@ const reservationSchema = new Schema<Reservations>(
   }
 );
 
-reservationSchema.index({ fakeEmail: 1 });
+export type ReservationType = InferSchemaType<typeof reservationSchema>;
 
-const Reservation = model("Reservation", reservationSchema);
+reservationSchema.index({ hotelName: 1 });
+
+const Reservation = model<ReservationType>("Reservation", reservationSchema);
 
 export default Reservation;

@@ -1,4 +1,6 @@
-import Integration from "../models/integration.model";
+import { HydratedDocument } from "mongoose";
+import Integration, { IntegrationType } from "../models/integration.model";
+// import IntegrationType from "../models/integration.model";
 
 class IntegrationService {
   private model = Integration;
@@ -11,7 +13,7 @@ class IntegrationService {
       fields?: string[] | any;
       populate?: string[] | any;
     }
-  ): Promise<(typeof Integration)[] | any> {
+  ): Promise<IntegrationType[]> {
     const { limit, fields, sort, populate } = options ?? {};
 
     let queryStr;
@@ -27,40 +29,41 @@ class IntegrationService {
     }
     if (limit) query = query.limit(limit);
     if (fields) query = query.select(fields);
-    if (populate) query = query.populate(populate);
+    // if (populate) query = query.populate(populate);
 
     const integration = await query.sort(sort);
 
     return integration;
   }
 
-  public async getIntegrationById(
-    id?: string
-  ): Promise<typeof Integration | any> {
+  public async getIntegrationById(id?: string): Promise<IntegrationType> {
     const integration = await this.model.findById(id);
-    return integration;
+    return integration!;
   }
 
+  public async getIntegrationByEmail(email?: string): Promise<IntegrationType> {
+    const integration = await this.model.findOne({ email }).select("+password");
+    return integration!;
+  }
   public async createIntegration(
     data: Record<string, any>
-  ): Promise<typeof Integration | any> {
-    const newIntegration = await this.model.create(data);
+  ): Promise<IntegrationType> {
+    const newIntegration: HydratedDocument<IntegrationType> =
+      await this.model.create(data);
     return newIntegration;
   }
 
   public async updateIntegration(
     id: string,
     data: Record<string, any>
-  ): Promise<typeof Integration | any> {
+  ): Promise<IntegrationType> {
     const updatedIntegration = await this.model.findByIdAndUpdate(id, data);
-    return updatedIntegration;
+    return updatedIntegration!;
   }
 
-  public async deleteIntegration(
-    id: string
-  ): Promise<typeof Integration | any> {
+  public async deleteIntegration(id: string): Promise<IntegrationType> {
     const deletedIntegration = await this.model.findByIdAndDelete(id);
-    return deletedIntegration;
+    return deletedIntegration!;
   }
 }
 

@@ -1,12 +1,10 @@
-import { Schema, Types, model } from "mongoose";
+import { InferSchemaType, Schema, model } from "mongoose";
 
-import { Integration as IntegrationInterface } from "../../types";
-
-const integrationSchema = new Schema<IntegrationInterface>(
+const integrationSchema = new Schema(
   {
     _id: {
-      type: Types.ObjectId,
-      required: [true, "Integration id is required"],
+      type: Schema.Types.ObjectId,
+      auto: false,
     },
     name: {
       type: String,
@@ -20,7 +18,8 @@ const integrationSchema = new Schema<IntegrationInterface>(
   }
 );
 
-export const Integration = model<IntegrationInterface>(
-  "Integration",
-  integrationSchema
-);
+export type IntegrationType = InferSchemaType<typeof integrationSchema>;
+
+const Integration = model<IntegrationType>("Integration", integrationSchema);
+
+export default Integration;
