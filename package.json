@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@cloud10lms/shared": "^1.0.16"
+  }
+}
