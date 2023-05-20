@@ -1,15 +1,29 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 
-import { AppError } from "@cloud10lms/shared/build/utils/appError";
-import Integration from "../models/integration.model";
 import { IntegrationCreatedPublisher } from "../events/publishers/integration-created-publisher";
 import { IntegrationUpdatedPublisher } from "../events/publishers/integration-updated-publisher";
-import { catchAsync } from "@cloud10lms/shared/build/utils/catchAsync";
-import { integrationService } from "../services/reservations.db";
-import { natsClient } from "../nats-client";
 
-export const getIntegrations = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+import { AppError, catchAsync, Request } from "@cloud10lms/shared";
+import { integrationService } from "../services/integrations.db";
+import { natsClient } from "../nats-client";
+import { Role } from "../../types";
+import { IntegrationType } from "../models/integration.model";
+
+const getIntegrations = catchAsync(
+  async (
+    req: Request<IntegrationType, Role>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const role = req.role;
+    console.log({ role });
+
+    if (role !== "ADMIN") {
+      return next(
+        new AppError("You are not authorized to access this feature", 403)
+      );
+    }
+
     const queryObj = { ...req.query };
 
     const options = {
@@ -33,8 +47,12 @@ export const getIntegrations = catchAsync(
   }
 );
 
-export const getIntegration = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+const getIntegration = catchAsync(
+  async (
+    req: Request<IntegrationType, Role>,
+    res: Response,
+    next: NextFunction
+  ) => {
     const { id } = req.params;
 
     if (!id) {
@@ -55,8 +73,12 @@ export const getIntegration = catchAsync(
   }
 );
 
-export const createIntegration = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+const createIntegration = catchAsync(
+  async (
+    req: Request<IntegrationType, Role>,
+    res: Response,
+    next: NextFunction
+  ) => {
     const body = req.body;
 
     if (!body) {
@@ -70,8 +92,8 @@ export const createIntegration = catchAsync(
     });
 
     await new IntegrationCreatedPublisher(natsClient.client).publish({
-      id: newIntegration.id,
-      name: newIntegration.name,
+      id: newIntegration._id as any,
+      name: newIntegration.username,
     });
 
     res.status(201).json({
@@ -82,8 +104,12 @@ export const createIntegration = catchAsync(
   }
 );
 
-export const updateIntegration = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+const updateIntegration = catchAsync(
+  async (
+    req: Request<IntegrationType, Role>,
+    res: Response,
+    next: NextFunction
+  ) => {
     const { id } = req.params;
     const body = req.body;
 
@@ -99,10 +125,10 @@ export const updateIntegration = catchAsync(
 
     const newData = await integrationService.updateIntegration(id, { ...body });
 
-    await new IntegrationUpdatedPublisher(natsClient.client).publish({
-      id: newData!.id,
-      name: newData!.name,
-    });
+    // await new IntegrationUpdatedPublisher(natsClient.client).publish({
+    //   id: newData?._id,
+    //   name: newData!.name,
+    // });
 
     res.status(200).json({
       message: "success",
@@ -112,8 +138,12 @@ export const updateIntegration = catchAsync(
   }
 );
 
-export const deleteIntegration = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+const deleteIntegration = catchAsync(
+  async (
+    req: Request<IntegrationType, Role>,
+    res: Response,
+    next: NextFunction
+  ) => {
     const { id } = req.params;
 
     if (!id) {
@@ -135,3 +165,11 @@ export const deleteIntegration = catchAsync(
     });
   }
 );
+
+export {
+  getIntegrations,
+  getIntegration,
+  createIntegration,
+  updateIntegration,
+  deleteIntegration,
+};

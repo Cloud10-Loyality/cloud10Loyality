@@ -1,20 +1,31 @@
+import { protect } from "@cloud10lms/shared";
+import { Router } from "express";
+
+import { login, refresh, signup } from "../controllers/auth.controller";
 import {
-  createIntegration,
   deleteIntegration,
   getIntegration,
   getIntegrations,
   updateIntegration,
 } from "../controllers/integration.controller";
-
-import { Router } from "express";
+import { protectRoute } from "../middleware/auth.handler";
 
 const router = Router();
 
-router.route("/").get(getIntegrations).post(createIntegration);
+// Integration routes
+router
+  .route("/")
+  .get(protect as any, protectRoute as any, getIntegrations as any);
+
 router
   .route("/:id")
-  .get(getIntegration)
-  .patch(updateIntegration)
-  .delete(deleteIntegration);
+  .get(protect as any, protectRoute as any, getIntegration as any)
+  .patch(protect as any, protectRoute as any, updateIntegration as any)
+  .delete(protect as any, protectRoute as any, deleteIntegration as any);
+
+// Authentication routes
+router.route("/signup").post(signup as any);
+router.route("/login").post(login as any);
+router.route("/refresh").post(refresh as any);
 
 export default router;

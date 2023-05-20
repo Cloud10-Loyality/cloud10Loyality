@@ -8,7 +8,10 @@ import { Router } from "express";
 
 const router = Router();
 
-router.route("/").get(getReservations).post(createReservation);
-router.route("/:id").patch(updateReservation);
+router
+  .route("/")
+  .get(getReservations as any)
+  .post(createReservation as any);
+router.route("/:id").patch(updateReservation as any);
 
 export default router;

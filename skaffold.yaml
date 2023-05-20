@@ -28,4 +28,22 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: cloud10lms/manager
+      context: ./server/manager
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    - image: cloud10lms/user
+      context: ./server/user
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
   

@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-
-import { AppError } from "@cloud10lms/shared/build/utils/appError";
 import cors from "cors";
 import dotenv from "dotenv";
-import { errorHandler } from "@cloud10lms/shared/build/middleware/error.handler";
+import {
+  errorHandler,
+  AppError,
+  generateRandomString,
+} from "@cloud10lms/shared";
 import express from "express";
-import { generateRandomString } from "@cloud10lms/shared/build/utils/generateRandomStrings";
 import morgan from "morgan";
 import reservationRoutes from "./routes/reservation.routes";
 
