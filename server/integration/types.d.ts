@@ -1,10 +1,3 @@
-// import { Request as BaseRequest } from "express";
-import {
-  Request as BaseRequest,
-  Response,
-  NextFunction,
-} from "express-serve-static-core";
-
 export interface Integration {
   username: string;
   password: string;
@@ -18,9 +11,3 @@ export interface Integration {
 }
 
 type Role = "ADMIN" | "MANAGER" | "USER";
-
-export type Request<Manager = unknown, Role = unknown> = BaseRequest & {
-  jwt: string;
-  manager: Manager;
-  role: Role;
-};

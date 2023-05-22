@@ -3,14 +3,13 @@ import { CLIENT_ID, PORT } from ".";
 import app from ".";
 import mongoose from "mongoose";
 import { natsClient } from "./nats-client";
+import { ReservationCreatedListener } from "./events/listener/reservation-created-listener";
+import { env } from "./env";
 
-const DB = process.env.MONGO_URI?.replace(
-  "<PASSWORD>",
-  process.env.MONGO_PASS!
-);
+const DB = env.MONGO_URI.replace("<PASSWORD>", env.MONGO_PASS);
 
 natsClient
-  .connect("cloud10LMS", CLIENT_ID, "http://nats-srv:4222")
+  .connect(env.NATS_CLUSTER_ID, CLIENT_ID, env.NATS_URL)
   .then(async () => {
     // Listen for close events
     natsClient.client.on("close", () => {
@@ -23,6 +22,8 @@ natsClient
     process.on("SIGTERM", () => natsClient.client.close());
 
     console.log("[Integration Service Nats]: Connected to NATS!");
+
+    new ReservationCreatedListener(natsClient.client).listen();
 
     try {
       const connection = await mongoose.connect(DB!);

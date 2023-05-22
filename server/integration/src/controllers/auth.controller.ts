@@ -3,14 +3,15 @@ import {
   catchAsync,
   assignToken,
   decodeToken,
+  Request,
   compareHash,
 } from "@cloud10lms/shared";
 import { NextFunction, Response } from "express";
 import { integrationService } from "../services/integrations.db";
 import { IntegrationCreatedPublisher } from "../events/publishers/integration-created-publisher";
 import { natsClient } from "../nats-client";
-import { Request } from "../../types";
 import { Types } from "mongoose";
+import { env } from "../env";
 
 export const signup = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -57,20 +58,21 @@ export const login = catchAsync(
 
     const accessToken = assignToken(
       { id: integration._id, role: "MANAGER" },
-      "ACCESS",
-      process.env.ACCESS_TOKEN_SECRET!
+      env.ACCESS_TOKEN_SECRET,
+      env.JWT_ACCESS_EXPIRES_IN_DEV
     );
+
     const refreshToken = assignToken(
       { id: integration._id },
-      process.env.REFRESH_TOKEN_SECRET!,
-      process.env.JWT_ACCESS_EXPIRES_IN_DEV!
+      env.REFRESH_TOKEN_SECRET,
+      env.JWT_REFRESH_EXPIRES_IN_DEV
     );
 
     res.cookie("AUTH", refreshToken, {
       path: "/",
       httpOnly: true,
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000 * 30),
-      secure: process.env.NODE_ENV === "production",
+      secure: env.NODE_ENV === "production",
       sameSite: "lax",
     });
 
@@ -98,8 +100,8 @@ export const refresh = catchAsync(
 
     const accessToken = assignToken(
       { id: manager._id },
-      process.env.ACCESS_TOKEN_SECRET!,
-      process.env.JWT_ACCESS_EXPIRES_IN_DEV!
+      env.ACCESS_TOKEN_SECRET,
+      env.JWT_ACCESS_EXPIRES_IN_DEV
     );
 
     res.status(200).json({
@@ -124,7 +126,7 @@ export const logout = catchAsync(
 
     res.clearCookie("AUTH", {
       sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
+      secure: env.NODE_ENV === "production",
       httpOnly: true,
     });
 

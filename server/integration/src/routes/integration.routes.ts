@@ -1,7 +1,7 @@
 import { protect } from "@cloud10lms/shared";
 import { Router } from "express";
 
-import { login, refresh, signup } from "../controllers/auth.controller";
+import { login, logout, refresh, signup } from "../controllers/auth.controller";
 import {
   deleteIntegration,
   getIntegration,
@@ -24,8 +24,11 @@ router
   .delete(protect as any, protectRoute as any, deleteIntegration as any);
 
 // Authentication routes
-router.route("/signup").post(signup as any);
+router.route("/register").post(signup as any);
 router.route("/login").post(login as any);
 router.route("/refresh").post(refresh as any);
+router
+  .route("/logout")
+  .post(protect as any, protectRoute as any, logout as any);
 
 export default router;
