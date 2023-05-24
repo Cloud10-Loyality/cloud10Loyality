@@ -6,26 +6,28 @@ import { burnNFT } from "../services/burnNFT";
 import Mint from "../models/mintModel";
 import Burn from "../models/burnModel";
 import { secretSeed } from "../services/seed";
-import { lucid } from "../services";
+import { lucid, policyId } from "../services";
 
-export const createNFT = async (
+export const mintNFTtoken = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const token_name = req.body.token_name;
-    console.log(!token_name, "-----------------");
+
     if (!token_name) {
-      console.log("inside request");
       return next(new AppError("Name is required", 400));
     }
+
     const { txHash, UNIT_VALUE } = await mintNFT(token_name);
+
     const address = await lucid
       .selectWalletFromSeed(secretSeed)
       .wallet.address();
     const result = await Mint.create({
       token_name,
+      policyId,
       txHash,
       address,
       unit: UNIT_VALUE.toString(),
@@ -44,7 +46,7 @@ export const createNFT = async (
   }
 };
 
-export const useNFT = async (
+export const burnNFTtoken = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -60,6 +62,7 @@ export const useNFT = async (
       .wallet.address();
     const result = await Burn.create({
       token_name,
+      policyId,
       txHash,
       address,
       unit: UNIT_VALUE.toString(),
@@ -73,5 +76,53 @@ export const useNFT = async (
     });
   } catch (err) {
     next(err);
+  }
+};
+
+export const getNfts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    Mint.find().then((data) => {
+      res.status(200).json(data);
+    });
+  } catch (error) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+};
+
+// *TODO: NOT WORKING
+export const burnByPolicyId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const policyId = req.params.policyId;
+
+    await Mint.findOneAndDelete({ policyId });
+
+    if (!policyId) {
+      return res.status(404).json({
+        message: "policyId not found",
+      });
+    }
+
+    const { txHash, UNIT_VALUE } = await burnNFT(policyId);
+
+    return res.status(200).json({
+      txHash,
+      UNIT_VALUE,
+      message: "NFT burned successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Failed to burn NFT",
+      error: error.message,
+    });
   }
 };

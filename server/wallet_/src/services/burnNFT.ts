@@ -12,7 +12,7 @@ export async function burnNFT(name: string): Promise<BurnNFT> {
 
   const tx = await lucid
     .newTx()
-    .mintAssets({ [unit]: -UNIT_VALUE })
+    .mintAssets({ [unit]: UNIT_VALUE })
     .validTo(Date.now() + 100000)
     .attachMintingPolicy(mintingPolicy)
     .complete();
@@ -23,3 +23,4 @@ export async function burnNFT(name: string): Promise<BurnNFT> {
 
   return { txHash, UNIT_VALUE };
 }
+//

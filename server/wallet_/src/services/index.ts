@@ -34,6 +34,7 @@ Lucid.new(
       type: "all",
       scripts: [
         { type: "sig", keyHash: paymentCredential?.hash! },
+
         {
           type: "before",
           slot: lucid.utils.unixTimeToSlot(Date.now() + 1000000),

@@ -1,23 +1,12 @@
-import { secretSeed } from "../../seed";
-import {
-  Blockfrost,
-  Lucid,
-  MintingPolicy,
-  NFTMetadataDetails,
-  Assets,
-  Address,
-  PolicyId,
-} from "lucid-cardano";
+import { Blockfrost, Lucid, MintingPolicy, PolicyId } from "lucid-cardano";
+import { BlockFrostKey, secretSeed } from "./seed";
 
 let lucid: Lucid;
 let mintingPolicy: MintingPolicy;
 let policyId: PolicyId;
 
 Lucid.new(
-  new Blockfrost(
-    "https://cardano-preprod.blockfrost.io/api/v0",
-    "preprodtyFN0EwaRtGhJEHaM8R0X5V29gXS78YQ"
-  ),
+  new Blockfrost("https://cardano-preprod.blockfrost.io/api/v0", BlockFrostKey),
   "Preprod"
 )
   .then((res) => {
@@ -34,6 +23,7 @@ Lucid.new(
       type: "all",
       scripts: [
         { type: "sig", keyHash: paymentCredential?.hash! },
+
         {
           type: "before",
           slot: lucid.utils.unixTimeToSlot(Date.now() + 1000000),
@@ -42,5 +32,7 @@ Lucid.new(
     });
 
     policyId = lucid.utils.mintingPolicyToId(mintingPolicy);
-    console.log(policyId, "my policy id");
+    console.log("my policy id:---", policyId);
   });
+
+export { lucid, policyId, mintingPolicy };
