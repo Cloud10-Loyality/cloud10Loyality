@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@cloud10lms/shared@^1.0.27":
-  version "1.0.27"
-  resolved "https://registry.yarnpkg.com/@cloud10lms/shared/-/shared-1.0.27.tgz#87e90f299e1eb5404b4c34c3ec966fe3c12009a1"
-  integrity sha512-wOGD17vzUKkdDO3FUeMDBSQuIg4ZB58TT+FJ2JPGIgEBfl9v8Ge69XwB9s8ptHxMVxIk+7io/n3k5YYQhtiZ1A==
+"@cloud10lms/shared@^1.0.28":
+  version "1.0.28"
+  resolved "https://registry.yarnpkg.com/@cloud10lms/shared/-/shared-1.0.28.tgz#ff83896fa3d6b8c1987ce31cce75d826aea1bfd9"
+  integrity sha512-ut4gT1xgPlstYTe4CXBZwpHmKxZu5kgsmH9ZfhxBWB8Is7jH8KGiGpq6SHNplcymYORN6gASJnwhhURyQC9o1A==
   dependencies:
     bcryptjs "^2.4.3"
     express "^4.18.2"
@@ -735,6 +735,13 @@ encodeurl@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
   integrity sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==
+
+envalid@^7.3.1:
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/envalid/-/envalid-7.3.1.tgz#5bf6bbb4effab2d64a1991d8078b4ae38924f0d2"
+  integrity sha512-KL1YRwn8WcoF/Ty7t+yLLtZol01xr9ZJMTjzoGRM8NaSU+nQQjSWOQKKJhJP2P57bpdakJ9jbxqQX4fGTOicZg==
+  dependencies:
+    tslib "2.3.1"
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -2156,6 +2163,11 @@ ts-node@^10.9.1:
     make-error "^1.1.1"
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
+
+tslib@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
+  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
 
 tweetnacl@^1.0.3:
   version "1.0.3"

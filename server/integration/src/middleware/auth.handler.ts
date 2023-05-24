@@ -3,6 +3,7 @@ import { Role } from "../../types";
 import { NextFunction, Response } from "express";
 import { integrationService } from "../services/integrations.db";
 import { IntegrationType } from "../models/integration.model";
+import { env } from "../env";
 
 export const protectRoute = catchAsync(
   async (
@@ -12,7 +13,7 @@ export const protectRoute = catchAsync(
   ) => {
     const token = req.jwt;
 
-    const decoded = await decodeToken(token, process.env.ACCESS_TOKEN_SECRET!);
+    const decoded = await decodeToken(token, env.ACCESS_TOKEN_SECRET);
 
     const manager = await integrationService.getIntegrationById(decoded?.id);
 

@@ -9,10 +9,11 @@
     "debug": "ndb server.ts"
   },
   "dependencies": {
-    "@cloud10lms/shared": "^1.0.27",
+    "@cloud10lms/shared": "^1.0.28",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "envalid": "^7.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.4",

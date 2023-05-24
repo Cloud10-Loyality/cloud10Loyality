@@ -1,6 +1,6 @@
+import { createHash } from "@cloud10lms/shared";
 import { Schema, model, InferSchemaType } from "mongoose";
 import validator from "validator";
-import { createHash } from "../helpers/bcryptHelper";
 
 const integrationSchema = new Schema(
   {
@@ -28,6 +28,11 @@ const integrationSchema = new Schema(
     name: {
       type: String,
       required: [true, "Name is required"],
+    },
+    role: {
+      type: String,
+      enum: ["ADMIN", "USER", "MANAGER"],
+      default: "MANAGER",
     },
     city: {
       type: String,
