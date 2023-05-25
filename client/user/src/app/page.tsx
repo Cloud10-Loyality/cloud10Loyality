@@ -1,82 +1,80 @@
-"use client";
+import Navbar from "@/components/Navbar";
+import Timeline from "@/components/Timeline";
 
-import { FiSearch } from "react-icons/fi";
-import { BsArrowRight } from "react-icons/bs";
-import { IoMdNotifications, IoMdSettings } from "react-icons/io";
-import { FiLogOut } from "react-icons/fi";
-import { BsFillPersonFill } from "react-icons/bs";
-import { MdDarkMode } from "react-icons/md";
-import { useState } from "react";
+import React from "react";
 
-export default function Home() {
-  const [searchText, setSearchText] = useState("");
+type Props = {};
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-  };
-
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Handle search submit logic here
-    console.log("Search submitted:", searchText);
-  };
-
+export default function page({}: Props) {
   return (
-    <>
-      <div className="w-full bg-[#ECF0FB] h-screen border-5 border-red-400 ">
-        <div className="flex flex-row  h-16 ml-10">
-          <div className="mt-5 p-3  ml-9 bg-white rounded-md">
-            <span className="flex items-center space-x-3 pr-3">
-              <BsArrowRight />
-              <span>User Profile</span>
-            </span>
+    <div className=" font-light h-full">
+      <div className="flex flex-row  ml-10">
+        <div className="p-3 w-80 ml-2 mr-2 bg-white rounded-md ">
+          <div className="p-2 gap-2 space-y-2">
+            <h3>Total Spending</h3>
+            <p className="text-xl font-bold">$450</p>
           </div>
-          <div className="mt-5  ml-6">
-            <form onSubmit={handleSearchSubmit} className="flex items-center">
-              <input
-                type="text"
-                value={searchText}
-                onChange={handleSearchChange}
-                placeholder="Search"
-                className="py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button
-                type="submit"
-                className="mt-0 h-13 p-2 bg-blue-500 rounded-md text-white"
-              >
-                <FiSearch />
-              </button>
-            </form>
+          <hr />
+          <ul className="m-2  text-md space-y-3">
+            <li className="flex place-content-between gap-4 ">
+              <h4>Avg Booking Value</h4>
+              <span>$210</span>
+            </li>
+            <li className="flex place-content-between">
+              <h4>Bookings</h4>
+              <span>18</span>
+            </li>
+            <li className="flex place-content-between">
+              <h4>Since the last bookings</h4>
+              <span>3</span>
+            </li>
+          </ul>
+        </div>
+        <div className="p-3 w-80 ml-9 mr-4 bg-white rounded-md ">
+          <div className="p-2 gap-2 space-y-2">
+            <h3>Active Points</h3>
+            <p className="text-xl font-bold">188</p>
           </div>
-          <div className="mt-5 p-3 ml-16 bg-white text-lg rounded-md">
-            <button className="text-xl">
-              <IoMdNotifications />
-            </button>
+          <hr />
+          <ul className="m-2  text-md space-y-2">
+            <li className="flex place-content-between gap-4 ">
+              <h4>Pending point</h4>
+              <span>27</span>
+            </li>
+            <li className="flex place-content-between">
+              <h4>Used points</h4>
+              <span>20</span>
+            </li>
+            <li className="flex place-content-between">
+              <h4>Expired points</h4>
+              <span>3</span>
+            </li>
+          </ul>
+        </div>
+        <div className="p-3 w-80 ml-9 mr-4 bg-white rounded-md ">
+          <div className="p-2 gap-2 space-y-2">
+            <h3>Current Tier</h3>
+            <p className="text-xl font-bold">Silver</p>
           </div>
-          <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md">
-            <button className="text-xl">
-              <IoMdSettings />
-            </button>
-          </div>
-          <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md">
-            <button className="text-xl">
-              <BsFillPersonFill />
-            </button>
-          </div>
-          <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md">
-            <button className="text-xl">
-              <MdDarkMode />
-            </button>
-          </div>
-
-          <div className="mt-5 p-3  ml-14 bg-red-300 rounded-md">
-            <span className="flex items-center space-x-3 pr-3">
-              <FiLogOut />
-              <span>Logout</span>
-            </span>
-          </div>
+          <hr />
+          <ul className="m-2  text-md space-y-2">
+            <li className="flex place-content-between gap-4 ">
+              <h4>Points to the next tier</h4>
+              <span>9</span>
+            </li>
+            <li className="flex place-content-between">
+              <h4>Tier promotion date</h4>
+              <span>20 aug 2024</span>
+            </li>
+            <li className="flex place-content-between">
+              <h4>Tier reset date</h4>
+              <span>19 jan 2024</span>
+            </li>
+          </ul>
         </div>
       </div>
-    </>
+      {/* //* Timeline */}
+      <Timeline />
+    </div>
   );
 }
