@@ -70,10 +70,12 @@ export default function Navbar() {
           </div>
 
           <div className="mt-5 p-3  ml-14 bg-red-300 rounded-md">
+              <button>
             <span className="flex items-center space-x-3 pr-3">
-              <FiLogOut />
-              <span>Logout</span>
+                <FiLogOut />
+                <span>Logout</span>
             </span>
+              </button>
           </div>
         </div>
       </div>

@@ -22,24 +22,24 @@ export const menuData = [
     id: 3,
     icon: <AiOutlineHistory />,
     label: "Stay History",
-    link: "/services",
+    link: "/stay-history",
   },
   {
     id: 4,
     icon: <RiShieldStarLine />,
     label: "Tier Benifits",
-    link: "/services",
+    link: "/tier-benifits",
   },
   {
     id: 5,
     icon: <RiHandCoinFill />,
     label: "Points Redemption",
-    link: "/services",
+    link: "/points-redemption",
   },
   {
     id: 6,
     icon: <TbHeartHandshake />,
     label: "Referal Programs",
-    link: "/services",
+    link: "/referal-programs",
   },
 ];
