@@ -1,4 +1,4 @@
-# Cloud10 Loyality Management Syestem
+# Cloud10 Loyalty Management System
 
 Cloud10 LMS (Loyalty Management System) is a platform that helps businesses to integrate, implement and manage their loyalty programs. It provides a centralized platform for tracking customer interactions, managing rewards and incentives, and analyzing customer behavior and preferences. The system is designed as a pluggable module for Channels or Booking Engines of the hospitality domain.
 
