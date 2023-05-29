@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { Lucid } from "lucid-cardano";
+import { Lucid, Slot } from "lucid-cardano";
 import Wallet from "../models/walletModel";
-import { ObjectId } from "mongodb";
 
 const lucid = await Lucid.new(undefined, "Preview");
 
@@ -61,6 +60,8 @@ export const createWallet = async (
   const address = await lucid
     .selectWalletFromPrivateKey(privateKey)
     .wallet.address();
+
+  //* pay to this address
 
   try {
     const result = await Wallet.create({
