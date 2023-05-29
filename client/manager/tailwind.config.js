@@ -5,8 +5,22 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
+      screens: {
+        'mobile-sm': { 'max': '360px' },
+        'mobile': { 'max': '484px' },
+        'tablet-sm': { 'max': '768px' },
+        'tablet': { 'max': '1292px' },
+        'laptop-sm': { 'max': '1440px' },
+        'laptop-md': { 'max': '1536px' },
+        'desktop': { 'min': '1920px' },
+      },
+      colors: {
+        "sidebar": "var(--sidebar-background)",
+        "sidebar-item": "var(--sidebar-item-background)",
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

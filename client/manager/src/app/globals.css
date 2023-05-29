@@ -3,17 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --sidebar-background: #003747;
+  --sidebar-item-background: #145264;
 }
 
 *,
@@ -27,7 +18,13 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-end-rgb));
+  font-family: var(--font-primary), sans-serif;
   height: 100vh;
   width: 100vw;
   line-height: 1.4;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: minmax(max-content, auto) 2fr;
 }
