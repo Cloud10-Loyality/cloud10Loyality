@@ -1,11 +1,16 @@
+import AppProvider from "@/redux/AppProvider";
 import "./globals.css";
-import { Poppins } from "next/font/google";
+import { Poppins, Noto_Sans } from "next/font/google";
+import { Sidebar } from "@/components/layout/sidebar";
+import { Header } from "@/components/layout/header";
+import { ThemeProvider } from "next-themes";
+import { Container } from "@/components/layout/container";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-primary",
-  subsets: ["devanagari", "latin"],
+  subsets: ["latin-ext"],
 });
 
 export const metadata = {
@@ -20,7 +25,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <AppProvider>{children}</AppProvider>
+      </body>
     </html>
   );
 }

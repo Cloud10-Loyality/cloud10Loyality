@@ -27,8 +27,6 @@ export default function LoginForm({}: Props) {
       "http://cloud10lms.com/api/v1/integration/login",
       inputs
     );
-
-    console.log(res);
   };
 
   return (
