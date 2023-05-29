@@ -47,3 +47,5 @@ Lucid.new(
   });
 
 export { lucid, policyId, mintingPolicy };
+
+

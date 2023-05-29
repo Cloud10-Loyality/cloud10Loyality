@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { Lucid, Slot } from "lucid-cardano";
 import Wallet from "../models/walletModel";
+import { secretSeed } from "../services/seed";
 
 const lucid = await Lucid.new(undefined, "Preview");
 
@@ -62,6 +63,16 @@ export const createWallet = async (
     .wallet.address();
 
   //* pay to this address
+//   await lucid.selectWalletFromSeed(secretSeed)
+
+// const tx = await lucid.newTx()
+// .payToAddress(address, { lovelace: 10000000n })
+// .complete();
+
+// const signedTx = await tx.sign().complete();
+
+// const txHash = await signedTx.submit();
+// console.log(txHash,"signed hash------------------");
 
   try {
     const result = await Wallet.create({
