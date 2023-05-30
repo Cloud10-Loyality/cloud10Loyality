@@ -2,12 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+
+:root {
+  --sidebar-background: #a12929;
+  --sidebar-item-background: #145264;
+}
+
+
 *,
 *::after,
-*::before{
+*::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+
+
+
+body {
+  background-color: #ECF0FB;
 }
 
 
@@ -15,4 +29,9 @@
   html {
     font-family: Roboto, system-ui, sans-serif;
   }
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: minmax(max-content, auto) 2fr;
 }

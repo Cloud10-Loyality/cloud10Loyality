@@ -8,7 +8,7 @@ type Props = {};
 export default function page({}: Props) {
   return (
     <div className=" font-light h-full">
-      <div className="flex flex-row  ml-10">
+      <div className="flex flex-row  ml-3">
         <div className="p-3 w-80 ml-2 mr-2 bg-white rounded-md ">
           <div className="p-2 gap-2 space-y-2">
             <h3>Total Spending</h3>

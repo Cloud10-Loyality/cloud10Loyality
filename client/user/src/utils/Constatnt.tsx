@@ -1,15 +1,15 @@
 // menuData.ts
 import { CgProfile } from "react-icons/cg";
 import { BiCoinStack } from "react-icons/bi";
-import { AiOutlineHistory } from "react-icons/ai";
+import { AiOutlineHistory, AiOutlineHome } from "react-icons/ai";
 import { RiShieldStarLine, RiHandCoinFill } from "react-icons/ri";
 import { TbHeartHandshake } from "react-icons/tb";
 
 export const menuData = [
   {
     id: 1,
-    icon: <CgProfile />,
-    label: "User Profile",
+    icon: <AiOutlineHome />,
+    label: "Home",
     link: "/",
   },
   {
