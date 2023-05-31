@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Container from "@/components/container/Container";
 import { ThemeProvider } from "next-themes";
+import AppProvider from "@/Redux/AppProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,12 +20,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Container type="dashboard">
-          <Sidebar />
-          <Navbar />
-          <div className="h-[85vh] ">{children}</div>
-        </Container>
+      <body className="dark:bg-slate-700">
+        <AppProvider>
+          <Container type="dashboard">
+            <Sidebar />
+            <Navbar />
+            <div className="h-[85vh]  ">{children}</div>
+          </Container>
+        </AppProvider>
       </body>
     </html>
   );

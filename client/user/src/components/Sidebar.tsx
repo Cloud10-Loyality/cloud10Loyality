@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { menuData } from "@/utils/Constatnt";
+import { menuData } from "@/utils/Constant";
 import { AiOutlineMenu } from "react-icons/ai";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
@@ -22,7 +22,7 @@ export const Sidebar = (props: Props) => {
       <div
         className={`h-full row-span-2  text-black ${
           isNavShowing ? "min-w-[250px]" : "w-max"
-        } row-span-2  bg-gray-50 dark:bg-sidebar relative`}
+        } row-span-2  bg-gray-50 dark:bg-sidebar dark:text-white relative`}
       >
         <div className="cursor-pointer px-7 flex place-items-center h-[10vh] relative">
           <AiOutlineMenu onClick={toggleSidebar} />
@@ -31,7 +31,7 @@ export const Sidebar = (props: Props) => {
           {menuData.map((menuItem) => (
             <li
               key={menuItem.id}
-              className="hover:bg-blue-600 hover:text-white rounded-md py-2"
+              className="hover:bg-[#5d94b4] hover:text-white rounded-md py-2"
             >
               <Link href={menuItem.link}>
                 <span className="flex items-center space-x-3 ">

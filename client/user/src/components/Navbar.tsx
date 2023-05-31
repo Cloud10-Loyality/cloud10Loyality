@@ -13,6 +13,11 @@ import { DarkMode } from "./ui/icons";
 
 export default function Navbar() {
   const [searchText, setSearchText] = useState("");
+  const [navTab, setNavTab] = useState("Home");
+
+  //  const handleMenuSelect = (label) => {
+  //    setNavTab(label);
+  //  };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -26,7 +31,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="w-full h-[15vh] bg-[#ECF0FB] ">
+      <div className="w-full h-[15vh]  dark:bg-slate-700">
         <div className="flex flex-row  h-16 ml-3">
           <div className="mt-5 p-3  ml-2 bg-white rounded-md">
             <span className="flex items-center space-x-3 pr-3">
@@ -51,36 +56,32 @@ export default function Navbar() {
               </button>
             </form>
           </div>
-          <div className="mt-5 p-3 ml-16 bg-white text-lg rounded-md">
+
+          <div className="mt-5 p-3 ml-16 bg-white text-lg rounded-md dark:text-black">
             <button className="text-xl">
               <IoMdNotifications />
             </button>
           </div>
-          <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md">
+          <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md dark:text-black">
             <button className="text-xl">
               <IoMdSettings />
             </button>
           </div>
-          <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md">
+          <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md dark:text-black">
             <Link href="/profile" className="text-xl">
               <BsFillPersonFill />
             </Link>
           </div>
-          <div className="mt-5 p-3 cursor-pointer ml-6 bg-white text-lg rounded-md">
-            <MdDarkMode />
+          <div className="mt-5 p-3 cursor-pointer ml-6 bg-white text-lg rounded-md dark:text-black">
+            <ThemeChanger />
           </div>
           <div className="mt-5 p-3  ml-11 bg-red-300 rounded-md">
             <button>
-              <span className="flex items-center space-x-3 pr-3">
+              <span className="flex items-center space-x-3 pr-3 dark:text-black">
                 <FiLogOut />
                 <span>Logout</span>
               </span>
             </button>
-            {/* <DarkMode /> */}
-          </div>
-          <div>
-            {/* <DarkMode /> */}
-            <ThemeChanger />
           </div>
         </div>
       </div>
