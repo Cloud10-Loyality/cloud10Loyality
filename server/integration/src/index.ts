@@ -19,12 +19,13 @@ app.use(morgan("dev"));
 app.use(
   cors({
     origin: "*",
+    credentials: true,
   })
 );
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.use("/api/v1/integration", integrationRoutes);
 
@@ -34,7 +35,7 @@ app.all("*", (req: Request, _res: Response, next: NextFunction) => {
 
 app.use(errorHandler);
 
-export const PORT = env.GATEWAY_1_PORT;
+export const PORT = env.INTEGRATION_PORT;
 export const CLIENT_ID = generateRandomString(10);
 
 export default app;
