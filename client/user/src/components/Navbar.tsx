@@ -7,6 +7,9 @@ import { FiLogOut } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { MdDarkMode } from "react-icons/md";
 import { useState } from "react";
+import Link from "next/link";
+import { ThemeChanger } from "@/components/ui/theme";
+import { DarkMode } from "./ui/icons";
 
 export default function Navbar() {
   const [searchText, setSearchText] = useState("");
@@ -23,8 +26,8 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="w-full bg-[#ECF0FB] h-screen border-5 border-red-400 ">
-        <div className="flex flex-row  h-16 ml-10">
+      <div className="w-full h-[15vh] bg-[#ECF0FB] ">
+        <div className="flex flex-row  h-16 ml-3">
           <div className="mt-5 p-3  ml-2 bg-white rounded-md">
             <span className="flex items-center space-x-3 pr-3">
               <BsArrowRight />
@@ -59,23 +62,25 @@ export default function Navbar() {
             </button>
           </div>
           <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md">
-            <button className="text-xl">
+            <Link href="/profile" className="text-xl">
               <BsFillPersonFill />
-            </button>
+            </Link>
           </div>
-          <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md">
-            <button className="text-xl">
-              <MdDarkMode />
-            </button>
+          <div className="mt-5 p-3 cursor-pointer ml-6 bg-white text-lg rounded-md">
+            <MdDarkMode />
           </div>
-
-          <div className="mt-5 p-3  ml-14 bg-red-300 rounded-md">
-              <button>
-            <span className="flex items-center space-x-3 pr-3">
+          <div className="mt-5 p-3  ml-11 bg-red-300 rounded-md">
+            <button>
+              <span className="flex items-center space-x-3 pr-3">
                 <FiLogOut />
                 <span>Logout</span>
-            </span>
-              </button>
+              </span>
+            </button>
+            {/* <DarkMode /> */}
+          </div>
+          <div>
+            {/* <DarkMode /> */}
+            <ThemeChanger />
           </div>
         </div>
       </div>

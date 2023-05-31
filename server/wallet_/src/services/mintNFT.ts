@@ -2,7 +2,7 @@ import {
   TxHash,
   Unit,
   fromText,
-  NFTMetadataDetails,
+  // NFTMetadataDetails,
   Label,
 } from "lucid-cardano";
 import { lucid, mintingPolicy, policyId } from ".";
