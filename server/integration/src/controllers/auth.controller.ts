@@ -70,9 +70,8 @@ export const login = catchAsync(
 
     res.cookie("AUTH", refreshToken, {
       path: "/",
-      httpOnly: true,
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000 * 30),
-      secure: env.NODE_ENV === "production",
+      httpOnly: true,
       sameSite: "lax",
     });
 

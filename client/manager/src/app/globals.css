@@ -3,8 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --sidebar-background: #003747;
-  --sidebar-item-background: #145264;
+  /* Background Colors */
+  --primary-dark: #003747;
+  --secondary-dark: #145264;
+  --primary-light: #E5E7EB;
+  --secondary-light: #F3F4F6;
+
+  /* Border Colors */
+  --border-dark: #64748B;
+  --border-light: #c3c8ce;
 }
 
 *,

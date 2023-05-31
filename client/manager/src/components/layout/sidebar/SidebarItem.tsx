@@ -2,6 +2,7 @@
 
 import { SidebarItem } from "@/libs/useSidebarData";
 import Link from "next/link";
+import { useSelectedLayoutSegment } from "next/navigation";
 import React from "react";
 
 const SidebarItem = ({
@@ -16,8 +17,8 @@ const SidebarItem = ({
   return (
     <Link href={`${item?.href}`}>
       <div
-        className={`flex items-center rounded-lg gap-3 hover:bg-gray-100 dark:hover:bg-sidebar-item ${
-          isActive && "bg-gray-100 dark:bg-sidebar-item"
+        className={`flex items-center mb-2 rounded-lg gap-3 hover:bg-secondary-light dark:hover:bg-secondary-dark ${
+          isActive && "bg-secondary-light dark:bg-secondary-dark"
         } cursor-pointer font-semibold transition-all duration-200 py-4 px-4`}
       >
         <span className="">{item?.icon}</span>

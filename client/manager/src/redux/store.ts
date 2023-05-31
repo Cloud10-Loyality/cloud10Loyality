@@ -3,11 +3,12 @@ import {
   useDispatch as useDispatchBase,
   useSelector as useSelectorBase,
 } from "react-redux";
-import { sidebarReducer } from "./slices";
+import { sidebarReducer, authReducer } from "./slices";
 
 export const store = configureStore({
   reducer: {
-    sidebarReducer: sidebarReducer,
+    sidebarReducer,
+    authReducer,
   },
 });
 

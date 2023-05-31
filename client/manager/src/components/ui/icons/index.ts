@@ -12,3 +12,6 @@ export { default as LightMode } from "./LightMode";
 export { default as DarkMode } from "./DarkMode";
 export { default as DownIcon } from "./DownIcon";
 export { default as Profile } from "./Profile";
+export { default as Logout } from "./Logout";
+export { default as User } from "./User";
+export { default as UpIcon } from "./UpIcon";

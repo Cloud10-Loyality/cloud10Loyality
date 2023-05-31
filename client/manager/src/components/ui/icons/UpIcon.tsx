@@ -4,7 +4,7 @@ type Props = {
   onClick?: () => void;
 };
 
-const DownIcon = (props: Props) => {
+const UpIcon = (props?: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,10 +18,10 @@ const DownIcon = (props: Props) => {
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+        d="M4.5 15.75l7.5-7.5 7.5 7.5"
       />
     </svg>
   );
 };
 
-export default DownIcon;
+export default UpIcon;

@@ -18,8 +18,12 @@ module.exports = {
         'desktop': { 'min': '1920px' },
       },
       colors: {
-        "sidebar": "var(--sidebar-background)",
-        "sidebar-item": "var(--sidebar-item-background)",
+        "primary-dark": "var(--primary-dark)",
+        "secondary-dark": "var(--secondary-dark)",
+        "primary-light": "var(--primary-light)",
+        "secondary-light": "var(--secondary-light)",
+        "border-dark": "var(--border-dark)",
+        "border-light": "var(--border-light)",
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

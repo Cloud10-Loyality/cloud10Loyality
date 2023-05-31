@@ -1,5 +1,8 @@
 "use client";
 
+import { LoginResponse } from "@/app/api/login/route";
+import { login } from "@/redux/slices/authSlice";
+import { useDispatch } from "@/redux/store";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useReducer } from "react";
@@ -8,6 +11,8 @@ type Props = {};
 
 export default function LoginForm({}: Props) {
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const [inputs, updateInputs] = useReducer(
     (prev: any, next: any) => {
       const updatedInput = { ...prev, ...next };
@@ -23,10 +28,7 @@ export default function LoginForm({}: Props) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const res = await axios.post(
-      "http://cloud10lms.com/api/v1/integration/login",
-      inputs
-    );
+    await dispatch(login(inputs));
   };
 
   return (

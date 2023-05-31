@@ -1,7 +1,7 @@
 import { cleanEnv, str, num, port } from "envalid";
 
 const env = cleanEnv(process.env, {
-  GATEWAY_1_PORT: num({ default: 6000 }),
+  INTEGRATION_PORT: num({ default: 6000 }),
   MONGO_URI: str({
     default:
       "mongodb+srv://cloud10loyality:<PASSWORD>@integration.qpskjne.mongodb.net/integrationsDB?retryWrites=true&w=majority",
