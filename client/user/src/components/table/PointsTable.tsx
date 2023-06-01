@@ -22,7 +22,7 @@ const PointsTable = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   const filteredContacts = contacts.filter((item) => {
-    const fullName = `${item.first_name} ${item.last_name}`.toLowerCase();
+    const fullName = `${item.Title} ${item.Location}`.toLowerCase();
     return fullName.includes(search.toLowerCase());
   });
 
@@ -37,7 +37,7 @@ const PointsTable = () => {
   );
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-3xl mx-auto sm:min-w-fit ">
       <div className="mb-4">
         <input
           type="text"
@@ -47,34 +47,38 @@ const PointsTable = () => {
         />
       </div>
       {currentContacts.length > 0 ? (
-        <div>
-          <table className="min-w-full bg-white border border-gray-300">
+        <div className="overflow-x-auto">
+          <table className="min-w-full  bg-white border border-gray-300">
             <thead>
               <tr>
+                <th className="border-b border-gray-300 py-2 px-4">Title</th>
+                <th className="border-b border-gray-300 py-2 px-4">Location</th>
                 <th className="border-b border-gray-300 py-2 px-4">
-                  First Name
+                  Orderdate
                 </th>
                 <th className="border-b border-gray-300 py-2 px-4">
-                  Last Name
+                  Date of your stay
                 </th>
-                <th className="border-b border-gray-300 py-2 px-4">Email</th>
-                <th className="border-b border-gray-300 py-2 px-4">Phone</th>
+                <th className="border-b border-gray-300 py-2 px-4">Cost</th>
               </tr>
             </thead>
             <tbody>
               {currentContacts.map((item, index) => (
                 <tr key={index}>
                   <td className="border-b border-gray-300 py-2 px-4">
-                    {item.first_name}
+                    {item.Title}
                   </td>
                   <td className="border-b border-gray-300 py-2 px-4">
-                    {item.last_name}
+                    {item.Location}
                   </td>
                   <td className="border-b border-gray-300 py-2 px-4">
-                    {item.email}
+                    {item.Orderdate}
                   </td>
                   <td className="border-b border-gray-300 py-2 px-4">
-                    {item.phone}
+                    {item.Stay}
+                  </td>
+                  <td className="border-b border-gray-300 py-2 px-4">
+                    {item.Cost}
                   </td>
                 </tr>
               ))}
@@ -88,7 +92,7 @@ const PointsTable = () => {
                     <button
                       className={`page-link  border-2 py-3 px-3 ml-2 rounded-md ${
                         pageNumber === currentPage
-                          ? " bg-blue-500 text-black"
+                          ? " bg-blue-500 text-black dark:text-white"
                           : ""
                       }`}
                       onClick={() => handlePageClick(pageNumber)}

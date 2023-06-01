@@ -5,6 +5,7 @@ import { menuData } from "@/utils/Constant";
 import { AiOutlineMenu } from "react-icons/ai";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
+import { Menu } from "./ui/icons";
 
 type Props = {};
 
@@ -20,12 +21,14 @@ export const Sidebar = (props: Props) => {
   return (
     <>
       <div
-        className={`h-full row-span-2  text-black ${
+        className={`h-full row-span-3  text-black ${
           isNavShowing ? "min-w-[250px]" : "w-max"
         } row-span-2  bg-gray-50 dark:bg-sidebar dark:text-white relative`}
       >
-        <div className="cursor-pointer px-7 flex place-items-center h-[10vh] relative">
-          <AiOutlineMenu onClick={toggleSidebar} />
+        <div className="cursor-pointer px-8 text-lg flex place-items-center h-[10vh] relative">
+          <button onClick={toggleSidebar}>
+            <Menu />
+          </button>
         </div>
         <ul className="flex flex-col space-y-3 pl-8 pr-9 ">
           {menuData.map((menuItem) => (

@@ -9,13 +9,12 @@ type Props = {};
 const page = (props: Props) => {
   return (
     <>
-      <div className="flex flex-row h-max ml-5 ">
-        <div className=" bg-white max-w-max p-5">
+      <div className="flex flex-row h-max ml-5  ">
+        <div className=" bg-white max-w-max p-5 sm:min-w-fit">
           <h3 className="text-blue-500 mb-8 ">General Overview</h3>
           <DoughnutChart />
         </div>
-
-        <PointsTable />
+        <div></div>
       </div>
     </>
   );

@@ -1,5 +1,4 @@
 "use client";
-
 import { FiSearch } from "react-icons/fi";
 import { BsArrowRight } from "react-icons/bs";
 import { IoMdNotifications, IoMdSettings } from "react-icons/io";
@@ -9,15 +8,13 @@ import { MdDarkMode } from "react-icons/md";
 import { useState } from "react";
 import Link from "next/link";
 import { ThemeChanger } from "@/components/ui/theme";
-import { DarkMode } from "./ui/icons";
+import { DarkMode, Profile, Settings } from "./ui/icons";
+import { usePathname } from "next/navigation";
+import { menuData } from "../utils/Constant";
 
-export default function Navbar() {
+const Navbar = () => {
   const [searchText, setSearchText] = useState("");
-  const [navTab, setNavTab] = useState("Home");
-
-  //  const handleMenuSelect = (label) => {
-  //    setNavTab(label);
-  //  };
+  const pathName = usePathname();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -29,14 +26,20 @@ export default function Navbar() {
     console.log("Search submitted:", searchText);
   };
 
+  const getActiveLabel = () => {
+    const currentPath = pathName;
+    const activeItem = menuData.find((item) => item.link === currentPath);
+    return activeItem ? activeItem.label : "";
+  };
+
   return (
     <>
-      <div className="w-full h-[15vh]  dark:bg-slate-700">
+      <div className="w-full h-[15vh] ">
         <div className="flex flex-row  h-16 ml-3">
-          <div className="mt-5 p-3  ml-2 bg-white rounded-md">
+          <div className="mt-5 p-3  ml-2 dark:bg-blue-900 bg-white rounded-md">
             <span className="flex items-center space-x-3 pr-3">
               <BsArrowRight />
-              <span>User Profile</span>
+              <span>{getActiveLabel()}</span>
             </span>
           </div>
           <div className="mt-5  ml-6">
@@ -64,12 +67,12 @@ export default function Navbar() {
           </div>
           <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md dark:text-black">
             <button className="text-xl">
-              <IoMdSettings />
+              <Settings />
             </button>
           </div>
           <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md dark:text-black">
             <Link href="/profile" className="text-xl">
-              <BsFillPersonFill />
+              <Profile />
             </Link>
           </div>
           <div className="mt-5 p-3 cursor-pointer ml-6 bg-white text-lg rounded-md dark:text-black">
@@ -87,4 +90,6 @@ export default function Navbar() {
       </div>
     </>
   );
-}
+};
+
+export default Navbar;
