@@ -36,10 +36,3 @@ spec:
                 name: user-srv
                 port:
                   number: 8000
-          - path: /manager
-            pathType: Prefix
-            backend:
-              service:
-                name: manager-client-srv
-                port:
-                  number: 3000
