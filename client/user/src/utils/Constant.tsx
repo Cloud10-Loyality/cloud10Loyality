@@ -1,44 +1,48 @@
 // menuData.ts
-import { CgProfile } from "react-icons/cg";
-import { BiCoinStack } from "react-icons/bi";
-import { AiOutlineHistory, AiOutlineHome } from "react-icons/ai";
-import { RiShieldStarLine, RiHandCoinFill } from "react-icons/ri";
-import { TbHeartHandshake } from "react-icons/tb";
+
+import {
+  History,
+  Home,
+  Points,
+  Redemption,
+  Referal,
+  TierBenifits,
+} from "@/components/ui/icons";
 
 export const menuData = [
   {
     id: 1,
-    icon: <AiOutlineHome />,
+    icon: <Home />,
     label: "Home",
     link: "/",
   },
   {
     id: 2,
-    icon: <BiCoinStack />,
+    icon: <Points />,
     label: "Point Summary",
     link: "/point-summary",
   },
   {
     id: 3,
-    icon: <AiOutlineHistory />,
+    icon: <History />,
     label: "Stay History",
     link: "/stay-history",
   },
   {
     id: 4,
-    icon: <RiShieldStarLine />,
+    icon: <TierBenifits />,
     label: "Tier Benifits",
     link: "/tier-benifits",
   },
   {
     id: 5,
-    icon: <RiHandCoinFill />,
+    icon: <Redemption />,
     label: "Points Redemption",
     link: "/points-redemption",
   },
   {
     id: 6,
-    icon: <TbHeartHandshake />,
+    icon: <Referal />,
     label: "Referal Programs",
     link: "/referal-programs",
   },

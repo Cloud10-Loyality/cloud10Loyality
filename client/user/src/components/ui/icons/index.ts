@@ -1,3 +1,11 @@
 export { default as Profile } from "./Profile";
 export {default as DarkMode} from "./DarkMode"
 export {default as LightMode} from "./LightMode"
+export{default as Points} from "./Points"
+export {default as History} from "./History"
+export {default as Home} from "./Home"
+export {default as Menu} from "./Menu"
+export {default as TierBenifits} from "./TierBenifits"
+export {default as Settings} from "./Settings"
+export {default as Referal} from "./Referal"
+export {default as Redemption} from "./Redemption"

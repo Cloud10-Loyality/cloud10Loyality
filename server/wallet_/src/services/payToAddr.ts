@@ -1,13 +1,17 @@
 import { lucid } from ".";  
 import { secretSeed } from "./seed";
 
-await lucid.selectWalletFromSeed(secretSeed)
+export const handlePaytoAddr = async (address) => {
+    await lucid.selectWalletFromSeed(secretSeed)
 
-const tx = await lucid.newTx()
+    const tx = await lucid.newTx()
 .payToAddress(address, { lovelace: 10000000n })
 .complete();
 
-const signedTx = await tx.sign().complete();
+    const signedTx = await tx.sign().complete();
 
-const txHash = await signedTx.submit();
-console.log(txHash,"signed hash------------------");
+    const txHash = await signedTx.submit();
+    console.log(txHash, "signed hash------------------");
+    return txHash;
+}
+

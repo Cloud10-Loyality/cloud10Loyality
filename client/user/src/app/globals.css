@@ -2,12 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
-  --sidebar-background: #a12929;
+  --sidebar-background: #203582;
   --sidebar-item-background: #145264;
+  --background-color: #1d2136;
 }
-
 
 *,
 *::after,
@@ -17,13 +16,9 @@
   box-sizing: border-box;
 }
 
-
-
-
 body {
-  background-color: #ECF0FB;
+  background-color: #d9e2fc;
 }
-
 
 @layer base {
   html {

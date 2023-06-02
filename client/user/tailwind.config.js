@@ -13,9 +13,19 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
-        colors: {
+      colors: {
         "sidebar": "var(--sidebar-background)",
         "sidebar-item": "var(--sidebar-item-background)",
+
+      },
+      screens: {
+        'mobile-sm': { 'max': '360px' },
+        'mobile': { 'max': '484px' },
+        'tablet-sm': { 'max': '768px' },
+        'tablet': { 'max': '1292px' },
+        'laptop-sm': { 'max': '1440px' },
+        'laptop-md': { 'max': '1536px' },
+        'desktop': { 'min': '1920px' },
       },
     },
   },

@@ -3,12 +3,9 @@ import {
   useDispatch as useDispatchBase,
   useSelector as useSelectorBase,
 } from "react-redux";
-import { sidebarReducer } from "./slices";
 
 export const store = configureStore({
-  reducer: {
-    sidebarReducer: sidebarReducer,
-  },
+  reducer: {},
 });
 
 export type RootState = ReturnType<typeof store.getState>;
