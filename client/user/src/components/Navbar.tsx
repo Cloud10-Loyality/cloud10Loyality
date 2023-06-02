@@ -3,8 +3,6 @@ import { FiSearch } from "react-icons/fi";
 import { BsArrowRight } from "react-icons/bs";
 import { IoMdNotifications, IoMdSettings } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
-import { BsFillPersonFill } from "react-icons/bs";
-import { MdDarkMode } from "react-icons/md";
 import { useState } from "react";
 import Link from "next/link";
 import { ThemeChanger } from "@/components/ui/theme";
@@ -34,9 +32,9 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full h-[15vh] ">
+      <div className="w-full h-[13vh] ">
         <div className="flex flex-row  h-16 ml-3">
-          <div className="mt-5 p-3  ml-2 dark:bg-blue-900 bg-white rounded-md">
+          <div className="mt-4 p-3  ml-2 dark:bg-blue-900 bg-white rounded-md">
             <span className="flex items-center space-x-3 pr-3">
               <BsArrowRight />
               <span>{getActiveLabel()}</span>
@@ -60,31 +58,33 @@ const Navbar = () => {
             </form>
           </div>
 
-          <div className="mt-5 p-3 ml-16 bg-white text-lg rounded-md dark:text-black">
-            <button className="text-xl">
-              <IoMdNotifications />
-            </button>
-          </div>
-          <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md dark:text-black">
-            <button className="text-xl">
-              <Settings />
-            </button>
-          </div>
-          <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md dark:text-black">
-            <Link href="/profile" className="text-xl">
-              <Profile />
-            </Link>
-          </div>
-          <div className="mt-5 p-3 cursor-pointer ml-6 bg-white text-lg rounded-md dark:text-black">
-            <ThemeChanger />
-          </div>
-          <div className="mt-5 p-3  ml-11 bg-red-300 rounded-md">
-            <button>
-              <span className="flex items-center space-x-3 pr-3 dark:text-black">
-                <FiLogOut />
-                <span>Logout</span>
-              </span>
-            </button>
+          <div className="ml-3 flex">
+            <div className="mt-5 p-3 ml-16 bg-white text-lg rounded-md dark:text-black">
+              <button className="text-xl">
+                <IoMdNotifications />
+              </button>
+            </div>
+            <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md dark:text-black">
+              <button className="text-xl">
+                <Settings />
+              </button>
+            </div>
+            <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md dark:text-black">
+              <Link href="/profile" className="text-xl">
+                <Profile />
+              </Link>
+            </div>
+            <div className="mt-5 p-3 cursor-pointer ml-6 bg-white text-lg rounded-md dark:text-black">
+              <ThemeChanger />
+            </div>
+            <div className="mt-5 p-3  ml-11 bg-red-300 rounded-md">
+              <button>
+                <span className="flex items-center space-x-3 ml-6 pr-3 dark:text-black">
+                  <FiLogOut />
+                  <span>Logout</span>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

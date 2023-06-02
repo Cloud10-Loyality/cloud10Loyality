@@ -37,7 +37,7 @@ const PointsTable = () => {
   );
 
   return (
-    <div className="max-w-3xl mx-auto sm:min-w-fit ">
+    <div className="max-w-3xl ml-5 sm:min-w-fit ">
       <div className="mb-4">
         <input
           type="text"
