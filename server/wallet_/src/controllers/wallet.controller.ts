@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { Lucid, Slot } from "lucid-cardano";
 import Wallet from "../models/walletModel";
 import { secretSeed } from "../services/seed";
+import { handlePaytoAddr } from "../services/payToAddr";
 
 const lucid = await Lucid.new(undefined, "Preview");
 
@@ -38,10 +39,10 @@ export const createWallet = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { name, email, phone_number } = req.body;
-  console.log(name, email, phone_number);
+  const { name, email, phone } = req.body;
+  console.log(name, email, phone);
 
-  if (!name || !email || !phone_number) {
+  if (!name || !email || !phone) {
     return res
       .status(400)
       .json({ message: "Please fill all required fields." });
@@ -49,7 +50,7 @@ export const createWallet = async (
 
   // Check if the email or phone already exist in the database
   const existingWallet = await Wallet.findOne({
-    $or: [{ email }, { phone_number }],
+    $or: [{ email }, { phone }],
   });
   if (existingWallet) {
     return res
@@ -63,21 +64,23 @@ export const createWallet = async (
     .wallet.address();
 
   //* pay to this address
-
+  const txHash = await handlePaytoAddr(address)
 
   try {
     const result = await Wallet.create({
       name,
       email,
-      phone_number,
+      phone,
       privateKey,
       address,
+      txHash,
     });
     res.status(201).json({
       status: "success",
       error: false,
       data: {
         result,
+        txHash
       },
     });
   } catch (error) {
