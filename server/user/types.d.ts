@@ -4,6 +4,8 @@ export type UserType = {
   email: string;
   uid: string;
   dob: Date;
+  age: number;
+  gender: "male" | "female" | "other";
   phone: number;
   country: string;
   state: string;

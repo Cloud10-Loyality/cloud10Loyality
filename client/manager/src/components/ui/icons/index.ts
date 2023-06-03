@@ -15,3 +15,5 @@ export { default as Profile } from "./Profile";
 export { default as Logout } from "./Logout";
 export { default as User } from "./User";
 export { default as UpIcon } from "./UpIcon";
+export { default as ArrowUp } from "./ArrowUp";
+export { default as ArrowDown } from "./ArrowDown";

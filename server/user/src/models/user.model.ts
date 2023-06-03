@@ -1,10 +1,11 @@
 import {
-  Schema,
-  model,
+  HydratedDocument,
   Model,
   QueryWithHelpers,
-  HydratedDocument,
+  Schema,
+  model,
 } from "mongoose";
+
 import { UserType } from "../../types";
 
 interface IUserMethods {
@@ -43,6 +44,14 @@ const userSchema = new Schema<UserType, IUserMethods, {}, UserQueryHelpers>({
     lowercase: true,
     minLength: [3, "Email must be at least 3 characters long"],
     maxLength: [55, "Email must be at most 55 characters long"],
+  },
+  gender: {
+    type: String,
+    enum: ["male", "female", "other"],
+    required: true,
+  },
+  age: {
+    type: Number,
   },
   uid: {
     type: String,
