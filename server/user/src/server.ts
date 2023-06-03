@@ -1,9 +1,10 @@
 import { CLIENT_ID, PORT } from ".";
 
+import { IntegrationCreatedListener } from "./events/listeners/integration-created-listener";
+import { ReservationCreatedListener } from "./events/listeners/reservation-created-listener";
 import app from ".";
 import mongoose from "mongoose";
 import { natsClient } from "./nats-client";
-import { ReservationCreatedListener } from "./events/listeners/reservation-created-listener";
 
 const DB = process.env.MONGO_URI?.replace(
   "<PASSWORD>",
@@ -26,6 +27,7 @@ natsClient
     console.log("[User Service Nats]: Connected to NATS!");
 
     await new ReservationCreatedListener(natsClient.client).listen();
+    await new IntegrationCreatedListener(natsClient.client).listen();
 
     try {
       const connection = await mongoose.connect(DB!);
