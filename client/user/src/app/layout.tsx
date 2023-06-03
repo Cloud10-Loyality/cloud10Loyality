@@ -25,7 +25,9 @@ export default function RootLayout({
           <Container type="dashboard">
             <Sidebar />
             <Navbar />
-            <div className="h-[85vh] dark:text-black ">{children}</div>
+            <div className="h-[85vh]  overflow-y-auto overflow-x-auto dark:text-black ">
+              {children}
+            </div>
           </Container>
         </AppProvider>
       </body>

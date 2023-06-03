@@ -1,5 +1,3 @@
-import { Request } from "@cloud10lms/shared";
-import { Router } from "express";
 import {
   createUser,
   deleteUser,
@@ -7,6 +5,8 @@ import {
   getUser,
   updateUser,
 } from "../controllers/user.controller";
+
+import { Router } from "express";
 
 const router = Router();
 

@@ -1,16 +1,18 @@
+import {
+  AppError,
+  errorHandler,
+  generateRandomString,
+} from "@cloud10lms/shared";
+import { NextFunction, Request, Response } from "express";
+
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-// import integrationRoutes from "./routes/integration.routes";
 import morgan from "morgan";
-import { NextFunction, Request, Response } from "express";
-import {
-  generateRandomString,
-  errorHandler,
-  AppError,
-} from "@cloud10lms/shared";
 import userRoutes from "./routes/user.routes";
+
+// import integrationRoutes from "./routes/integration.routes";
 
 export const PORT = process.env.USER_PORT || 8000;
 export const CLIENT_ID = generateRandomString(10);
@@ -32,7 +34,9 @@ app.use(cookieParser());
 app.use("/api/v1/user", userRoutes);
 
 app.all("*", (req: Request, _res: Response, next: NextFunction) => {
-  next(new AppError(`Can't find ${req.originalUrl} path on the server`, 404));
+  return next(
+    new AppError(`Can't find ${req.originalUrl} path on the server`, 404)
+  );
 });
 
 app.use(errorHandler);

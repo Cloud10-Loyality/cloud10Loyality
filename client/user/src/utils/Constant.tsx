@@ -31,8 +31,8 @@ export const menuData = [
   {
     id: 4,
     icon: <TierBenifits />,
-    label: "Tier Benifits",
-    link: "/tier-benifits",
+    label: "Tier Beneifits",
+    link: "/tier-beneifits",
   },
   {
     id: 5,
