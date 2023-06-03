@@ -1,0 +1,61 @@
+Regarding the LMS project, we have completed the below modules:
+
+Integration Module:
+
+ 
+
+An API is created to integrate all the hotels' data with the Loyalty Management System. This module allows hotels to pass their data in the request for integration.
+
+ 
+
+Token Creation:
+
+Token creation, as well as minting and burning of tokens, is implemented through REST API.
+
+ 
+
+Gateway Services:
+
+A service named Gateway is built, which captures all the hotel reservations and notifies customers about their loyalty points.
+
+ 
+
+Admin Panel UI mock-up:
+
+As part of the admin panel, we have covered
+
+·      Home Page
+
+·      Admin Dashboard  
+
+·      Provider setup details
+
+·      Reward marketplace details
+
+·      Analytics
+
+ 
+
+ 
+
+Currently, we are working on the below details:
+
+ 
+
+Event Bus: An event bus is being implemented that will capture all events and notify other services about them.
+
+ 
+
+Kubernetes: The system will be deployed on Kubernetes for efficient management.
+
+ 
+
+Token Integration Module: Currently working on it.
+
+ 
+
+Admin Panel, User Panel & Provider Panel UI need to be developed.
+
+
+
+Please find the Git-Hub link of the project:  https://github.com/Cloud10-Loyality/cloud10Loyality
