@@ -1,0 +1,69 @@
+Please find the Cloud10 Loyalty Management System project progress below:
+
+Admin Panel UI: completed
+
+·      Home
+
+·      Setup
+
+·      Market Place
+
+Manager panel Mock-Up: completed
+
+•       Home
+
+•       Campaign
+
+•       App
+
+•       Reports
+
+•       Settings
+
+ 
+
+DB Storage: Completed 
+
+User service setup: completed
+
+Manager service set up:  completed.
+
+Manager Service Authentication: Complete
+
+Wallet Service: Complete 
+
+Currently, we are working on below details:
+
+1.     Tier-wise loyalty points
+
+2.     Admin portal UI design: In progress.
+
+3.     Services:
+
+•       Tier Service
+
+•       Integration service
+
+•       Gateway service
+
+•       Wallet Service
+
+•       User Service
+
+•       Manager Service
+
+4.     User panel, Mock-up: In-progress
+
+•       Profile
+
+•       Point Summary
+
+•       Stay History
+
+•       Tier Benefits
+
+•       Points
+
+•       Rewards
+
+•       Promotion

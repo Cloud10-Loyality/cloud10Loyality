@@ -1,0 +1,66 @@
+Please find the Cloud10 Loyalty Management System project progress below:
+
+
+Admin Panel UI: completed
+
+Home
+
+Setup
+
+Market Place
+
+Setup
+
+Analytics
+
+User panel Mock-Up: complete
+
+Profile
+
+Point Summary
+
+Stay History
+
+Tier Benefits
+
+Points
+
+Rewards
+
+Promotion
+
+Common Shared Library: Added proper type safety and properly structured the code
+
+Integration Service & Gateway Service:
+
+Modified the Database model as per requirement.
+
+Decoupled the business logic from the service layer.
+
+Fixed some Typescript Errors.
+
+
+Added Role-based authorization.
+
+Currently, we are working on below details:
+
+
+1.     Tier-wise loyalty points
+
+Create non-fungible tokens (NFTs), add metadata to mint  assets
+
+
+2.     Services:
+
+
+Tier Service
+
+Integration service
+
+Gateway service
+
+Wallet Service
+
+User Service
+
+Manager Service
