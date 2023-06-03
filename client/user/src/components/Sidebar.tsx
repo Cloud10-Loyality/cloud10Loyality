@@ -30,7 +30,7 @@ export const Sidebar = (props: Props) => {
             <Menu />
           </button>
         </div>
-        <ul className="flex flex-col space-y-3 pl-8 pr-9 ">
+        <ul className="flex flex-col space-y-3 pl-8 pr-9 mt-4">
           {menuData.map((menuItem) => (
             <li
               key={menuItem.id}

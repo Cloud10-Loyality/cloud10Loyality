@@ -70,7 +70,7 @@ const Navbar = () => {
               </button>
             </div>
             <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md dark:text-black">
-              <Link href="/profile" className="text-xl">
+              <Link href="/app/profile" className="text-xl">
                 <Profile />
               </Link>
             </div>

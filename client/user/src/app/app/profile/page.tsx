@@ -34,7 +34,7 @@ const page = (props: Props) => {
             ))}
           </ul>
         </div>
-        <div className="bg-white p-5 ">
+        <div className="bg-white p-5 rounded-md ">
           <PieChart />
         </div>
         {/* <div className="flex flex-col items-center justify-center h-screen">

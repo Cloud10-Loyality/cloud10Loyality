@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -7,6 +8,7 @@ const UserForm = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const [walletDetails, setWalletDetails] = useState(null);
 
   useEffect(() => {
     let timeoutId: string | number | NodeJS.Timeout | undefined;
@@ -45,7 +47,6 @@ const UserForm = () => {
             : "User created successfully"
         );
         if (checkResponse.data.exists) {
-          // User already exists, no need to proceed further
           return;
         }
       }
@@ -56,7 +57,8 @@ const UserForm = () => {
       );
       setMessage("User created successfully");
 
-      // Reset form inputs
+      setWalletDetails(createResponse.data);
+
       setName("");
       setEmail("");
       setPhone("");
@@ -69,11 +71,14 @@ const UserForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm ">
+    <form onSubmit={handleSubmit} className="max-w-sm ml-5">
+      <h1 className="dark:text-white text-[35px] flex justify-center item center text-bold">
+        Create wallet
+      </h1>
       <div className="mb-4">
         <label
           htmlFor="name"
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-gray-700 dark:text-white text-sm font-bold mb-2"
         >
           Name:
         </label>
@@ -82,13 +87,13 @@ const UserForm = () => {
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
         />
       </div>
       <div className="mb-4">
         <label
           htmlFor="email"
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-gray-700 dark:text-white text-sm font-bold mb-2"
         >
           Email:
         </label>
@@ -97,13 +102,13 @@ const UserForm = () => {
           id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
         />
       </div>
       <div className="mb-4">
         <label
           htmlFor="phone"
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-gray-700 dark:text-white text-sm font-bold mb-2"
         >
           Phone Number:
         </label>
@@ -112,7 +117,7 @@ const UserForm = () => {
           id="phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
         />
       </div>
       <button

@@ -43,7 +43,7 @@ const PointsTable = () => {
           type="text"
           className="border rounded py-2 px-3 w-full"
           onChange={handleSearch}
-          placeholder="Search contacts"
+          placeholder="Search hotel"
         />
       </div>
       {currentContacts.length > 0 ? (
@@ -51,7 +51,9 @@ const PointsTable = () => {
           <table className="min-w-full  bg-white border border-gray-300">
             <thead>
               <tr>
-                <th className="border-b border-gray-300 py-2 px-4">Title</th>
+                <th className="border-b border-gray-300 py-2 px-4">
+                  Hotel Name
+                </th>
                 <th className="border-b border-gray-300 py-2 px-4">Location</th>
                 <th className="border-b border-gray-300 py-2 px-4">
                   Orderdate
