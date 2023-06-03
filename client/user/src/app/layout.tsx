@@ -1,9 +1,5 @@
-import { Sidebar } from "@/components/Sidebar";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import Container from "@/components/container/Container";
-import { ThemeProvider } from "next-themes";
 import AppProvider from "@/Redux/AppProvider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,13 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="dark:bg-[#0B2447]">
-        <AppProvider>
-          <Container type="dashboard">
-            <Sidebar />
-            <Navbar />
-            <div className="h-[85vh] dark:text-black ">{children}</div>
-          </Container>
-        </AppProvider>
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );

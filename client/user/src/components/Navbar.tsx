@@ -70,20 +70,18 @@ const Navbar = () => {
               </button>
             </div>
             <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md dark:text-black">
-              <Link href="/profile" className="text-xl">
+              <Link href="/app/profile" className="text-xl">
                 <Profile />
               </Link>
             </div>
             <div className="mt-5 p-3 cursor-pointer ml-6 bg-white text-lg rounded-md dark:text-black">
               <ThemeChanger />
             </div>
-            <div className="mt-5 p-3  ml-11 bg-red-300 rounded-md">
-              <button>
-                <span className="flex items-center space-x-3 ml-6 pr-3 dark:text-black">
-                  <FiLogOut />
-                  <span>Logout</span>
-                </span>
-              </button>
+            <div className="mt-5 p-3  ml-32 bg-red-300 rounded-md">
+              <span className="flex items-center space-x-3 pr-3 dark:text-black">
+                <FiLogOut />
+                <span>Logout</span>
+              </span>
             </div>
           </div>
         </div>

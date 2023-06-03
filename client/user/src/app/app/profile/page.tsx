@@ -5,10 +5,12 @@ import Image from "next/image";
 import logo from "../../../public/assets/logo.png";
 import { userProfile } from "@/utils/UserData";
 import PieChart from "@/components/chart/PieChart";
+import TierComponent from "@/components/Tier/TierComponents";
 
 type Props = {};
 
 const page = (props: Props) => {
+  const points: number = 50;
   return (
     <>
       <div className="flex flex-row space-x-14  md:flex-row md:space-y-0 md:space-x-14">
@@ -32,9 +34,13 @@ const page = (props: Props) => {
             ))}
           </ul>
         </div>
-        <div className="bg-white p-5 ">
+        <div className="bg-white p-5 rounded-md ">
           <PieChart />
         </div>
+        {/* <div className="flex flex-col items-center justify-center h-screen">
+          <h1 className="text-3xl font-bold mb-4"></h1>
+          <TierComponent points={points} />
+        </div> */}
       </div>
     </>
   );

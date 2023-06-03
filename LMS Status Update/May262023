@@ -1,0 +1,38 @@
+Please find the Cloud10 Loyalty Management System project progress below:
+
+Currently, we are working on below details:
+
+Tier-wise loyalty points:
+
+Fixed token and wallet address issues
+
+Manager Service:
+
+Created authentication in the manager service.
+
+Working on Integrating the client side with the backend.
+
+User Service User Interface:
+
+Working on the Home Page
+
+Manager Service User Interface:
+
+Created Register and Login UI.
+
+Added functionality of login and register.
+
+
+2.     Services:
+
+Tier Service
+
+Integration service
+
+Gateway service
+
+Wallet Service
+
+User Service
+
+Manager Service
