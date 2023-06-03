@@ -1,0 +1,50 @@
+Please find the Cloud10 Loyalty Management System project progress below:
+
+Token Integration Module:  Smart contract creation complete.
+
+Admin Panel UI mock-up:
+
+As part of the admin panel, we have covered
+
+·      Home
+
+·      Marketplace
+
+·      Setup
+
+·      Analytics
+
+·      NFT
+
+·      Integration
+
+·      Extensions
+
+·      Go to Sandbox
+
+·      Admin
+
+·      Request a feature
+
+·      Help Center
+
+Kubernetes setup: Complete
+
+Ingress NGINX setup: Complete
+
+Currently, we are working on below details:
+
+DB Storage: To store the user details as well as the transaction-related details is in- progress.
+
+Admin portal design: In progress.
+
+Manager Portal UI Mock-Up: In-progress
+
+Services:
+
+·      Tire Service
+
+·      Integration service
+
+·      Gateway service
+Please find the Git-Hub link of the project:  https://github.com/Cloud10-Loyality/cloud10Loyality
