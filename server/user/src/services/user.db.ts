@@ -1,4 +1,5 @@
-import { Types } from "mongoose";
+import { NullExpression, Types } from "mongoose";
+
 import User from "../models/user.model";
 import { UserType } from "../../types";
 
@@ -49,6 +50,12 @@ class UserService {
 
   public async createUser(body: UserType): Promise<UserType> {
     const user = await this.model.create({ ...body });
+
+    return user;
+  }
+
+  public async getUserByPhone(phone: number): Promise<UserType[] | null> {
+    const user = await this.model.find().byPhone(phone);
 
     return user;
   }

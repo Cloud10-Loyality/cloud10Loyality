@@ -1,4 +1,4 @@
-import { AppError, Request, catchAsync } from "@cloud10lms/shared";
+import { AppError, Request, assignToken, catchAsync } from "@cloud10lms/shared";
 import { NextFunction, Response } from "express";
 
 import { Types } from "mongoose";
@@ -45,7 +45,75 @@ export const getUser = catchAsync(
 );
 
 export const createUser = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {}
+  async (req: Request, res: Response, next: NextFunction) => {
+    const body = req.body;
+
+    if (!Object.entries(body).length) {
+      return next(new AppError("Please provide all the required fields", 400));
+    }
+
+    await userService.createUser(body);
+
+    res.status(201).json({
+      status: "success",
+      error: false,
+      message: "User created successfully",
+    });
+  }
+);
+
+export const login = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email, phone } = req.body;
+
+    let user;
+
+    if (email) {
+      user = await userService.getUserByEmail(email);
+    }
+
+    if (phone) {
+      user = await userService.getUserByPhone(phone);
+    }
+
+    if (!user) {
+      return next(new AppError("No user found with that email or phone", 404));
+    }
+
+    const accessToken = await assignToken(
+      {
+        email: user[0].email,
+        id: user[0]._id,
+        role: "USER",
+      },
+      process.env.ACCESS_TOKEN_SECRET!,
+      process.env.JWT_ACCESS_EXPIRES_IN_DEV!
+    );
+    const refreshToken = await assignToken(
+      {
+        email: user[0].email,
+        id: user[0]._id,
+        role: "USER",
+      },
+      process.env.REFRESH_TOKEN_SECRET!,
+      process.env.JWT_REFRESH_EXPIRES_IN_DEV!
+    );
+
+    res.cookie("AUTH", refreshToken, {
+      path: "/",
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000 * 30),
+      httpOnly: true,
+      sameSite: "lax",
+    });
+
+    res.status(200).json({
+      message: "success",
+      error: false,
+      data: {
+        accessToken,
+      },
+    });
+  }
 );
 
 export const updateUser = catchAsync(

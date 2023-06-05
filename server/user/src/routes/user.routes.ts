@@ -3,6 +3,7 @@ import {
   deleteUser,
   getAllUsers,
   getUser,
+  login,
   updateUser,
 } from "../controllers/user.controller";
 
@@ -20,5 +21,7 @@ router
   .get(getUser as any)
   .patch(updateUser as any)
   .delete(deleteUser as any);
+
+router.route("/login").post(login as any);
 
 export default router;

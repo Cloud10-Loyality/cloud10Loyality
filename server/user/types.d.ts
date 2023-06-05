@@ -1,4 +1,5 @@
 export type UserType = {
+  _id?: Types.ObjectId;
   firstname: string;
   lastname: string;
   email: string;
