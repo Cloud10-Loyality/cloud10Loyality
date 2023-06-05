@@ -20,6 +20,13 @@ interface UserQueryHelpers {
     HydratedDocument<UserType>,
     UserQueryHelpers
   >;
+  byPhone(
+    phone: number
+  ): QueryWithHelpers<
+    HydratedDocument<UserType>[],
+    HydratedDocument<UserType>,
+    UserQueryHelpers
+  >;
 }
 
 type UserModelType = Model<UserType, UserQueryHelpers, {}, IUserMethods>;
@@ -27,19 +34,19 @@ type UserModelType = Model<UserType, UserQueryHelpers, {}, IUserMethods>;
 const userSchema = new Schema<UserType, IUserMethods, {}, UserQueryHelpers>({
   firstname: {
     type: String,
-    // required: [true, "Name is required"],
+    required: [true, "Name is required"],
     minLength: [3, "Name must be at least 3 characters long"],
     maxLength: [55, "Name must be at most 55 characters long"],
   },
   lastname: {
     type: String,
-    // required: [true, "Name is required"],
+    required: [true, "Name is required"],
     minLength: [3, "Name must be at least 3 characters long"],
     maxLength: [55, "Name must be at most 55 characters long"],
   },
   email: {
     type: String,
-    // required: [true, "Email is required"],
+    required: [true, "Email is required"],
     unique: true,
     lowercase: true,
     minLength: [3, "Email must be at least 3 characters long"],
@@ -101,6 +108,13 @@ userSchema.query.byEmail = function byEmail(
   email: string
 ) {
   return this.find({ email });
+};
+
+userSchema.query.byPhone = function byPhone(
+  this: QueryWithHelpers<any, HydratedDocument<UserType>, UserQueryHelpers>,
+  phone: number
+) {
+  return this.find({ phone });
 };
 
 const User = model<UserType, UserModelType>("User", userSchema);
