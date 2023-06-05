@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { data } from "../../utils/TableData";
 
-const PointsTable = () => {
+const HistoryTable = () => {
   const [contacts, setContacts] = useState(data);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,10 +38,10 @@ const PointsTable = () => {
 
   return (
     <div className="max-w-3xl ml-5 sm:min-w-fit ">
-      <div className="mb-4">
+      <div className="mb-4 dark:text-white">
         <input
           type="text"
-          className="border rounded py-2 px-3 w-full"
+          className="border rounded py-2 px-3 w-full dark:text-white"
           onChange={handleSearch}
           placeholder="Search hotel"
         />
@@ -108,10 +108,10 @@ const PointsTable = () => {
           </div>
         </div>
       ) : (
-        <p className="text-center">No contacts found.</p>
+        <p className="text-center dark:text-white">No contacts found.</p>
       )}
     </div>
   );
 };
 
-export default PointsTable;
+export default HistoryTable;

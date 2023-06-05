@@ -1,6 +1,6 @@
 "use client";
 
-import PointsTable from "@/components/table/PointsTable";
+import HistoryTable from "../../../components/table/HistoryTable";
 import React from "react";
 
 type Props = {};
@@ -8,7 +8,7 @@ type Props = {};
 const page = (props: Props) => {
   return (
     <div>
-      <PointsTable />
+      <HistoryTable />
     </div>
   );
 };
