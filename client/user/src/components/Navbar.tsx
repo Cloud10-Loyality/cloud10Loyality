@@ -34,13 +34,13 @@ const Navbar = () => {
     <>
       <div className="w-full h-[13vh] ">
         <div className="flex flex-row  h-16 ml-3">
-          <div className="mt-4 p-3  ml-2 dark:bg-blue-900 bg-white rounded-md">
+          <div className="mt-4 p-3  ml-2 dark:bg-[#33383e] bg-white rounded-md">
             <span className="flex items-center space-x-3 pr-3">
               <BsArrowRight />
               <span>{getActiveLabel()}</span>
             </span>
           </div>
-          <div className="mt-5  ml-6">
+          <div className="mt-4   ml-6">
             <form onSubmit={handleSearchSubmit} className="flex items-center">
               <input
                 type="text"
@@ -51,7 +51,7 @@ const Navbar = () => {
               />
               <button
                 type="submit"
-                className="mt-0 h-13 p-2 bg-blue-500 rounded-md text-white"
+                className="p-3 bg-blue-500 rounded-md text-white"
               >
                 <FiSearch />
               </button>

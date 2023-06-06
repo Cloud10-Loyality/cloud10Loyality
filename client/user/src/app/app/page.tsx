@@ -9,7 +9,7 @@ export default function page({}: Props) {
   return (
     <div className=" font-light h-full">
       <div className="flex flex-row  ml-3">
-        <div className="p-3 w-80 ml-2 mr-2 dark:text-black bg-white rounded-md ">
+        <div className="p-3 w-80 ml-2 mr-2 dark:text-white bg-white dark:bg-[#33383e] rounded-md ">
           <div className="p-2 gap-2 space-y-2">
             <h3>Total Spending</h3>
             <p className="text-xl font-bold">$450</p>
@@ -30,7 +30,7 @@ export default function page({}: Props) {
             </li>
           </ul>
         </div>
-        <div className="p-3 w-80 ml-9 mr-4 dark:text-black bg-white rounded-md ">
+        <div className="p-3 w-80 ml-9 mr-4 dark:text-white bg-white dark:bg-[#33383e] rounded-md ">
           <div className="p-2 gap-2 space-y-2">
             <h3>Active Points</h3>
             <p className="text-xl font-bold">188</p>
@@ -51,7 +51,7 @@ export default function page({}: Props) {
             </li>
           </ul>
         </div>
-        <div className="p-3 w-80 ml-9 mr-4 dark:text-black bg-white rounded-md ">
+        <div className="p-3 w-80 ml-9 mr-4 dark:text-white bg-white dark:bg-[#33383e] rounded-md ">
           <div className="p-2 gap-2 space-y-2">
             <h3>Current Tier</h3>
             <p className="text-xl font-bold">Silver</p>

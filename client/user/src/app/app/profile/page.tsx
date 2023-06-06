@@ -34,9 +34,12 @@ const page = (props: Props) => {
             ))}
           </ul>
         </div>
-        <div className="bg-white p-5 rounded-md ">
-          <PieChart />
+        <div className="flex justify-center items-center">
+          <TierComponent points={60} />
         </div>
+        {/* <div className="bg-white p-5 rounded-md ">
+          <PieChart />
+        </div> */}
         {/* <div className="flex flex-col items-center justify-center h-screen">
           <h1 className="text-3xl font-bold mb-4"></h1>
           <TierComponent points={points} />

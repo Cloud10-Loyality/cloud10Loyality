@@ -21,20 +21,20 @@ export const Sidebar = (props: Props) => {
   return (
     <>
       <div
-        className={`h-full row-span-3  text-black ${
+        className={`h-full row-span-3 px-6 text-black ${
           isNavShowing ? "min-w-[250px]" : "w-max"
         } row-span-2  bg-gray-50 dark:bg-sidebar dark:text-white relative`}
       >
-        <div className="cursor-pointer px-8 text-lg flex place-items-center h-[10vh] relative">
+        <div className="cursor-pointer text-lg flex  px-2 place-items-center h-[10vh] relative">
           <button onClick={toggleSidebar}>
             <Menu />
           </button>
         </div>
-        <ul className="flex flex-col space-y-3 pl-8 pr-9 mt-4">
+        <ul className="flex flex-col space-y-3 mt-4">
           {menuData.map((menuItem) => (
             <li
               key={menuItem.id}
-              className="hover:bg-[#5d94b4] hover:text-white rounded-md py-2"
+              className="hover:bg-[#5d94b4] px-2 hover:text-white w-full rounded-md py-2"
             >
               <Link href={menuItem.link}>
                 <span className="flex items-center space-x-3 ">
