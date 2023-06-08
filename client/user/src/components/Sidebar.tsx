@@ -21,7 +21,7 @@ export const Sidebar = (props: Props) => {
   return (
     <>
       <div
-        className={`h-full row-span-3 px-6 text-black ${
+        className={`h-full row-span-3  px-6 text-black ${
           isNavShowing ? "min-w-[250px]" : "w-max"
         } row-span-2  bg-gray-50 dark:bg-sidebar dark:text-white relative`}
       >
