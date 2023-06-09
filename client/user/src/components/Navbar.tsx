@@ -3,7 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { BsArrowRight } from "react-icons/bs";
 import { IoMdNotifications, IoMdSettings } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ThemeChanger } from "@/components/ui/theme";
 import { DarkMode, Profile, Settings } from "./ui/icons";
@@ -13,7 +13,28 @@ import { menuData } from "../utils/Constant";
 const Navbar = () => {
   const [searchText, setSearchText] = useState("");
   const pathName = usePathname();
+  const [showNotification, setShowNotification] = useState(false);
+  const notificationRef = useRef<HTMLDivElement>(null);
 
+  const handleClick = () => {
+    setShowNotification(!showNotification);
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      notificationRef.current &&
+      !notificationRef.current.contains(event.target as Node)
+    ) {
+      setShowNotification(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
   };
@@ -59,10 +80,29 @@ const Navbar = () => {
           </div>
 
           <div className="ml-3 mt-5 flex  ">
-            <div className="pt-[7px] px-[11px]  ml-16 bg-white text-lg rounded-md dark:text-black">
-              <button className="text-xl">
-                <IoMdNotifications />
-              </button>
+            <div ref={notificationRef}>
+              <div
+                className={`pt-[7px] px-[11px] ml-16 bg-white text-lg rounded-md dark:text-black ${
+                  showNotification ? "bg-gray-200" : ""
+                }`}
+              >
+                <button className="text-xl" onClick={handleClick}>
+                  <IoMdNotifications />
+                </button>
+              </div>
+
+              {showNotification && (
+                <div className="absolute  ml-[-170px] bottom-[-100%]  p-4 bg-white text-black rounded-md shadow-md">
+                  {/* Content of the notification */}
+                  This is a notification message.
+                  {/* <button
+                className="text-sm mt-2 underline"
+                onClick={handleClick}
+              >
+                Close
+              </button> */}
+                </div>
+              )}
             </div>
             <div className=" pt-[7px] px-[11px]   ml-6 bg-white text-lg rounded-md dark:text-black">
               <button className="text-xl">

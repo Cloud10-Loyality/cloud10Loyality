@@ -80,6 +80,8 @@ export const login = catchAsync(
       return next(new AppError("No user found with that email or phone", 404));
     }
 
+    console.log(user,"user---------------------")
+
     const accessToken = await assignToken(
       {
         email: user[0].email,

@@ -11,36 +11,37 @@ const DB = process.env.MONGO_URI?.replace(
   process.env.MONGO_PASS!
 );
 
-natsClient
-  .connect("cloud10LMS", CLIENT_ID, "http://nats-srv:4222")
-  .then(async () => {
-    // Listen for close events
-    natsClient.client.on("close", () => {
-      console.log("NATS connection closed!");
-      process.exit();
-    });
+// natsClient
+//   .connect("cloud10LMS", CLIENT_ID, "http://nats-srv:4222")
+//   .then(async () => {
+//     // Listen for close events
+//     natsClient.client.on("close", () => {
+//       console.log("NATS connection closed!");
+//       process.exit();
+//     });
 
-    // Graceful shutdown
-    process.on("SIGINT", () => natsClient.client.close());
-    process.on("SIGTERM", () => natsClient.client.close());
+//     // Graceful shutdown
+//     process.on("SIGINT", () => natsClient.client.close());
+//     process.on("SIGTERM", () => natsClient.client.close());
 
-    console.log("[User Service Nats]: Connected to NATS!");
+//     console.log("[User Service Nats]: Connected to NATS!");
 
-    await new ReservationCreatedListener(natsClient.client).listen();
-    await new IntegrationCreatedListener(natsClient.client).listen();
+//     await new ReservationCreatedListener(natsClient.client).listen();
+//     await new IntegrationCreatedListener(natsClient.client).listen();
 
-    try {
-      const connection = await mongoose.connect(DB!);
-      console.log(
-        `[User-Service DB]: Database successfully running ons ${connection.connection.host}`
-      );
-      app.listen(PORT, () => {
+    // try {
+      mongoose.connect(DB!).then(conn=>{
+
         console.log(
-          `⚡️[User-Service server]: Server is running at https://localhost:${PORT}`
+          `[User-Service DB]: Database successfully running ons ${conn.connection.host}`
         );
-      });
-    } catch (err) {
+        app.listen(PORT, () => {
+          console.log(
+            `⚡️[User-Service server]: Server is running at https://localhost:${PORT}`
+          );
+        });
+      }).catch (err => {
       console.log(`Error: ${err}`);
-    }
-  })
-  .catch((err) => console.log(`${err}: Error connecting to NATS`));
+    })
+  // })
+  // .catch((err) => console.log(`${err}: Error connecting to NATS`));
