@@ -5,10 +5,14 @@ import { config } from "dotenv";
 import nftRoutes from "./routes/nft.routes";
 import walletRoutes from "./routes/wallet.routes";
 import morgan from "morgan";
+import cors from "cors";
 
-config();
 const app = express();
-
+config();
+app.use(morgan("dev"));
+  cors({
+    origin: "*",
+  })
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(function(req, res, next) {
@@ -18,7 +22,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(morgan("dev"));
+
 app.use("/api/v1/nft", nftRoutes);
 app.use("/api/v1/wallet", walletRoutes);
 

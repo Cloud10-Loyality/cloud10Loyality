@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --sidebar-background: #203582;
+  --sidebar-background: #2c3639;
   --sidebar-item-background: #145264;
   --background-color: #1d2136;
 }
@@ -17,7 +17,7 @@
 }
 
 body {
-  background-color: #bccbf7;
+  background-color: #e2e7f3;
 }
 
 @layer base {

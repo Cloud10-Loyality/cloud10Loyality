@@ -32,12 +32,12 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full h-[13vh] ">
-        <div className="flex flex-row  h-16 ml-3">
-          <div className="mt-4 p-3  ml-2 dark:bg-blue-900 bg-white rounded-md">
+      <div className="h-[10vh] sticky mr-6 top-0 left-0 py-2 ">
+        <div className="flex items-center h-full px-4 rounded-lg justify-between bg-opacity-40">
+          <div className="mt-5  p-[10px]  ml-2 dark:bg-[#33383e] bg-white rounded-md">
             <span className="flex items-center space-x-3 pr-3">
               <BsArrowRight />
-              <span>{getActiveLabel()}</span>
+              <span className="sm:text-sm ">{getActiveLabel()}</span>
             </span>
           </div>
           <div className="mt-5  ml-6">
@@ -47,40 +47,40 @@ const Navbar = () => {
                 value={searchText}
                 onChange={handleSearchChange}
                 placeholder="Search"
-                className="py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="py-2 px-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
                 type="submit"
-                className="mt-0 h-13 p-2 bg-blue-500 rounded-md text-white"
+                className="ml-1 py-2 px-3 text-lg bg-blue-500 rounded-md text-white"
               >
-                <FiSearch />
+                <FiSearch className="h-5 w-5" />
               </button>
             </form>
           </div>
 
-          <div className="ml-3 flex">
-            <div className="mt-5 p-3 ml-16 bg-white text-lg rounded-md dark:text-black">
+          <div className="ml-3 mt-5 flex  ">
+            <div className="pt-[7px] px-[11px]  ml-16 bg-white text-lg rounded-md dark:text-black">
               <button className="text-xl">
                 <IoMdNotifications />
               </button>
             </div>
-            <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md dark:text-black">
+            <div className=" pt-[7px] px-[11px]   ml-6 bg-white text-lg rounded-md dark:text-black">
               <button className="text-xl">
                 <Settings />
               </button>
             </div>
-            <div className="mt-5 p-3  ml-6 bg-white text-lg rounded-md dark:text-black">
+            <div className=" pt-[7px] px-[11px]   ml-6 bg-white text-lg rounded-md dark:text-black">
               <Link href="/app/profile" className="text-xl">
                 <Profile />
               </Link>
             </div>
-            <div className="mt-5 p-3 cursor-pointer ml-6 bg-white text-lg rounded-md dark:text-black">
+            <div className=" pt-[7px] px-[11px]  cursor-pointer ml-6 bg-white text-lg rounded-md dark:text-black">
               <ThemeChanger />
             </div>
-            <div className="mt-5 p-3  ml-32 bg-red-300 rounded-md">
+            <div className="pt-[7px] px-[11px] ml-32 bg-red-300 rounded-md flex items-center justify-center">
               <span className="flex items-center space-x-3 pr-3 dark:text-black">
                 <FiLogOut />
-                <span>Logout</span>
+                <span className="mt-[-4px]">Logout</span>
               </span>
             </div>
           </div>

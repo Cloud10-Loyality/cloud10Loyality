@@ -1,8 +1,13 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Poppins, Noto_Sans } from "next/font/google";
 import AppProvider from "@/Redux/AppProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-primary",
+  subsets: ["latin-ext"],
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -16,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="dark:bg-[#0B2447]">
+      <body className="dark:bg-[#20232b] {poppins.className}">
         <AppProvider>{children}</AppProvider>
       </body>
     </html>
