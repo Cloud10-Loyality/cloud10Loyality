@@ -1,5 +1,6 @@
 import {
   createReservation,
+  deleteReservation,
   getReservations,
   updateReservation,
 } from "../controllers/reservation.controller";
@@ -12,6 +13,10 @@ router
   .route("/")
   .get(getReservations as any)
   .post(createReservation as any);
-router.route("/:id").patch(updateReservation as any);
+
+router
+  .route("/:id")
+  .patch(updateReservation as any)
+  .delete(deleteReservation as any);
 
 export default router;

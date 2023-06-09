@@ -26,8 +26,8 @@ natsClient
 
     console.log("[User Service Nats]: Connected to NATS!");
 
-    await new ReservationCreatedListener(natsClient.client).listen();
-    await new IntegrationCreatedListener(natsClient.client).listen();
+    new ReservationCreatedListener(natsClient.client).listen();
+    new IntegrationCreatedListener(natsClient.client).listen();
 
     try {
       const connection = await mongoose.connect(DB!);

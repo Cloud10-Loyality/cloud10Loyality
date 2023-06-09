@@ -1,6 +1,8 @@
 import { CLIENT_ID, PORT } from ".";
 
 import { IntegrationCreatedListener } from "./events/listener/integration-created-listener";
+import { UserCreatedListener } from "./events/listener/user-created-listener";
+import { UserDeletedListener } from "./events/listener/user-deleted-listener";
 import app from ".";
 import mongoose from "mongoose";
 import { natsClient } from "./nats-client";
@@ -26,6 +28,8 @@ natsClient
     console.log("[Gateway Service Nats]: Connected to NATS!");
 
     new IntegrationCreatedListener(natsClient.client).listen();
+    new UserCreatedListener(natsClient.client).listen();
+    new UserDeletedListener(natsClient.client).listen();
 
     try {
       const connection = await mongoose.connect(DB!);

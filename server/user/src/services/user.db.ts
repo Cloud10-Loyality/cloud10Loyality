@@ -1,7 +1,9 @@
 import { NullExpression, Types } from "mongoose";
 
 import User from "../models/user.model";
+import { UserCreatedPublisher } from "../events/publishers/user-created-publisher";
 import { UserType } from "../../types";
+import { natsClient } from "../nats-client";
 
 class UserService {
   private model = User;
@@ -50,6 +52,20 @@ class UserService {
 
   public async createUser(body: UserType): Promise<UserType> {
     const user = await this.model.create({ ...body });
+
+    await new UserCreatedPublisher(natsClient.client).publish({
+      id: user._id,
+      email: user.email,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      phone: user.phone,
+      uid: user.uid,
+      dob: user.dob,
+      country: user.country,
+      state: user.state,
+      city: user.city,
+      zipCode: user.zipCode,
+    });
 
     return user;
   }

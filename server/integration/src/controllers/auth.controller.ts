@@ -1,17 +1,18 @@
 import {
   AppError,
-  catchAsync,
-  assignToken,
-  decodeToken,
   Request,
+  assignToken,
+  catchAsync,
   compareHash,
+  decodeToken,
 } from "@cloud10lms/shared";
 import { NextFunction, Response } from "express";
-import { integrationService } from "../services/integrations.db";
+
 import { IntegrationCreatedPublisher } from "../events/publishers/integration-created-publisher";
-import { natsClient } from "../nats-client";
 import { Types } from "mongoose";
 import { env } from "../env";
+import { integrationService } from "../services/integrations.db";
+import { natsClient } from "../nats-client";
 
 export const signup = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -30,6 +31,13 @@ export const signup = catchAsync(
     await new IntegrationCreatedPublisher(natsClient.client).publish({
       id: newIntegration._id as unknown as string,
       name: newIntegration.name,
+      username: newIntegration.username,
+      email: newIntegration.email,
+      role: newIntegration.role,
+      city: newIntegration.city,
+      state: newIntegration.state,
+      pin: newIntegration.pin,
+      description: newIntegration.description,
     });
 
     res.status(201).json({

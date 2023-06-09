@@ -1,13 +1,12 @@
+import { AppError, Request, catchAsync } from "@cloud10lms/shared";
 import { NextFunction, Response } from "express";
 
 import { IntegrationCreatedPublisher } from "../events/publishers/integration-created-publisher";
-import { IntegrationUpdatedPublisher } from "../events/publishers/integration-updated-publisher";
-
-import { AppError, catchAsync, Request } from "@cloud10lms/shared";
+import { IntegrationDeletedPublisher } from "../events/publishers/integration-deleted-publisher";
+import { IntegrationType } from "../models/integration.model";
+import { Role } from "../../types";
 import { integrationService } from "../services/integrations.db";
 import { natsClient } from "../nats-client";
-import { Role } from "../../types";
-import { IntegrationType } from "../models/integration.model";
 
 const getIntegrations = catchAsync(
   async (
@@ -15,14 +14,14 @@ const getIntegrations = catchAsync(
     res: Response,
     next: NextFunction
   ) => {
-    const role = req.role;
-    console.log({ role });
+    // FIXME: Dont't forget to uncomment the below lines
+    // const role = req.role;
 
-    if (role !== "ADMIN") {
-      return next(
-        new AppError("You are not authorized to access this feature", 403)
-      );
-    }
+    // if (role !== "ADMIN") {
+    //   return next(
+    //     new AppError("You are not authorized to access this feature", 403)
+    //   );
+    // }
 
     const queryObj = { ...req.query };
 
@@ -69,37 +68,6 @@ const getIntegration = catchAsync(
       message: "success",
       error: false,
       data: integration,
-    });
-  }
-);
-
-const createIntegration = catchAsync(
-  async (
-    req: Request<IntegrationType, Role>,
-    res: Response,
-    next: NextFunction
-  ) => {
-    const body = req.body;
-
-    if (!body) {
-      return next(
-        new AppError("Please provide all the required integration details", 400)
-      );
-    }
-
-    const newIntegration = await integrationService.createIntegration({
-      ...body,
-    });
-
-    await new IntegrationCreatedPublisher(natsClient.client).publish({
-      id: newIntegration._id as any,
-      name: newIntegration.username,
-    });
-
-    res.status(201).json({
-      message: "success",
-      error: false,
-      data: null,
     });
   }
 );
@@ -157,8 +125,19 @@ const deleteIntegration = catchAsync(
     }
 
     await integrationService.deleteIntegration(id);
+    await new IntegrationDeletedPublisher(natsClient.client).publish({
+      id: foundIntegration._id as unknown as string,
+      name: foundIntegration.name,
+      city: foundIntegration.city,
+      email: foundIntegration.email,
+      username: foundIntegration.username,
+      state: foundIntegration.state,
+      role: foundIntegration.role,
+      pin: foundIntegration.pin,
+      description: foundIntegration.description,
+    });
 
-    res.status(204).json({
+    res.status(200).json({
       message: "success",
       error: false,
       data: null,
@@ -169,7 +148,7 @@ const deleteIntegration = catchAsync(
 export {
   getIntegrations,
   getIntegration,
-  createIntegration,
+  // createIntegration,
   updateIntegration,
   deleteIntegration,
 };

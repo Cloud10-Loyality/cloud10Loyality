@@ -1,5 +1,9 @@
 import { CLIENT_ID, PORT } from ".";
 
+import { IntegrationCreatedListener } from "./events/listeners/integration-created-listener";
+import { IntegrationDeletedListener } from "./events/listeners/integration-deleted-listener";
+import { ReservationCreatedListener } from "./events/listeners/reservation-created-listener";
+import { UserCreatedListener } from "./events/listeners/user-created-listener";
 import app from ".";
 import mongoose from "mongoose";
 import { natsClient } from "./nats-client";
@@ -23,6 +27,14 @@ natsClient
     process.on("SIGTERM", () => natsClient.client.close());
 
     console.log("[Manager Service Nats]: Connected to NATS!");
+
+    // Event listeners
+    // await Promise.all([
+    new ReservationCreatedListener(natsClient.client).listen();
+    new IntegrationCreatedListener(natsClient.client).listen();
+    new IntegrationDeletedListener(natsClient.client).listen();
+    new UserCreatedListener(natsClient.client).listen();
+    // ]);
 
     try {
       const connection = await mongoose.connect(DB!);

@@ -36,3 +36,10 @@ spec:
                 name: user-srv
                 port:
                   number: 8000
+          - path: /api/v1/tier
+            pathType: Prefix
+            backend:
+              service:
+                name: tier-srv
+                port:
+                  number: 9000
