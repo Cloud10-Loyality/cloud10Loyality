@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tier-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tier
+  template:
+    metadata:
+      labels:
+        app: tier
+    spec:
+      containers:
+        - name: tier
+          image: cloud10lms/tier
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tier-srv
+spec:
+  selector:
+    app: tier
+  ports:
+    - name: tier
+      protocol: TCP
+      port: 9000
+      targetPort: 9000

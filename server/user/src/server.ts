@@ -31,6 +31,8 @@ const DB = process.env.MONGO_URI?.replace(
 
     // try {
       mongoose.connect(DB!).then(conn=>{
+    new ReservationCreatedListener(natsClient.client).listen();
+    new IntegrationCreatedListener(natsClient.client).listen();
 
         console.log(
           `[User-Service DB]: Database successfully running ons ${conn.connection.host}`

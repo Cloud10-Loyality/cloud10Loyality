@@ -1,11 +1,11 @@
+import { AppError, Request, catchAsync } from "@cloud10lms/shared";
 import { NextFunction, Response } from "express";
 
-import { AppError, catchAsync, Request } from "@cloud10lms/shared";
 import Reservation from "../models/reservation.model";
-import { reservationService } from "../services/reservations.db";
 import { ReservationCreatedPublisher } from "../events/publisher/reservation-created-publisher";
-import { natsClient } from "../nats-client";
 import { Types } from "mongoose";
+import { natsClient } from "../nats-client";
+import { reservationService } from "../services/reservations.db";
 
 export const getReservations = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -67,7 +67,20 @@ export const createReservation = catchAsync(
 
     await new ReservationCreatedPublisher(natsClient.client).publish({
       _id: reservation._id as unknown as Types.ObjectId,
-      user: reservation._id as unknown as Types.ObjectId,
+      user: {
+        firstname: reservation.user!?.firstname,
+        lastname: reservation.user!?.lastname,
+        email: reservation.user!?.email,
+        phone: reservation.user!?.phone,
+        gender: reservation.user!?.gender,
+        dob: reservation.user!?.dob,
+        age: reservation.user!?.age,
+        uid: reservation.user!?.uid,
+        country: reservation.user!?.country,
+        state: reservation.user!?.state,
+        city: reservation.user!?.city,
+        zipCode: reservation.user!?.zipCode,
+      },
       amount: reservation.amount,
       checkIn: reservation.checkIn as unknown as string,
       checkOut: reservation.checkOut as unknown as string,
@@ -80,6 +93,26 @@ export const createReservation = catchAsync(
 
     res.status(201).json({
       message: "success",
+      error: false,
+      data: null,
+    });
+  }
+);
+
+export const deleteReservation = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+
+    const reservation = await reservationService.getReservationById(id);
+
+    if (!reservation) {
+      return next(new AppError("Reservation not found", 404));
+    }
+
+    await reservationService.deleteReservation(id);
+
+    res.status(200).json({
+      status: "success",
       error: false,
       data: null,
     });

@@ -1,5 +1,6 @@
+import { InferSchemaType, Schema, model } from "mongoose";
+
 import { createHash } from "@cloud10lms/shared";
-import { Schema, model, InferSchemaType } from "mongoose";
 import validator from "validator";
 
 const integrationSchema = new Schema(

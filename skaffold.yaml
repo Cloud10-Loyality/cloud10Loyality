@@ -46,4 +46,13 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: cloud10lms/tier
+      context: ./server/tier
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
   
