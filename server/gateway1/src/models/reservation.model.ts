@@ -10,6 +10,10 @@ const reservationSchema = new Schema(
       type: String,
       required: [true, "Hotel name is required"],
     },
+    // managerId: {
+    //   type: Schema.Types.ObjectId,
+    //   required: [true, "Manager id is required"],
+    // },
     city: {
       type: String,
       required: [true, "City is required"],

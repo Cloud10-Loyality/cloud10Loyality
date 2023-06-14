@@ -18,9 +18,7 @@ const goldTierSchema = new Schema<TierType>({
   },
   users: [
     {
-      email: {
-        type: String,
-      },
+      type: String,
     },
   ],
   rewards: [

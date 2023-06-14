@@ -55,4 +55,13 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: cloud10lms/wallet
+      context: ./server/wallet_
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
   
