@@ -1,11 +1,13 @@
-import { errorHandler, AppError } from "@cloud10lms/shared";
+import { AppError, errorHandler, generateRandomString } from "@cloud10lms/shared";
+import express, { Express, NextFunction, Request, Response } from "express";
 
-import express, { Express, Request, Response, NextFunction } from "express";
 import { config } from "dotenv";
+import cors from "cors";
+import morgan from "morgan";
 import nftRoutes from "./routes/nft.routes";
 import walletRoutes from "./routes/wallet.routes";
-import morgan from "morgan";
-import cors from "cors";
+
+export const CLIENT_ID = generateRandomString(10);
 
 const app = express();
 config();
@@ -22,8 +24,15 @@ app.use(function(req, res, next) {
   next();
 });
 
-
 app.use("/api/v1/nft", nftRoutes);
 app.use("/api/v1/wallet", walletRoutes);
+
+app.all("*", (req: Request, _res: Response, next: NextFunction) => {
+  return next(
+    new AppError(`Can't find ${req.originalUrl} path on the server`, 404)
+  );
+});
+
+app.use(errorHandler);
 
 export default app;

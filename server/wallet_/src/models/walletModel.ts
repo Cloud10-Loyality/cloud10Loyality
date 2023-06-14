@@ -1,17 +1,50 @@
-import mongoose from "mongoose";
+import {
+  HydratedDocument,
+  Model,
+  QueryWithHelpers,
+  Schema,
+  model,
+} from "mongoose";
 
-const walletSchema = new mongoose.Schema(
+import { WalletType } from "../../types";
+
+interface WalletQueryHelpers {
+  byEmailorPhone(
+    email?: string,
+    phone?: number
+  ): QueryWithHelpers<
+    HydratedDocument<WalletType>[],
+    HydratedDocument<WalletType>,
+    WalletQueryHelpers
+  >;
+}
+
+type WalletModelType = Model<WalletType, WalletQueryHelpers>;
+
+const walletSchema = new Schema<WalletType, {}, {}, WalletQueryHelpers>(
   {
     name: { type: String, required: true },
-    email: { type: String, required: true,unique: true },
+    email: { type: String, required: true, unique: true },
     phone: { type: Number, required: true },
     privateKey: { type: String },
     address: { type: String },
-    txHash:{ type: String},
+    txHash: { type: String },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
 
-const Wallet = mongoose.model("Wallet", walletSchema);
+walletSchema.query.byEmailorPhone = function byEmailOrPhone(
+  this: QueryWithHelpers<any, HydratedDocument<WalletType>, WalletQueryHelpers>,
+  email: string,
+  phone?: number
+) {
+  return this.find({ $or: [{ email }, { phone }] });
+};
+
+const Wallet = model<WalletType, WalletModelType>("Wallet", walletSchema);
 
 export default Wallet;

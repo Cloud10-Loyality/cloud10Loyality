@@ -1,32 +1,40 @@
-import mongoose from "mongoose";
+import app, { CLIENT_ID } from ".";
+
+import { UserCreatedListener } from "./events/listeners/user-created-listener";
 import { config } from "dotenv";
-import app from ".";
+import mongoose from "mongoose";
+import { natsClient } from "./nats-client";
+
 config();
 
+const PORT = process.env.WALLET_PORT || 10000;
 const DB = process.env.MONGO_URI;
 
-mongoose
-  .connect(DB!)
-  .then(() => console.log("Connected to database"))
-  .catch((error) => console.error("Error connecting to database", error));
+natsClient
+  .connect("cloud10LMS", CLIENT_ID, "http://nats-srv:4222")
+  .then(async () => {
+    natsClient.client.on("close", () => {
+      console.log("NATS connection closed!");
+      process.exit();
+    });
+    process.on("SIGINT", () => natsClient.client.close());
+    process.on("SIGTERM", () => natsClient.client.close());
 
-const db = mongoose.connection;
+    console.log("[Wallet Service Nats]: Connected to NATS");
 
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-  const walletDb = db.useDb("Wallet-Database");
-  const walletCollection = walletDb.collection("wallets");
-  console.log("Database and collection created successfully");
-});
+    new UserCreatedListener(natsClient.client).listen();
 
-const PORT = process.env.PORT || 8080;
+    try {
+      const connection = await mongoose.connect(DB!);
 
-const startServer = async () => {
-  try {
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-  } catch (error) {
-    console.error(`Error starting server: ${error}`);
-  }
-};
-
-startServer();
+      console.log(
+        `[Wallet-Service DB]: Database successfully running on ${connection.connection.host}`
+      );
+      app.listen(PORT, () =>
+        console.log(`[Wallet-Service server]: Server running on port ${PORT}`)
+      );
+    } catch (err) {
+      console.log(`Error: ${err}`);
+    }
+  })
+  .catch((err) => console.log(`${err}: Error connecting to NATS`));

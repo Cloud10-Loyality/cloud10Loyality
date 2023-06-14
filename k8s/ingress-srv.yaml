@@ -43,3 +43,17 @@ spec:
                 name: tier-srv
                 port:
                   number: 9000
+          - path: /api/v1/nft
+            pathType: Prefix
+            backend:
+              service:
+                name: wallet-srv
+                port:
+                  number: 10000
+          - path: /api/v1/wallet
+            pathType: Prefix
+            backend:
+              service:
+                name: wallet-srv
+                port:
+                  number: 10000

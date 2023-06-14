@@ -1,73 +1,76 @@
-import { NextFunction, Request, Response } from "express";
+import { AppError, Request, catchAsync } from "@cloud10lms/shared";
 import { Lucid, Slot } from "lucid-cardano";
+import { NextFunction, Response } from "express";
+
+import { Types } from "mongoose";
 import Wallet from "../models/walletModel";
-import { secretSeed } from "../services/seed";
+import { WalletType } from "../../types";
 import { handlePaytoAddr } from "../services/payToAddr";
+import { secretSeed } from "../services/seed";
+import { walletService } from "../services/wallet.db";
 
 const lucid = await Lucid.new(undefined, "Preview");
 
-export const getWallets = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    Wallet.find().then((data) => {
-      res.status(200).json(data);
+export const getWallets = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const wallets = await walletService.getWallets();
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      totalResults: wallets.length,
+      message: "Wallets fetched successfully",
+      data: {
+        wallets,
+      },
     });
-  } catch (error) {
-    res.status(404).json({
-      message: error.message,
+  }
+);
+
+export const getWallet = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id as unknown as Types.ObjectId;
+    const wallet = walletService.getWallet(id);
+
+    if (!wallet) {
+      return next(new AppError("No wallet found with that ID", 404));
+    }
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      data: {
+        wallet,
+      },
     });
   }
-};
+);
 
-export const getWalletById = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  Wallet.findById(req.params.id)
-    .then((data) => {
-      res.status(200).json(data);
-    })
-    .catch((error) => next(error));
-};
+export const createWallet = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { name, email, phone } = req.body;
 
-export const createWallet = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const { name, email, phone } = req.body;
-  console.log(name, email, phone);
+    if (!name || !email || !phone) {
+      return next(new AppError("Please provide all the required fields", 400));
+    }
 
-  if (!name || !email || !phone) {
-    return res
-      .status(400)
-      .json({ message: "Please fill all required fields." });
-  }
+    // Check if the email or phone already exist in the database
+    const walletExists = await Wallet.find().byEmailorPhone(email, phone);
 
-  // Check if the email or phone already exist in the database
-  const existingWallet = await Wallet.findOne({
-    $or: [{ email }, { phone }],
-  });
-  if (existingWallet) {
-    return res
-      .status(400)
-      .json({ message: "An account with this email or phone already exists." });
-  }
+    if (walletExists.length) {
+      return next(new AppError("Wallet already exists", 400));
+    }
 
-  const privateKey = lucid.utils.generatePrivateKey();
-  const address = await lucid
-    .selectWalletFromPrivateKey(privateKey)
-    .wallet.address();
+    const privateKey = lucid.utils.generatePrivateKey();
 
-  //* pay to this address
-  const txHash = await handlePaytoAddr(address)
+    const address = await lucid
+      .selectWalletFromPrivateKey(privateKey)
+      .wallet.address();
 
-  try {
-    const result = await Wallet.create({
+    //* pay to this address
+    const txHash = await handlePaytoAddr(address);
+
+    const result = await walletService.createWallet({
       name,
       email,
       phone,
@@ -75,58 +78,56 @@ export const createWallet = async (
       address,
       txHash,
     });
+
     res.status(201).json({
       status: "success",
       error: false,
+      message: "Wallet created successfully",
       data: {
         result,
-        txHash
+        txHash,
       },
     });
-  } catch (error) {
-    next(error);
   }
-};
+);
 
-export const updateWallet = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const updates = req.body;
-    const wallet = await Wallet.findById(req.params.id);
-    if (!wallet) {
-      return res.status(404).json({ message: "Wallet not found..." });
-    }
-    const updatedWallet = await Wallet.findByIdAndUpdate(
-      req.params.id,
-      updates,
-      { new: true }
-    );
-    res.status(200).json(updatedWallet);
-  } catch (error) {
-    return res.status(404).json({ message: "Wallet not found.." });
-  }
-};
+export const updateWallet = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const body = req.body as unknown as WalletType;
+    const id = req.params.id as unknown as Types.ObjectId;
 
-export const deleteUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const wallet = await Wallet.findById(req.params.id);
+    const wallet = await walletService.getWallet(id);
+
     if (!wallet) {
-      return res.status(404).json({
-        message: "wallet id not found",
-      });
+      return next(new AppError("No wallet found with that ID", 404));
     }
-    await Wallet.findByIdAndDelete(req.params.id);
+
+    await walletService.updateWallet(id, body);
+
     res.status(200).json({
-      message: "Wallet deleted",
+      status: "success",
+      error: false,
+      message: "Wallet updated successfully",
     });
-  } catch (error) {
-    return res.status(404).json({});
   }
-};
+);
+
+export const deleteWallet = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id as unknown as Types.ObjectId;
+
+    const wallet = await walletService.getWallet(id);
+
+    if (!wallet) {
+      return next(new AppError("Wallet not found", 404));
+    }
+
+    await walletService.deleteWallet(id);
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      message: "Wallet deleted successfully",
+    });
+  }
+);

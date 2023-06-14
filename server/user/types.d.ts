@@ -6,6 +6,7 @@ export type UserType = {
   uid?: string;
   dob?: Date;
   age?: number;
+  tier?: "SILVER" | "GOLD" | "PLATINUM";
   gender?: "male" | "female" | "other";
   phone?: number;
   country?: string;

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wallet-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wallet
+  template:
+    metadata:
+      labels:
+        app: wallet
+    spec:
+      containers:
+        - name: wallet
+          image: cloud10lms/wallet
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wallet-srv
+spec:
+  selector:
+    app: wallet
+  ports:
+    - name: wallet
+      protocol: TCP
+      port: 10000
+      targetPort: 10000
