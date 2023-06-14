@@ -29,6 +29,10 @@ const Navbar = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+  };
+
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     return () => {
@@ -83,7 +87,7 @@ const Navbar = () => {
             <div ref={notificationRef}>
               <div
                 className={`pt-[7px] px-[11px] ml-16 bg-white text-lg rounded-md dark:text-black ${
-                  showNotification ? "bg-gray-200" : ""
+                  showNotification ? "bg-gray-300" : ""
                 }`}
               >
                 <button className="text-xl" onClick={handleClick}>
@@ -98,7 +102,7 @@ const Navbar = () => {
                   {/* <button
                 className="text-sm mt-2 underline"
                 onClick={handleClick}
-              >
+                >
                 Close
               </button> */}
                 </div>
@@ -117,11 +121,16 @@ const Navbar = () => {
             <div className=" pt-[7px] px-[11px]  cursor-pointer ml-6 bg-white text-lg rounded-md dark:text-black">
               <ThemeChanger />
             </div>
-            <div className="pt-[7px] px-[11px] ml-32 bg-red-300 rounded-md flex items-center justify-center">
-              <span className="flex items-center space-x-3 pr-3 dark:text-black">
-                <FiLogOut />
-                <span className="mt-[-4px]">Logout</span>
-              </span>
+            <div className="pt-[7px] cursor-pointer px-[11px] ml-32 bg-red-300 rounded-md flex items-center justify-center">
+              <Link href="/login">
+                <span
+                  className="flex items-center space-x-3 pr-3 dark:text-black"
+                  onClick={handleLogout}
+                >
+                  <FiLogOut />
+                  <span className="mt-[-4px]">Logout</span>
+                </span>
+              </Link>
             </div>
           </div>
         </div>

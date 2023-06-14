@@ -2,10 +2,11 @@ import { AppError, Request, assignToken, catchAsync } from "@cloud10lms/shared";
 import { NextFunction, Response } from "express";
 
 import { Types } from "mongoose";
-import { UserCreatedPublisher } from "../events/publishers/user-created-publisher";
+// import { UserCreatedPublisher } from "../events/publishers/user-created-publisher";
 import { UserDeletedPublisher } from "../events/publishers/user-deleted-publisher";
 import { natsClient } from "../nats-client";
 import { userService } from "../services/user.db";
+import { UserType } from "../../types";
 
 export const getAllUsers = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -69,7 +70,7 @@ export const login = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, phone } = req.body;
 
-    let user;
+    let user: UserType[] | null | undefined;
 
     if (email) {
       user = await userService.getUserByEmail(email);
@@ -79,16 +80,14 @@ export const login = catchAsync(
       user = await userService.getUserByPhone(phone);
     }
 
-    if (!user) {
+    if (!user!.length) {
       return next(new AppError("No user found with that email or phone", 404));
     }
 
-    console.log(user,"user---------------------")
-
     const accessToken = await assignToken(
       {
-        email: user[0].email,
-        id: user[0]._id,
+        email: user![0].email,
+        id: user![0]._id,
         role: "USER",
       },
       process.env.ACCESS_TOKEN_SECRET!,
@@ -96,8 +95,8 @@ export const login = catchAsync(
     );
     const refreshToken = await assignToken(
       {
-        email: user[0].email,
-        id: user[0]._id,
+        email: user![0].email,
+        id: user![0]._id,
         role: "USER",
       },
       process.env.REFRESH_TOKEN_SECRET!,

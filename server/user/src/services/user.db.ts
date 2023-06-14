@@ -53,19 +53,19 @@ class UserService {
   public async createUser(body: UserType): Promise<UserType> {
     const user = await this.model.create({ ...body });
 
-    await new UserCreatedPublisher(natsClient.client).publish({
-      id: user._id,
-      email: user.email,
-      firstname: user.firstname,
-      lastname: user.lastname,
-      phone: user.phone,
-      uid: user.uid,
-      dob: user.dob,
-      country: user.country,
-      state: user.state,
-      city: user.city,
-      zipCode: user.zipCode,
-    });
+    // await new UserCreatedPublisher(natsClient.client).publish({
+    //   id: user._id,
+    //   email: user.email,
+    //   firstname: user.firstname,
+    //   lastname: user.lastname,
+    //   phone: user.phone,
+    //   uid: user.uid,
+    //   dob: user.dob,
+    //   country: user.country,
+    //   state: user.state,
+    //   city: user.city,
+    //   zipCode: user.zipCode,
+    // });
 
     return user;
   }
