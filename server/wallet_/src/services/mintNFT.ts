@@ -4,6 +4,7 @@ import {
   fromText,
   // NFTMetadataDetails,
   Label,
+  PolicyId
 } from "lucid-cardano";
 import { lucid, mintingPolicy, policyId } from ".";
 

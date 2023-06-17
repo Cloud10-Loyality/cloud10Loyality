@@ -2,7 +2,7 @@ import { AppError, Request, assignToken, catchAsync } from "@cloud10lms/shared";
 import { NextFunction, Response } from "express";
 
 import { Types } from "mongoose";
-// import { UserCreatedPublisher } from "../events/publishers/user-created-publisher";
+import { UserCreatedPublisher } from "../events/publishers/user-created-publisher";
 import { UserDeletedPublisher } from "../events/publishers/user-deleted-publisher";
 import { natsClient } from "../nats-client";
 import { userService } from "../services/user.db";
@@ -121,7 +121,7 @@ export const login = catchAsync(
 );
 
 export const updateUser = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {}
+  async (req: Request, res: Response, next: NextFunction) => { }
 );
 
 export const deleteUser = catchAsync(

@@ -43,17 +43,17 @@ const LoyaltyProgramPage: React.FC = () => {
     <div className="container mx-auto  dark:text-white p-4">
       <div className="flex justify-between  gap-2">
         {/* <h1 className="text-3xl font-bold mb-4">Loyalty Program</h1> */}
-        <div className="box shadow p-4 flex-grow bg-white dark:bg-[#33383e]">
+        <div className="box shadow p-4 flex-grow bg-white dark:bg-[#272F3C]">
           <PointsBalance points={points} />
         </div>
-        <div className="box shadow p-4 flex-grow bg-white dark:bg-[#33383e]">
+        <div className="box shadow p-4 flex-grow bg-white dark:bg-[#272F3C]">
           <RewardSelection
             rewards={redemptionOptions}
             selectedReward={selectedReward}
             onSelectReward={handleSelectReward}
           />
         </div>
-        <div className="box shadow p-4 flex-grow bg-white dark:bg-[#33383e]">
+        <div className="box shadow p-4 flex-grow bg-white dark:bg-[#272F3C]">
           <RedemptionOptions
             options={redemptionOptions}
             selectedReward={selectedReward}
