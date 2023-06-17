@@ -10,7 +10,7 @@ import { Types } from "mongoose";
 
 export class UserCreatedListener extends Listener<UserCreatedEvent> {
   subject: Subjects.UserCreated = Subjects.UserCreated;
-  queueGroupName = "user-service";
+  queueGroupName = "manager-service";
 
   async onMessage(data: UserCreatedEvent["data"], msg: any) {
     console.log("Event data!", data);

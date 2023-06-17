@@ -7,7 +7,7 @@ import { integrationService } from "../../services/integrations.db";
 
 export class IntegrationCreatedListener extends Listener<IntegrationCreatedEvent> {
   subject: Subjects.IntegrationCreated = Subjects.IntegrationCreated;
-  queueGroupName = "integration-service";
+  queueGroupName = "reservation-service";
 
   async onMessage(data: IntegrationCreatedEvent["data"], msg: Message) {
     console.log("Event data!", data);

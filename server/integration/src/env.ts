@@ -1,10 +1,9 @@
-import { cleanEnv, str, num, port } from "envalid";
+import { cleanEnv, num, port, str } from "envalid";
 
 const env = cleanEnv(process.env, {
   INTEGRATION_PORT: num({ default: 6000 }),
   MONGO_URI: str({
-    default:
-      "mongodb+srv://cloud10loyality:<PASSWORD>@integration.qpskjne.mongodb.net/integrationsDB?retryWrites=true&w=majority",
+    default: "mongodb://integration-mongo-srv:27017/integrationsDB",
   }),
   MONGO_PASS: str({ default: "45pCz21Zzeee0P1U" }),
   JWT_ACCESS_EXPIRES_IN_DEV: str({ default: "15d" }),

@@ -5,7 +5,7 @@ import { userService } from "../../services/users.db";
 
 export class UserCreatedListener extends Listener<UserCreatedEvent> {
   subject: Subjects.UserCreated = Subjects.UserCreated;
-  queueGroupName = "user-service";
+  queueGroupName = "reservation-service";
 
   async onMessage(data: UserCreatedEvent["data"], msg: Message) {
     const { id, email, phone } = data;

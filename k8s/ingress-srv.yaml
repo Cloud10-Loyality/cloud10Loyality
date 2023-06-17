@@ -57,3 +57,10 @@ spec:
                 name: wallet-srv
                 port:
                   number: 10000
+          - path: /manager
+            pathType: Prefix
+            backend:
+              service:
+                name: manager-client-srv
+                port:
+                  number: 80

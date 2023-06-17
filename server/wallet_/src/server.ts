@@ -22,7 +22,7 @@ natsClient
 
     console.log("[Wallet Service Nats]: Connected to NATS");
 
-    new UserCreatedListener(natsClient.client).listen();
+    await new UserCreatedListener(natsClient.client).listen();
 
     try {
       const connection = await mongoose.connect(DB!);
