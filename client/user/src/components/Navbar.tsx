@@ -59,7 +59,7 @@ const Navbar = () => {
     <>
       <div className="h-[10vh] sticky mr-6 top-0 left-0 py-2 ">
         <div className="flex items-center h-full px-4 rounded-lg justify-between bg-opacity-40">
-          <div className="mt-5  p-[10px]  ml-2 dark:bg-[#33383e] bg-white rounded-md">
+          <div className="mt-5  p-[10px]  ml-2 dark:bg-[#272F3C] bg-white rounded-md">
             <span className="flex items-center space-x-3 pr-3">
               <BsArrowRight />
               <span className="sm:text-sm ">{getActiveLabel()}</span>
@@ -86,9 +86,8 @@ const Navbar = () => {
           <div className="ml-3 mt-5 flex  ">
             <div ref={notificationRef}>
               <div
-                className={`pt-[7px] px-[11px] ml-16 bg-white text-lg rounded-md dark:text-black ${
-                  showNotification ? "bg-gray-300" : ""
-                }`}
+                className={`pt-[7px] px-[11px] ml-16 bg-white text-lg rounded-md dark:text-black ${showNotification ? "bg-gray-300" : ""
+                  }`}
               >
                 <button className="text-xl" onClick={handleClick}>
                   <IoMdNotifications />

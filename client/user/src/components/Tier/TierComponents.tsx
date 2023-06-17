@@ -36,7 +36,7 @@ const TierComponent: React.FC<TierComponentProps> = ({ points }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-32 min-w-min p-5 my-5 ml-4 mr-12 dark:bg-[#33383e] bg-gray-300 rounded-lg shadow-md">
+    <div className="flex flex-col items-center justify-center h-32 min-w-min p-5 my-5 ml-4 mr-12 dark:bg-[#33383e] dark:text-white bg-gray-300 rounded-lg shadow-md">
       <div className="flex items-center justify-between">
         <span className={`text-2xl font-bold ${getTierStyle("Silver").color}`}>
           Silver
