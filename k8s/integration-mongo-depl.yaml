@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: integration-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: integration-mongo
+  template:
+    metadata:
+      labels:
+        app: integration-mongo
+    spec:
+      containers:
+        - name: integration-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: integration-mongo-srv
+spec:
+  selector:
+    app: integration-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

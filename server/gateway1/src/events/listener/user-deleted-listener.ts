@@ -4,7 +4,7 @@ import { userService } from "../../services/users.db";
 
 export class UserDeletedListener extends Listener<UserDeletedEvent> {
   subject: Subjects.UserDeleted = Subjects.UserDeleted;
-  queueGroupName = "user-service";
+  queueGroupName = "reservation-service";
 
   async onMessage(data: UserDeletedEvent["data"], msg: any) {
     const { email } = data;

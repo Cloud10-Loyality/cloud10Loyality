@@ -7,7 +7,7 @@ import { env } from "./env";
 import mongoose from "mongoose";
 import { natsClient } from "./nats-client";
 
-const DB = env.MONGO_URI.replace("<PASSWORD>", env.MONGO_PASS);
+const DB = env.MONGO_URI;
 
 natsClient
   .connect(env.NATS_CLUSTER_ID, CLIENT_ID, env.NATS_URL)
@@ -24,8 +24,8 @@ natsClient
 
     console.log("[Integration Service Nats]: Connected to NATS!");
 
-    new ReservationCreatedListener(natsClient.client).listen();
-    new IntegrationUpdatedListener(natsClient.client).listen();
+    await new ReservationCreatedListener(natsClient.client).listen();
+    await new IntegrationUpdatedListener(natsClient.client).listen();
 
     try {
       mongoose.connect(DB!).then((connection) => {

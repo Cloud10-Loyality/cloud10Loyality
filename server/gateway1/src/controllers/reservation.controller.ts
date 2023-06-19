@@ -65,6 +65,8 @@ export const createReservation = catchAsync(
 
     const reservation = await reservationService.createReservation({ ...body });
 
+    console.log("Test---");
+
     await new ReservationCreatedPublisher(natsClient.client).publish({
       _id: reservation._id as unknown as Types.ObjectId,
       user: {

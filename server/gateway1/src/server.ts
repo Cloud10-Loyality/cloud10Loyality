@@ -7,10 +7,7 @@ import app from ".";
 import mongoose from "mongoose";
 import { natsClient } from "./nats-client";
 
-const DB = process.env.MONGO_URI?.replace(
-  "<PASSWORD>",
-  process.env.MONGO_PASS!
-);
+const DB = process.env.MONGO_URI;
 
 natsClient
   .connect("cloud10LMS", CLIENT_ID, "http://nats-srv:4222")
@@ -27,9 +24,9 @@ natsClient
 
     console.log("[Gateway Service Nats]: Connected to NATS!");
 
-    new IntegrationCreatedListener(natsClient.client).listen();
-    new UserCreatedListener(natsClient.client).listen();
-    new UserDeletedListener(natsClient.client).listen();
+    await new IntegrationCreatedListener(natsClient.client).listen();
+    await new UserCreatedListener(natsClient.client).listen();
+    await new UserDeletedListener(natsClient.client).listen();
 
     try {
       const connection = await mongoose.connect(DB!);

@@ -9,7 +9,7 @@ import { managerService } from "../../services/manager.db";
 
 export class IntegrationCreatedListener extends Listener<IntegrationCreatedEvent> {
   subject: Subjects.IntegrationCreated = Subjects.IntegrationCreated;
-  queueGroupName = "integration-service";
+  queueGroupName = "manager-service";
 
   async onMessage(data: IntegrationCreatedEvent["data"], msg: any) {
     console.log("--Event data!: In the manager--", data);

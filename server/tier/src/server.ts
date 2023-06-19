@@ -6,10 +6,7 @@ import app from ".";
 import mongoose from "mongoose";
 import { natsClient } from "./nats-client";
 
-const DB = process.env.MONGO_URI?.replace(
-  "<PASSWORD>",
-  process.env.MONGO_PASS!
-);
+const DB = process.env.MONGO_URI;
 
 natsClient
   .connect("cloud10LMS", CLIENT_ID, "http://nats-srv:4222")
