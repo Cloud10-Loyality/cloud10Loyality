@@ -1,36 +1,43 @@
 import { Types } from "mongoose";
 import { Request as BaseRequest } from "express-serve-static-core";
 
-export interface Reservations {
-  hotel_name: string;
-  hotel_id: string;
-  city: string;
-  state: string;
-  pin: string;
-  check_in: Date;
-  check_out: Date;
-  payment_method: PaymentMethodType;
-  amount: number;
-  payment_card: PaymentCard;
-  user: User;
-}
+export type ReservationType = {
+  _id?: Types.ObjectId;
+  hotelName?: string;
+  managerId?: Types.ObjectId;
+  city?: string;
+  state?: string;
+  pin?: string;
+  checkIn?: Date;
+  checkOut?: Date;
+  paymentMethod?: string;
+  amount?: number;
+  paymentCard?: {
+    cardHolderName?: string;
+    cardNumber?: string;
+  };
+  user?: Partial<UserType>;
+};
+
+export type UserType = {
+  _id?: Types.ObjectId;
+  firstname?: string;
+  lastname?: string;
+  email?: string;
+  gender?: "male" | "female" | "other" | string;
+  age?: number;
+  uid?: string;
+  dob?: Date;
+  phone?: number;
+  country?: string;
+  state?: string;
+  city?: string;
+  zipCode?: number;
+};
 
 export interface Integration {
   _id: ObjectId;
   name: string;
-}
-
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-  first_name: string;
-  last_name: string;
-  phone: number;
-  loyality_tier: LoyalityTierType;
-  location: Location;
-  language: string;
-  country_ISO: string;
 }
 
 export type PaymentMethodType = "card" | "cash";

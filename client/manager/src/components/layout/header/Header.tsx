@@ -8,14 +8,15 @@ import {
   Support,
   User,
 } from "@/components/ui/icons";
-import { ThemeChanger } from "@/components/ui/theme";
-import logo from "./../../../../public/assets/logo.png";
 import React, { useState } from "react";
-import Image from "next/image";
-import { useDispatch } from "@/redux/store";
-import { logout } from "@/redux/slices/authSlice";
+
 import Dropdown from "@/components/ui/dropdown/Dropdown";
+import Image from "next/image";
+import { ThemeChanger } from "@/components/ui/theme";
 import { UpIcon } from "@/components/ui/icons";
+import logo from "./../../../../public/assets/logo.png";
+import { logout } from "@/redux/slices/authSlice";
+import { useDispatch } from "@/redux/store";
 
 type Props = {};
 
@@ -36,7 +37,7 @@ export default function Header({}: Props) {
     );
 
   return (
-    <div className="h-[10vh] sticky mr-6 top-0 left-0 py-2">
+    <div className="h-[10vh] sticky px-6 top-0 left-0 py-2">
       <div className="flex items-center h-full justify-between px-4 rounded-lg bg-primary-light dark:bg-primary-dark bg-opacity-40">
         <div className="flex justify-center w-[70px]">
           <Image

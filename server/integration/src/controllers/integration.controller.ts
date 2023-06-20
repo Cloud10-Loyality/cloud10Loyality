@@ -1,16 +1,15 @@
 import { AppError, Request, catchAsync } from "@cloud10lms/shared";
+import { ManagerType, Role } from "../../types";
 import { NextFunction, Response } from "express";
 
 import { IntegrationCreatedPublisher } from "../events/publishers/integration-created-publisher";
 import { IntegrationDeletedPublisher } from "../events/publishers/integration-deleted-publisher";
-import { IntegrationType } from "../models/integration.model";
-import { Role } from "../../types";
 import { integrationService } from "../services/integrations.db";
 import { natsClient } from "../nats-client";
 
 const getIntegrations = catchAsync(
   async (
-    req: Request<IntegrationType, Role>,
+    req: Request<ManagerType, Role>,
     res: Response,
     next: NextFunction
   ) => {
@@ -48,7 +47,7 @@ const getIntegrations = catchAsync(
 
 const getIntegration = catchAsync(
   async (
-    req: Request<IntegrationType, Role>,
+    req: Request<ManagerType, Role>,
     res: Response,
     next: NextFunction
   ) => {
@@ -74,7 +73,7 @@ const getIntegration = catchAsync(
 
 const updateIntegration = catchAsync(
   async (
-    req: Request<IntegrationType, Role>,
+    req: Request<ManagerType, Role>,
     res: Response,
     next: NextFunction
   ) => {
@@ -108,7 +107,7 @@ const updateIntegration = catchAsync(
 
 const deleteIntegration = catchAsync(
   async (
-    req: Request<IntegrationType, Role>,
+    req: Request<ManagerType, Role>,
     res: Response,
     next: NextFunction
   ) => {

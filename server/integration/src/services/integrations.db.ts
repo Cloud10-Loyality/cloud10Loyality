@@ -1,5 +1,7 @@
 import { HydratedDocument } from "mongoose";
-import Integration, { IntegrationType } from "../models/integration.model";
+import Integration from "../models/integration.model";
+import { ManagerType } from "../../types";
+
 // import IntegrationType from "../models/integration.model";
 
 class IntegrationService {
@@ -13,7 +15,7 @@ class IntegrationService {
       fields?: string[] | any;
       populate?: string[] | any;
     }
-  ): Promise<IntegrationType[]> {
+  ): Promise<ManagerType[]> {
     const { limit, fields, sort, populate } = options ?? {};
 
     let queryStr;
@@ -36,19 +38,19 @@ class IntegrationService {
     return integration;
   }
 
-  public async getIntegrationById(id?: string): Promise<IntegrationType> {
+  public async getIntegrationById(id?: string): Promise<ManagerType> {
     const integration = await this.model.findById(id);
     return integration!;
   }
 
-  public async getIntegrationByEmail(email?: string): Promise<IntegrationType> {
+  public async getIntegrationByEmail(email?: string): Promise<ManagerType> {
     const integration = await this.model.findOne({ email }).select("+password");
     return integration!;
   }
   public async createIntegration(
     data: Record<string, any>
-  ): Promise<IntegrationType> {
-    const newIntegration: HydratedDocument<IntegrationType> =
+  ): Promise<ManagerType> {
+    const newIntegration: HydratedDocument<ManagerType> =
       await this.model.create(data);
     return newIntegration;
   }
@@ -56,12 +58,12 @@ class IntegrationService {
   public async updateIntegration(
     id: string,
     data: Record<string, any>
-  ): Promise<IntegrationType> {
+  ): Promise<ManagerType> {
     const updatedIntegration = await this.model.findByIdAndUpdate(id, data);
     return updatedIntegration!;
   }
 
-  public async deleteIntegration(id: string): Promise<IntegrationType> {
+  public async deleteIntegration(id: string): Promise<ManagerType> {
     const deletedIntegration = await this.model.findByIdAndDelete(id);
     return deletedIntegration!;
   }

@@ -6,8 +6,8 @@ import { useUser } from "@/libs/hooks";
 
 type Props = {};
 
-export default function Users({}: Props) {
-  const USER_DATA = useUser();
+export default async function Users({}: Props) {
+  const USER_DATA = await useUser();
   return (
     <div>
       <UserTable column={USER_COLUMN} data={USER_DATA} />

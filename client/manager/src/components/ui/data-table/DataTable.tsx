@@ -34,7 +34,7 @@ export function DataTable<TData, TValue>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    // getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     state: {
@@ -44,13 +44,13 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="rounded-md border">
-      <Table>
-        <TableHeader>
+      <Table className="relative border-collapse">
+        <TableHeader className="bg-secondary-light dark:bg-secondary-dark">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="sticky top-0">
                     {header.isPlaceholder
                       ? (null as unknown as React.ReactNode)
                       : (flexRender(

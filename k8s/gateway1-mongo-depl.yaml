@@ -1,8 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: gateway1-mongo-depl
 spec:
+  serviceName: gateway1-mongo-srv
   replicas: 1
   selector:
     matchLabels:
@@ -15,6 +16,18 @@ spec:
       containers:
         - name: gateway1-mongo
           image: mongo
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-storage
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Gi
+
 ---
 apiVersion: v1
 kind: Service

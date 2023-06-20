@@ -8,7 +8,7 @@ type Props = {
 
 const Container = ({ children, type, className }: Props) => {
   const rootClassname =
-    type === "dashboard" ? `grid-container gap-6 ${className}` : `${className}`;
+    type === "dashboard" ? `grid-container ${className}` : `${className}`;
   return <section className={rootClassname}>{children}</section>;
 };
 

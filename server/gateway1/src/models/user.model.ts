@@ -6,11 +6,7 @@ import {
   model,
 } from "mongoose";
 
-export type UserType = {
-  _id?: string;
-  email?: string;
-  phone?: number;
-};
+import { UserType } from "../../types";
 
 interface UserQueryHelpers {
   byEmail(

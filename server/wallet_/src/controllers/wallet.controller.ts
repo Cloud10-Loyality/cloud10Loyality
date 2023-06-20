@@ -131,7 +131,6 @@ export const createWallet = catchAsync(
     if (walletExists.length) {
       return next(new AppError("Wallet already exists", 400));
     }
-
     const privateKey = lucid.utils.generatePrivateKey();
 
     const address = await lucid
@@ -162,7 +161,6 @@ export const createWallet = catchAsync(
     }
 
 
-
     const result = await walletService.createWallet({
       name,
       email,
@@ -179,7 +177,7 @@ export const createWallet = catchAsync(
       message: "Wallet created successfully",
       data: {
         result,
-        txHash,
+        txHash: result.txHash,
       },
     });
   }

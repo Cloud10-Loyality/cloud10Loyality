@@ -61,6 +61,8 @@ class UserService {
       phone: user.phone,
       uid: user.uid,
       dob: user.dob,
+      gender: user.gender,
+      age: user.age,
       country: user.country,
       state: user.state,
       city: user.city,

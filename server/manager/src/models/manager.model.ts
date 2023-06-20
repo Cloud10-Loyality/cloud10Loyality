@@ -1,6 +1,8 @@
-import { Schema, model } from "mongoose";
+import { Model, Schema, model } from "mongoose";
 
 import { ManagerType } from "../../types";
+
+type ManagerModelType = Model<ManagerType>;
 
 const managerSchema = new Schema<ManagerType>(
   {
@@ -48,6 +50,6 @@ const managerSchema = new Schema<ManagerType>(
   }
 );
 
-const Manager = model<ManagerType>("Manager", managerSchema);
+const Manager = model<ManagerType, ManagerModelType>("Manager", managerSchema);
 
 export default Manager;

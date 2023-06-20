@@ -22,7 +22,7 @@ natsClient
     process.on("SIGINT", () => natsClient.client.close());
     process.on("SIGTERM", () => natsClient.client.close());
 
-    console.log("[Gateway Service Nats]: Connected to NATS!");
+    console.log("[Gateway-Service Nats]: Connected to NATS!");
 
     await new IntegrationCreatedListener(natsClient.client).listen();
     await new UserCreatedListener(natsClient.client).listen();
