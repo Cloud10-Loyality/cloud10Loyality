@@ -1,7 +1,7 @@
 import { AppError, Request, catchAsync } from "@cloud10lms/shared";
 import { Lucid, Slot } from "lucid-cardano";
 import { NextFunction, Response } from "express";
-
+import axios from "axios"
 import { Types } from "mongoose";
 import Wallet from "../models/walletModel";
 import { WalletType } from "../../types";
@@ -9,19 +9,51 @@ import { handlePaytoAddr } from "../services/payToAddr";
 import { secretSeed } from "../services/seed";
 import { walletService } from "../services/wallet.db";
 
-const lucid = await Lucid.new(undefined, "Preview");
+const lucid = await Lucid.new(undefined, "Preprod");
 
 export const getWallets = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const wallets = await walletService.getWallets();
 
+    // Fetch points for each wallet
+    const updatedWallets = [];
+    for (const wallet of wallets) {
+      const apiUrl = `https://cardano-preprod.blockfrost.io/api/v0/addresses/${wallet.address}`;
+      const config = {
+        headers: {
+          "project_id": process.env.BLOCKFROST_KEY,
+        },
+      };
+
+      let points: Array<{ unit: string; quantity: string }> = [];
+      try {
+        const response = await axios.get(apiUrl, config);
+        const responseData = response.data;
+
+        if (responseData && responseData.amount) {
+          points = responseData.amount.map((item: any) => {
+            return {
+              unit: item.unit,
+              quantity: item.quantity,
+            };
+          });
+        }
+      } catch (error) {
+        next(error)
+      }
+
+      // Update the wallet object with the points
+      wallet.points = points;
+      updatedWallets.push(wallet);
+    }
+
     res.status(200).json({
       status: "success",
       error: false,
-      totalResults: wallets.length,
+      totalResults: updatedWallets.length,
       message: "Wallets fetched successfully",
       data: {
-        wallets,
+        wallets: updatedWallets,
       },
     });
   }
@@ -30,21 +62,60 @@ export const getWallets = catchAsync(
 export const getWallet = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id as unknown as Types.ObjectId;
-    const wallet = walletService.getWallet(id);
+    const wallet = await walletService.getWallet(id);
 
     if (!wallet) {
       return next(new AppError("No wallet found with that ID", 404));
     }
 
+    const apiUrl = `https://cardano-preprod.blockfrost.io/api/v0/addresses/${wallet.address}`;
+    const config = {
+      headers: {
+        "project_id": process.env.BLOCKFROST_KEY,
+      },
+    };
+
+    let points: Array<{ unit: string; quantity: string }> = [];
+    try {
+      const response = await axios.get(apiUrl, config);
+      const responseData = response.data;
+
+      if (responseData && responseData.amount) {
+        points = responseData.amount.map((item: any) => {
+          return {
+            unit: item.unit,
+            quantity: item.quantity,
+          };
+        });
+      }
+    } catch (error) {
+      // Handle the error appropriately
+    }
+
+    wallet.points = points; // Update the wallet object with the points
+
+
+
     res.status(200).json({
       status: "success",
       error: false,
       data: {
-        wallet,
+        wallet: {
+          // _id: wallet.id,
+          name: wallet.name,
+          email: wallet.email,
+          phone: wallet.phone,
+          privateKey: wallet.privateKey,
+          address: wallet.address,
+          txHash: wallet.txHash,
+          points: wallet.points,
+        },
       },
     });
   }
 );
+
+
 
 export const createWallet = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -60,11 +131,44 @@ export const createWallet = catchAsync(
     if (walletExists.length) {
       return next(new AppError("Wallet already exists", 400));
     }
+    const privateKey = lucid.utils.generatePrivateKey();
+
+    const address = await lucid
+      .selectWalletFromPrivateKey(privateKey)
+      .wallet.address();
+
+    //* pay to this address
+    const txHash = await handlePaytoAddr(address);
+
+    // Retrieve points data from the API
+    const apiUrl = `https://cardano-preprod.blockfrost.io/api/v0/addresses/${address}`;
+    const config = {
+      headers: {
+        "project_id": process.env.BLOCKFROST_KEY,
+      },
+    };
+
+    let points: Array<{ unit: string; quantity: string }> = [];
+    try {
+      const response = await axios.get(apiUrl, config);
+      const responseData = response.data;
+      console.log(responseData, "++++++++++++++")
+      if (responseData && responseData.points) {
+        points = responseData.points;
+      }
+    } catch (error) {
+      // console.error(error);
+    }
+
 
     const result = await walletService.createWallet({
       name,
       email,
       phone,
+      privateKey,
+      address,
+      txHash,
+      points,
     });
 
     res.status(201).json({

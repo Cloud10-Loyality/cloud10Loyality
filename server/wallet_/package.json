@@ -14,6 +14,7 @@
   "dependencies": {
     "@cloud10lms/shared": "^1.0.38",
     "@types/mongodb": "^4.0.7",
+    "axios": "^1.4.0",
     "body-parser": "^1.20.2",
     "colors": "^1.4.0",
     "cors": "^2.8.5",

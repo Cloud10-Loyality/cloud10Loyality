@@ -92,11 +92,10 @@ const HistoryTable = () => {
                 {pageNumbers.map((pageNumber) => (
                   <li key={pageNumber} className="page-item  ">
                     <button
-                      className={`page-link  border-2 py-3 px-3 ml-2 rounded-md ${
-                        pageNumber === currentPage
+                      className={`page-link  border-2 py-3 px-3 ml-2 rounded-md ${pageNumber === currentPage
                           ? " bg-blue-500 text-black dark:text-white"
                           : ""
-                      }`}
+                        }`}
                       onClick={() => handlePageClick(pageNumber)}
                     >
                       {pageNumber}
@@ -108,7 +107,7 @@ const HistoryTable = () => {
           </div>
         </div>
       ) : (
-        <p className="text-center dark:text-white">No contacts found.</p>
+        <p className="text-center dark:text-white">No hotels found.</p>
       )}
     </div>
   );

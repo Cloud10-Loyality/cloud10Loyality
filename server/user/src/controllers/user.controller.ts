@@ -56,6 +56,7 @@ export const createUser = catchAsync(
       return next(new AppError("Please provide all the required fields", 400));
     }
 
+
     await userService.createUser(body);
 
     res.status(201).json({

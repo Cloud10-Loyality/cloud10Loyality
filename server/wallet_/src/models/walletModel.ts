@@ -29,6 +29,7 @@ const walletSchema = new Schema<WalletType, {}, {}, WalletQueryHelpers>(
     privateKey: { type: String },
     address: { type: String },
     txHash: { type: String },
+    points: { type: Array, default: [] },
   },
   {
     timestamps: true,

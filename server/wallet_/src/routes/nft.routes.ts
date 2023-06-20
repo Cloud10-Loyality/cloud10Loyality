@@ -10,7 +10,7 @@ import {
 
 const router = Router();
 
-router.route("/mint").post(mintNFTtoken).get(getNfts);
+router.route("/mint/:id").post(mintNFTtoken).get(getNfts);
 router.route("/burn").post(burnNFTtoken);
 router.route("/burn/:policyId").delete(burnByPolicyId);
 

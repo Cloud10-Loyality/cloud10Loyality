@@ -5,4 +5,5 @@ export type WalletType = {
   privateKey?: string;
   address?: string;
   txHash?: string;
+  points?: array;
 };
