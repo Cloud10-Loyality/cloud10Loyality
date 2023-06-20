@@ -39,6 +39,7 @@ const Navbar = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
   };
@@ -51,8 +52,14 @@ const Navbar = () => {
 
   const getActiveLabel = () => {
     const currentPath = pathName;
-    const activeItem = menuData.find((item) => item.link === currentPath);
-    return activeItem ? activeItem.label : "";
+    if (currentPath === "/app/profile") {
+      return "Profile";
+    } else if (currentPath === "/app/settings") {
+      return "Settings";
+    } else {
+      const activeItem = menuData.find((item) => item.link === currentPath);
+      return activeItem ? activeItem.label : "";
+    }
   };
 
   return (

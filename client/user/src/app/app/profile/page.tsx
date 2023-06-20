@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import Image from "next/image";
 import logo from "../../../public/assets/logo.png";
@@ -9,44 +8,45 @@ import TierComponent from "@/components/Tier/TierComponents";
 
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   const points: number = 50;
   return (
-    <>
-      <div className="flex flex-row space-x-14  md:flex-row md:space-y-0 md:space-x-14">
-        <div className="ml-3 w-[250px] dark: bg-white rounded-md ">
-          {/* <Image
-            src={logo}
-            alt="Logo of manager site"
-            width={100}
-            height={100}
-          /> */}
-
-          <ul className="p-6">
-            {userProfile.map((user) => (
-              <li className="mb-3">
-                <span className="text-xs text-[#203582] font-bold ">
-                  {user.label}
-                </span>
-                <br />
-                <span className="text-sm">{user.description}</span>
-              </li>
-            ))}
-          </ul>
+    <><div className="flex flex-col justify-center items-start mt-2 p-4">
+      <div className="flex items-center space-x-4 mb-4">
+        <div className="w-16 h-16 rounded-full bg-white dark:bg-gray-200 "></div>
+        <div>
+          <h2 className="text-2xl font-bold dark:text-white">User Name</h2>
+          <p className="text-gray-500 text-lg">Role</p>
         </div>
-        <div className="flex justify-center items-center">
-          <TierComponent points={60} />
-        </div>
-        {/* <div className="bg-white p-5 rounded-md ">
-          <PieChart />
-        </div> */}
-        {/* <div className="flex flex-col items-center justify-center h-screen">
-          <h1 className="text-3xl font-bold mb-4"></h1>
-          <TierComponent points={points} />
-        </div> */}
       </div>
+
+      <div className="w-full bg-white dark:bg-[#272F3C] rounded-md p-6 shadow-md">
+        <ul>
+          {userProfile.map((user) => (
+            <li className="mb-3">
+              <span className="text-lg text-[#203582] dark:text-white font-bold">
+                {user.label}
+              </span>
+              <br />
+              <span className="text-base dark:text-white">{user.description}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
     </>
   );
 };
 
-export default page;
+export default Page;
+
+
+// <div className="flex flex-col justify-center items-center">
+//   {/* <div className="bg-white p-5 rounded-md">
+//     <PieChart />
+//   </div> */}
+//   {/* <div className="mt-6">
+//     <TierComponent points={points} />
+//   </div> */}
+// </div>
