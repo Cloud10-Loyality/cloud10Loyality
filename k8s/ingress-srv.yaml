@@ -15,6 +15,13 @@ spec:
                 name: gateway1-srv
                 port:
                   number: 5000
+          - path: /api/v1/reservation-user
+            pathType: Prefix
+            backend:
+              service:
+                name: gateway1-srv
+                port:
+                  number: 5000
           - path: /api/v1/integration
             pathType: Prefix
             backend:

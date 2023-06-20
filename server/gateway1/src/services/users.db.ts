@@ -45,7 +45,6 @@ class UserService {
 
   public async deleteUser(email?: string): Promise<UserType | null> {
     const user = await this.model.findOneAndDelete({ email });
-
     return user;
   }
 }
