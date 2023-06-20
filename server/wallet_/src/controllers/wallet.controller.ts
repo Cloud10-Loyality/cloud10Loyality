@@ -1,10 +1,11 @@
 import { AppError, Request, catchAsync } from "@cloud10lms/shared";
 import { Lucid, Slot } from "lucid-cardano";
 import { NextFunction, Response } from "express";
-import axios from "axios"
+
 import { Types } from "mongoose";
 import Wallet from "../models/walletModel";
 import { WalletType } from "../../types";
+import axios from "axios";
 import { handlePaytoAddr } from "../services/payToAddr";
 import { secretSeed } from "../services/seed";
 import { walletService } from "../services/wallet.db";
@@ -14,14 +15,13 @@ const lucid = await Lucid.new(undefined, "Preprod");
 export const getWallets = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const wallets = await walletService.getWallets();
-
     // Fetch points for each wallet
     const updatedWallets = [];
     for (const wallet of wallets) {
       const apiUrl = `https://cardano-preprod.blockfrost.io/api/v0/addresses/${wallet.address}`;
       const config = {
         headers: {
-          "project_id": process.env.BLOCKFROST_KEY,
+          project_id: process.env.BLOCKFROST_KEY,
         },
       };
 
@@ -39,7 +39,7 @@ export const getWallets = catchAsync(
           });
         }
       } catch (error) {
-        next(error)
+        next(error);
       }
 
       // Update the wallet object with the points
@@ -71,7 +71,7 @@ export const getWallet = catchAsync(
     const apiUrl = `https://cardano-preprod.blockfrost.io/api/v0/addresses/${wallet.address}`;
     const config = {
       headers: {
-        "project_id": process.env.BLOCKFROST_KEY,
+        project_id: process.env.BLOCKFROST_KEY,
       },
     };
 
@@ -94,8 +94,6 @@ export const getWallet = catchAsync(
 
     wallet.points = points; // Update the wallet object with the points
 
-
-
     res.status(200).json({
       status: "success",
       error: false,
@@ -115,8 +113,6 @@ export const getWallet = catchAsync(
   }
 );
 
-
-
 export const createWallet = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, phone } = req.body;
@@ -125,26 +121,28 @@ export const createWallet = catchAsync(
       return next(new AppError("Please provide all the required fields", 400));
     }
 
+    console.log("-ss--------");
+
     // Check if the email or phone already exist in the database
-    const walletExists = await Wallet.find().byEmailorPhone(email, phone);
+    const walletExists = await walletService.getWalletByOrPhone(email, phone);
+
+    console.log("-----dd-------------");
 
     if (walletExists.length) {
       return next(new AppError("Wallet already exists", 400));
     }
-    const privateKey = lucid.utils.generatePrivateKey();
 
-    const address = await lucid
-      .selectWalletFromPrivateKey(privateKey)
-      .wallet.address();
-
-    //* pay to this address
-    const txHash = await handlePaytoAddr(address);
+    const result = await walletService.createWallet({
+      name,
+      email,
+      phone,
+    });
 
     // Retrieve points data from the API
-    const apiUrl = `https://cardano-preprod.blockfrost.io/api/v0/addresses/${address}`;
+    const apiUrl = `https://cardano-preprod.blockfrost.io/api/v0/addresses/${result.address}`;
     const config = {
       headers: {
-        "project_id": process.env.BLOCKFROST_KEY,
+        project_id: process.env.BLOCKFROST_KEY,
       },
     };
 
@@ -152,7 +150,7 @@ export const createWallet = catchAsync(
     try {
       const response = await axios.get(apiUrl, config);
       const responseData = response.data;
-      console.log(responseData, "++++++++++++++")
+      console.log(responseData, "++++++++++++++");
       if (responseData && responseData.points) {
         points = responseData.points;
       }
@@ -160,14 +158,7 @@ export const createWallet = catchAsync(
       // console.error(error);
     }
 
-
-    const result = await walletService.createWallet({
-      name,
-      email,
-      phone,
-      privateKey,
-      address,
-      txHash,
+    await walletService.updateWallet(result._id as unknown as Types.ObjectId, {
       points,
     });
 

@@ -17,6 +17,14 @@ class WalletService {
     return wallet;
   }
 
+  public async getWalletByOrPhone(
+    email: string,
+    phone: number
+  ): Promise<WalletType[]> {
+    const wallet = this.model.find().byEmailorPhone(email, phone);
+    return wallet;
+  }
+
   public async createWallet(data: Partial<WalletType>): Promise<WalletType> {
     const privateKey = lucid.utils.generatePrivateKey();
 
