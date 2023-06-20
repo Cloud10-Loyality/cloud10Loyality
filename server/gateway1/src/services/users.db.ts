@@ -1,6 +1,6 @@
-import User, { UserType } from "../models/user.model";
-
 import { Types } from "mongoose";
+import User from "../models/user.model";
+import { UserType } from "../../types";
 
 class UserService {
   private model = User;

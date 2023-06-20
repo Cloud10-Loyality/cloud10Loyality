@@ -1,14 +1,15 @@
 "use client";
 
-import Image from "next/image";
-import React, { useId } from "react";
-import { useSidebarData } from "@/libs/useSidebarData";
-import SidebarItem from "./SidebarItem";
-import { Hamburger } from "@/components/ui/icons";
-import { RootState, store, useDispatch, useSelector } from "@/redux/store";
-import { handleSidebar } from "@/redux/slices/sidebarSlice";
 import { AnimatePresence, motion } from "framer-motion";
+import React, { useId } from "react";
+import { RootState, store, useDispatch, useSelector } from "@/redux/store";
+
+import { Hamburger } from "@/components/ui/icons";
+import Image from "next/image";
+import SidebarItem from "./SidebarItem";
+import { handleSidebar } from "@/redux/slices/sidebarSlice";
 import { useSelectedLayoutSegment } from "next/navigation";
+import { useSidebarData } from "@/libs/useSidebarData";
 
 type Props = {};
 

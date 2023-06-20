@@ -1,14 +1,13 @@
-import { InferSchemaType, Schema, model } from "mongoose";
+import { InferSchemaType, Model, Schema, model } from "mongoose";
 
+import { ManagerType } from "../../types";
 import { createHash } from "@cloud10lms/shared";
 import validator from "validator";
 
-const integrationSchema = new Schema(
+type IntegrationModelType = Model<ManagerType>;
+
+const integrationSchema = new Schema<ManagerType>(
   {
-    _id: {
-      type: Schema.Types.ObjectId,
-      auto: true,
-    },
     username: {
       type: String,
       required: [true, "Username is required"],
@@ -55,16 +54,17 @@ const integrationSchema = new Schema(
   }
 );
 
-export type IntegrationType = InferSchemaType<typeof integrationSchema>;
-
 integrationSchema.index({ name: 1 });
 
 integrationSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  this.password = await createHash(this.password);
+  this.password = await createHash(this.password!);
   next();
 });
 
-const Integration = model<IntegrationType>("Integration", integrationSchema);
+const Integration = model<ManagerType, IntegrationModelType>(
+  "Integration",
+  integrationSchema
+);
 
 export default Integration;

@@ -3,33 +3,19 @@
 import { ArrowDown, ArrowUp } from "@/components/ui/icons";
 
 import { ColumnDef } from "@tanstack/react-table";
+import { User } from "@/libs/hooks/use-user";
 
-export type UserType = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  birthDate: string;
-  address: string;
-  city: string;
-  postalCode: string;
-  state: string;
-  age: number;
-  gender: string;
-};
-
-export const USER_COLUMN: ColumnDef<UserType>[] = [
+export const USER_COLUMN: ColumnDef<User>[] = [
   {
-    accessorKey: "id",
-    header: "Id",
+    accessorKey: "_id",
+    header: "ID",
   },
   {
-    accessorKey: "firstName",
-    header: "First Name",
+    accessorKey: "firstname",
+    header: () => <div className="w-max">First Name</div>,
   },
   {
-    accessorKey: "lastName",
+    accessorKey: "lastname",
     header: "Last Name",
   },
   {
@@ -58,22 +44,43 @@ export const USER_COLUMN: ColumnDef<UserType>[] = [
   {
     accessorKey: "phone",
     header: "Phone",
+    cell: ({ row }) => {
+      const phone = row.getValue("phone");
+      return <div className="w-max">{phone as unknown as React.ReactNode}</div>;
+    },
   },
   {
-    accessorKey: "birthDate",
-    header: "Birth Date",
+    accessorKey: "dob",
+    header: () => <div className="w-max">Date of Birth</div>,
+    cell: ({ row }) => {
+      const dob = new Date(row.getValue("dob"));
+      const date = new Intl.DateTimeFormat("en-US").format(
+        dob as unknown as Date
+      );
+      return <div className="w-max">{date}</div>;
+    },
   },
   {
-    accessorKey: "address",
-    header: "Address",
+    accessorKey: "uid",
+    header: "UID",
+  },
+  {
+    accessorKey: "country",
+    header: "Country",
+    cell: ({ row }) => {
+      const country = row.getValue("country");
+      return (
+        <div className="w-max">{country as unknown as React.ReactNode}</div>
+      );
+    },
   },
   {
     accessorKey: "city",
     header: "City",
   },
   {
-    accessorKey: "postalCode",
-    header: "Postal Code",
+    accessorKey: "zipCode",
+    header: () => <div className="w-max">Zip Code</div>,
   },
   {
     accessorKey: "state",

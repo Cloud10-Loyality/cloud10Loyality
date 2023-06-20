@@ -18,7 +18,7 @@
     ]
   },
   "dependencies": {
-    "@cloud10lms/shared": "^1.0.34",
+    "@cloud10lms/shared": "^1.0.38",
     "@types/express-serve-static-core": "^4.17.35",
     "cors": "^2.8.5",
     "express": "^4.18.2",

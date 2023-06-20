@@ -8,7 +8,7 @@ const reservationSchema = new Schema<ReservationType>(
   {
     _id: {
       type: Schema.Types.ObjectId,
-      auto: true,
+      auto: false,
     },
     hotelName: {
       type: String,
@@ -67,6 +67,7 @@ const reservationSchema = new Schema<ReservationType>(
       email: {
         type: String,
         required: [true, "Email is required"],
+        unique: true,
         lowercase: true,
       },
       gender: {

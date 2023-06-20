@@ -1,13 +1,14 @@
-export interface Integration {
+export type ManagerType = {
+  _id?: Types.ObjectId;
   username: string;
-  password: string;
   email: string;
-  id: ObjectID;
+  password: string;
   name: string;
-  description: string;
+  role: Role;
   city: string;
   state: string;
   pin: string;
-}
+  description: string;
+};
 
 type Role = "ADMIN" | "MANAGER" | "USER";

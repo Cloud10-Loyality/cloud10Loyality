@@ -7,7 +7,8 @@ export class UserCreatedListener extends Listener<UserCreatedEvent> {
   queueGroupName = "wallet-service";
 
   async onMessage(data: UserCreatedEvent["data"], msg: any) {
-    await walletService.createWallet(data);
+    const { firstname, email, phone } = data;
+    await walletService.createWallet({ name: firstname, email, phone });
     msg.ack();
   }
 }

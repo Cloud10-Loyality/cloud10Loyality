@@ -1,6 +1,8 @@
 import { Types } from "mongoose";
 import Wallet from "../models/walletModel";
 import { WalletType } from "../../types";
+import { handlePaytoAddr } from "./payToAddr";
+import { lucid } from ".";
 
 class WalletService {
   private model = Wallet;
@@ -16,8 +18,20 @@ class WalletService {
   }
 
   public async createWallet(data: Partial<WalletType>): Promise<WalletType> {
+    const privateKey = lucid.utils.generatePrivateKey();
+
+    const address = await lucid
+      .selectWalletFromPrivateKey(privateKey)
+      .wallet.address();
+
+    //* pay to this address
+    const txHash = await handlePaytoAddr(address);
+
     const wallet = this.model.create({
       ...data,
+      privateKey,
+      address,
+      txHash,
     });
 
     return wallet;

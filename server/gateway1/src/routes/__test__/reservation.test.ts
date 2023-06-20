@@ -2,6 +2,10 @@ import request, { Request } from "supertest";
 
 import app from "../..";
 
+it("Returns 404 route not found error", async () => {
+  return request(app).get("/api/v1/reservation/s/s").expect(404);
+});
+
 it("Returns all the reservations", async () => {
   return request(app).get("/api/v1/reservation").expect(200);
 });
@@ -41,5 +45,5 @@ it("Returns input can't be empty", async () => {
       pin: "12345",
       amount: 1000.0,
     })
-    .expect(201);
+    .expect(400);
 });

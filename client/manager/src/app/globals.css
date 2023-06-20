@@ -35,3 +35,19 @@ body {
   display: grid;
   grid-template-columns: minmax(max-content, auto) 2fr;
 }
+
+* {
+  scrollbar-width: thin;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--primary-light);
+  border-radius: 20px;
+  padding: 2px;
+}

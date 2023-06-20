@@ -1,13 +1,13 @@
-import { Request, catchAsync, decodeToken } from "@cloud10lms/shared";
-import { Role } from "../../types";
+import { ManagerType, Role } from "../../types";
 import { NextFunction, Response } from "express";
-import { integrationService } from "../services/integrations.db";
-import { IntegrationType } from "../models/integration.model";
+import { Request, catchAsync, decodeToken } from "@cloud10lms/shared";
+
 import { env } from "../env";
+import { integrationService } from "../services/integrations.db";
 
 export const protectRoute = catchAsync(
   async (
-    req: Request<IntegrationType, Role>,
+    req: Request<ManagerType, Role>,
     res: Response,
     next: NextFunction
   ) => {

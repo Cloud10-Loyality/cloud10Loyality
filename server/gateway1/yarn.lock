@@ -1051,10 +1051,10 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cloud10lms/shared@^1.0.34":
-  version "1.0.34"
-  resolved "https://registry.yarnpkg.com/@cloud10lms/shared/-/shared-1.0.34.tgz#bcc97bbf9ae1270a3b652f8cfa8ca267fe951bd0"
-  integrity sha512-EoSlyhgaU1eApVbmm7LvIKdImMCeIhtXnmO5ldBEQpoImM5ErGV6IAg7lQ5mnNDZGr9/hI4yktZBChcrZJthfg==
+"@cloud10lms/shared@^1.0.38":
+  version "1.0.38"
+  resolved "https://registry.yarnpkg.com/@cloud10lms/shared/-/shared-1.0.38.tgz#cf09b5b01469d307b10e058ca0b59211a379ec6c"
+  integrity sha512-UYHx9ZvFSC54IvhvFLSxQ0EWvzmBqmySVuGewM3svR0TzxsPnrxK2AppZhl7jPu2/Z6IbZ+80MiVEeXxSwaf0g==
   dependencies:
     bcryptjs "^2.4.3"
     express "^4.18.2"
