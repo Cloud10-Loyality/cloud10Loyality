@@ -41,23 +41,26 @@ export const Sidebar = (props: Props) => {
           {menuData.map((menuItem) => (
             <li
               key={menuItem.id}
-              className="hover:bg-[#5d94b4] px-2 hover:text-white w-full rounded-md py-2"
+              className="hover:bg-blue-500 px-2 hover:text-white w-full rounded-md py-2"
             >
               <Link href={menuItem.link}>
                 <span
-                  className="flex items-center space-x-3"
+                  className="flex items-center space-x-3 relative"
                   onMouseEnter={() => handleIconHover(menuItem.label)}
                   onMouseLeave={handleIconLeave}
                 >
                   <span>{menuItem.icon}</span>
                   {isNavShowing && (
-                    <span className="text-lg">{menuItem.label}</span>
+                    <span className="text-sm">{menuItem.label}</span>
+                  )}
+                  {!isNavShowing && hoveredIcon === menuItem.label && (
+                    <span className="absolute w-max bg-blue-500 p-[10px] rounded-md z-10 text-sm left-full ml-2 top-1/2 transform -translate-y-1/2">
+                      {hoveredIcon}
+                    </span>
                   )}
                 </span>
+
               </Link>
-              {!isNavShowing && hoveredIcon === menuItem.label && (
-                <span className="flex absolute w-max hover:bg-[#5d94b4] z-10 text-sm ml-2">{hoveredIcon}</span>
-              )}
             </li>
           ))}
         </ul>

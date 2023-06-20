@@ -2,6 +2,9 @@
 import { AppError } from "@cloud10lms/shared/build/utils/appError";
 import { catchAsync } from "@cloud10lms/shared/build/utils/catchAsync";
 import { Request, Response, NextFunction } from "express";
+import { Types } from "mongoose";
+import { WalletType } from "../../types";
+import { walletService } from "../services/wallet.db";
 import { mintNFT } from "../services/mintNFT";
 import { burnNFT } from "../services/burnNFT";
 import Mint from "../models/mintModel";
@@ -15,6 +18,9 @@ export const mintNFTtoken = async (
   next: NextFunction
 ) => {
   try {
+    const id = req.params.id as unknown as Types.ObjectId;
+    const wallet = await walletService.getWallet(id);
+    const pkey = wallet.privateKey;
     const token_name = req.body.token_name;
 
     if (!token_name) {

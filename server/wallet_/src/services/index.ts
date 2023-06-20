@@ -8,8 +8,9 @@ import {
   Address,
   Unit,
 } from "lucid-cardano";
-
 import { secretSeed, BlockFrostKey } from "./seed";
+import { walletService } from "./wallet.db";
+
 
 let lucid: Lucid;
 let policyId: PolicyId;
