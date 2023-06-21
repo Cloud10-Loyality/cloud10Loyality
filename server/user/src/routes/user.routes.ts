@@ -2,14 +2,19 @@ import {
   createUser,
   deleteUser,
   getAllUsers,
+  getMe,
   getUser,
   login,
   updateUser,
 } from "../controllers/user.controller";
 
 import { Router } from "express";
+import { protect } from "@cloud10lms/shared";
+import { protectRoute } from "../middleware/auth.handler";
 
 const router = Router();
+
+router.route("/me").get(protect as any, protectRoute as any, getMe as any);
 
 router
   .route("/")

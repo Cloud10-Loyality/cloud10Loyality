@@ -3,6 +3,7 @@ import { NextFunction, Response } from "express";
 
 import Reservation from "../models/reservation.model";
 import { ReservationCreatedPublisher } from "../events/publisher/reservation-created-publisher";
+import { ReservationDeletedPublisher } from "../events/publisher/reservation-deleted-publisher";
 import { Types } from "mongoose";
 import { natsClient } from "../nats-client";
 import { reservationService } from "../services/reservations.db";
@@ -85,6 +86,7 @@ export const createReservation = catchAsync(
         zipCode: reservation.user!?.zipCode,
       },
       amount: reservation.amount,
+      managerId: reservation.managerId,
       checkIn: reservation.checkIn as unknown as string,
       checkOut: reservation.checkOut as unknown as string,
       city: reservation.city,
@@ -113,6 +115,26 @@ export const deleteReservation = catchAsync(
     }
 
     await reservationService.deleteReservation(id);
+
+    await new ReservationDeletedPublisher(natsClient.client).publish({
+      _id: reservation._id as unknown as Types.ObjectId,
+      user: {
+        firstname: reservation.user!?.firstname,
+        lastname: reservation.user!?.lastname,
+        email: reservation.user!?.email,
+        phone: reservation.user!?.phone,
+      },
+      amount: reservation.amount,
+      managerId: reservation.managerId,
+      checkIn: reservation.checkIn as unknown as string,
+      checkOut: reservation.checkOut as unknown as string,
+      city: reservation.city,
+      hotelName: reservation.hotelName,
+      paymentMethod: "Testing" as string,
+      pin: reservation.pin,
+      state: reservation.state,
+      paymentCard: reservation.paymentCard,
+    });
 
     res.status(200).json({
       status: "success",

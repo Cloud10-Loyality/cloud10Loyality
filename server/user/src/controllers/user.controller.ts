@@ -4,9 +4,23 @@ import { NextFunction, Response } from "express";
 import { Types } from "mongoose";
 import { UserCreatedPublisher } from "../events/publishers/user-created-publisher";
 import { UserDeletedPublisher } from "../events/publishers/user-deleted-publisher";
+import { UserType } from "../../types";
 import { natsClient } from "../nats-client";
 import { userService } from "../services/user.db";
-import { UserType } from "../../types";
+
+export const getMe = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user;
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      data: {
+        user,
+      },
+    });
+  }
+);
 
 export const getAllUsers = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -55,7 +69,6 @@ export const createUser = catchAsync(
     if (!Object.entries(body).length) {
       return next(new AppError("Please provide all the required fields", 400));
     }
-
 
     await userService.createUser(body);
 
@@ -122,7 +135,7 @@ export const login = catchAsync(
 );
 
 export const updateUser = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => { }
+  async (req: Request, res: Response, next: NextFunction) => {}
 );
 
 export const deleteUser = catchAsync(

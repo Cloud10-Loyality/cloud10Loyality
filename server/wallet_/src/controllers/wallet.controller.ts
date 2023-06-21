@@ -121,12 +121,8 @@ export const createWallet = catchAsync(
       return next(new AppError("Please provide all the required fields", 400));
     }
 
-    console.log("-ss--------");
-
     // Check if the email or phone already exist in the database
     const walletExists = await walletService.getWalletByOrPhone(email, phone);
-
-    console.log("-----dd-------------");
 
     if (walletExists.length) {
       return next(new AppError("Wallet already exists", 400));
@@ -150,7 +146,6 @@ export const createWallet = catchAsync(
     try {
       const response = await axios.get(apiUrl, config);
       const responseData = response.data;
-      console.log(responseData, "++++++++++++++");
       if (responseData && responseData.points) {
         points = responseData.points;
       }

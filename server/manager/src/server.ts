@@ -4,6 +4,7 @@ import { IntegrationCreatedListener } from "./events/listeners/integration-creat
 import { IntegrationDeletedListener } from "./events/listeners/integration-deleted-listener";
 import { ReservationCreatedListener } from "./events/listeners/reservation-created-listener";
 import { UserCreatedListener } from "./events/listeners/user-created-listener";
+import { UserDeleteListener } from "./events/listeners/user-deleted-listener";
 import app from ".";
 import mongoose from "mongoose";
 import { natsClient } from "./nats-client";
@@ -31,6 +32,7 @@ natsClient
     new IntegrationCreatedListener(natsClient.client).listen();
     new IntegrationDeletedListener(natsClient.client).listen();
     new UserCreatedListener(natsClient.client).listen();
+    new UserDeleteListener(natsClient.client).listen();
     // ]);
 
     try {
