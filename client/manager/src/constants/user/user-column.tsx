@@ -16,7 +16,7 @@ export const USER_COLUMN: ColumnDef<User>[] = [
   },
   {
     accessorKey: "lastname",
-    header: "Last Name",
+    header: () => <div className="w-max">Last Name</div>,
   },
   {
     accessorKey: "email",

@@ -3,27 +3,40 @@
 import { ArrowDown, ArrowUp } from "@/components/ui/icons";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { User } from "@/libs/hooks/use-user";
+import { Reservation } from "@/libs/hooks/use-bookings";
 
-export const BOOKING_COLUMN: ColumnDef<User>[] = [
+export const BOOKING_COLUMN: ColumnDef<Reservation>[] = [
   {
     accessorKey: "_id",
     header: "ID",
   },
   {
-    accessorKey: "firstname",
-    header: () => <div className="w-max">First Name</div>,
+    accessorKey: "hotelName",
+    header: () => <div className="w-max">Hotel Name</div>,
+    cell: ({ row }) => {
+      const hotelName = row.getValue("hotelName");
+
+      return (
+        <div className="w-max whitespace-nowrap">
+          {hotelName as unknown as React.ReactNode}
+        </div>
+      );
+    },
   },
   {
-    accessorKey: "lastname",
-    header: "Last Name",
+    accessorKey: "managerId",
+    header: () => <div className="w-max">Manager ID</div>,
   },
   {
-    accessorKey: "email",
+    accessorKey: "amount",
+    header: () => <div className="w-max">Amount</div>,
+  },
+  {
+    accessorKey: "user.email",
     header: ({ column }) => {
       return (
         <span className="flex">
-          Email
+          User Email
           {column.getIsSorted() === "desc" ? (
             <ArrowUp
               onClick={() =>
@@ -42,36 +55,37 @@ export const BOOKING_COLUMN: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: "phone",
-    header: "Phone",
-    cell: ({ row }) => {
-      const phone = row.getValue("phone");
-      return <div className="w-max">{phone as unknown as React.ReactNode}</div>;
-    },
+    accessorKey: "user.firstname",
+    header: () => <div className="w-max">User Firstname</div>,
   },
   {
-    accessorKey: "dob",
-    header: () => <div className="w-max">Date of Birth</div>,
+    accessorKey: "user.lastname",
+    header: () => <div className="w-max">User Lastname</div>,
+  },
+  {
+    accessorKey: "user.phone",
+    header: () => <div className="w-max">User Phone</div>,
+  },
+  {
+    accessorKey: "checkIn",
+    header: () => <div className="w-max">Check In</div>,
     cell: ({ row }) => {
-      const dob = new Date(row.getValue("dob"));
+      const checkIn = new Date(row.getValue("checkIn"));
       const date = new Intl.DateTimeFormat("en-US").format(
-        dob as unknown as Date
+        checkIn as unknown as Date
       );
       return <div className="w-max">{date}</div>;
     },
   },
   {
-    accessorKey: "uid",
-    header: "UID",
-  },
-  {
-    accessorKey: "country",
-    header: "Country",
+    accessorKey: "checkOut",
+    header: () => <div className="w-max">Check Out</div>,
     cell: ({ row }) => {
-      const country = row.getValue("country");
-      return (
-        <div className="w-max">{country as unknown as React.ReactNode}</div>
+      const checkOut = new Date(row.getValue("checkOut"));
+      const date = new Intl.DateTimeFormat("en-US").format(
+        checkOut as unknown as Date
       );
+      return <div className="w-max">{date}</div>;
     },
   },
   {
@@ -79,19 +93,37 @@ export const BOOKING_COLUMN: ColumnDef<User>[] = [
     header: "City",
   },
   {
-    accessorKey: "zipCode",
-    header: () => <div className="w-max">Zip Code</div>,
+    accessorKey: "paymentMethod",
+    header: () => <div className="w-max">Payment Method</div>,
+  },
+  {
+    accessorKey: "pin",
+    header: "Pin",
   },
   {
     accessorKey: "state",
     header: "State",
   },
   {
-    accessorKey: "age",
-    header: "Age",
+    accessorKey: "createdAt",
+    header: () => <div className="w-max">Created At</div>,
+    cell: ({ row }) => {
+      const createdAt = new Date(row.getValue("createdAt"));
+      const date = new Intl.DateTimeFormat("en-US").format(
+        createdAt as unknown as Date
+      );
+      return <div className="w-max">{date}</div>;
+    },
   },
   {
-    accessorKey: "gender",
-    header: "Gender",
+    accessorKey: "updatedAt",
+    header: () => <div className="w-max">Updated At</div>,
+    cell: ({ row }) => {
+      const updatedAt = new Date(row.getValue("updatedAt"));
+      const date = new Intl.DateTimeFormat("en-US").format(
+        updatedAt as unknown as Date
+      );
+      return <div className="w-max">{date}</div>;
+    },
   },
 ];

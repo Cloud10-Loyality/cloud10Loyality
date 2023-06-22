@@ -125,7 +125,8 @@ export const login = catchAsync(
     });
 
     res.status(200).json({
-      message: "success",
+      status: "success",
+      message: "Login successfull",
       error: false,
       data: {
         accessToken,

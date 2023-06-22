@@ -4,7 +4,6 @@ import {
   Subjects,
 } from "@cloud10lms/shared";
 
-import { Types } from "mongoose";
 import { reservationService } from "../../services/reservation.db";
 
 export class ReservationDeletedListener extends Listener<ReservationCancelledEvent> {

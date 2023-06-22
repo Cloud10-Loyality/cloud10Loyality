@@ -1,11 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
 import {
   useDispatch as useDispatchBase,
   useSelector as useSelectorBase,
 } from "react-redux";
 
+import { authReducer } from "./slices";
+import { configureStore } from "@reduxjs/toolkit";
+
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    authReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

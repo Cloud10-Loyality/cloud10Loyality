@@ -8,8 +8,6 @@ import { reservationService } from "../services/reservation.db";
 
 // import { ReservationCreatedPublisher } from "../events/publisher/reservation-created-publisher";
 
-
-
 // import { reservationService } from "../services/reservations.db";
 
 export const getReservations = catchAsync(
@@ -33,7 +31,9 @@ export const getReservations = catchAsync(
       message: "success",
       error: false,
       totalRecords: reservations.length,
-      data: reservations,
+      data: {
+        reservations,
+      },
     });
   }
 );

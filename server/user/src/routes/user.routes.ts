@@ -14,7 +14,10 @@ import { protectRoute } from "../middleware/auth.handler";
 
 const router = Router();
 
-router.route("/me").get(protect as any, protectRoute as any, getMe as any);
+router.use(protect as any);
+router.use(protectRoute as any);
+
+router.route("/me").get(getMe as any);
 
 router
   .route("/")
@@ -27,6 +30,6 @@ router
   .patch(updateUser as any)
   .delete(deleteUser as any);
 
-router.route("/login").post(login as any);
+// router.route("/login").post(login as any);
 
 export default router;
