@@ -27,7 +27,7 @@ export const getBookings = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const role = req.role;
 
-    if (role === "user") {
+    if (role === "USER") {
       return next(
         new AppError("You are not authorized to perform this action", 403)
       );

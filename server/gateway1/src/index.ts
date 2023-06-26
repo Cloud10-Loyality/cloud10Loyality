@@ -11,6 +11,8 @@ import express from "express";
 import morgan from "morgan";
 import reservationRoutes from "./routes/reservation.routes";
 import userRoutes from "./routes/user.routes";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./utils/swaggerSpec";
 
 export const PORT = process.env.GATEWAY_1_PORT || 5000;
 
@@ -27,8 +29,13 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(
+  "/api/v1/reservation/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec)
+);
+app.use("/api/v1/reservation/user", userRoutes);
 app.use("/api/v1/reservation", reservationRoutes);
-app.use("/api/v1/reservation-user", userRoutes);
 
 app.all("*", (req: Request, _res: Response, next: NextFunction) => {
   next(new AppError(`Can't find ${req.originalUrl} path on the server`, 404));
