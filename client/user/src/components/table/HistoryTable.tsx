@@ -1,116 +1,59 @@
-import React, { useState } from "react";
-import { data } from "../../utils/TableData";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
-const HistoryTable = () => {
-  const [contacts, setContacts] = useState(data);
-  const [search, setSearch] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+export default function HistoryTable() {
+  const [bookings, setBookings] = useState([]);
 
-  const handleSearch = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setSearch(e.target.value);
-    setCurrentPage(1); // Reset current page when search changes
-  };
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const response = await axios.get('http://cloud10lms.com/api/v1/user/bookings/me');
+        setBookings(response.data.data.bookings);
+      } catch (error) {
+        console.error('Error fetching bookings:', error);
+      }
+    };
 
-  const handlePageClick = (pageNumber: React.SetStateAction<number>) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
-  const filteredContacts = contacts.filter((item) => {
-    const fullName = `${item.Title} ${item.Location}`.toLowerCase();
-    return fullName.includes(search.toLowerCase());
-  });
-
-  const currentContacts = filteredContacts.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
-  const totalPages = Math.ceil(filteredContacts.length / itemsPerPage);
-  const pageNumbers = Array.from(
-    { length: totalPages },
-    (_, index) => index + 1
-  );
+    fetchBookings();
+  }, []);
 
   return (
-    <div className="max-w-3xl ml-5 sm:min-w-fit ">
-      <div className="mb-4 dark:text-white">
-        <input
-          type="text"
-          className="border rounded py-2 px-3 w-full dark:text-white"
-          onChange={handleSearch}
-          placeholder="Search hotel"
-        />
-      </div>
-      {currentContacts.length > 0 ? (
-        <div className="overflow-x-auto">
-          <table className="min-w-full  bg-white border border-gray-300">
-            <thead>
-              <tr>
-                <th className="border-b border-gray-300 py-2 px-4">
-                  Hotel Name
-                </th>
-                <th className="border-b border-gray-300 py-2 px-4">Location</th>
-                <th className="border-b border-gray-300 py-2 px-4">
-                  Orderdate
-                </th>
-                <th className="border-b border-gray-300 py-2 px-4">
-                  Date of your stay
-                </th>
-                <th className="border-b border-gray-300 py-2 px-4">Cost</th>
+    <div>
+      <h1 className="text-2xl font-bold mb-4">My Bookings</h1>
+      {bookings.length > 0 ? (
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="py-2 px-4">Hotel Name</th>
+              <th className="py-2 px-4">City</th>
+              <th className="py-2 px-4">State</th>
+              <th className="py-2 px-4">Zip Code</th>
+              <th className="py-2 px-4">Check-in</th>
+              <th className="py-2 px-4">Check-out</th>
+              <th className="py-2 px-4">Country</th>
+              <th className="py-2 px-4">Payment Method</th>
+              <th className="py-2 px-4">Amount</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {bookings.map((booking) => (
+              <tr key={booking.id}>
+                <td className="py-2 px-4">{booking.hotelName}</td>
+                <td className="py-2 px-4">{booking.city}</td>
+                <td className="py-2 px-4">{booking.state}</td>
+                <td className="py-2 px-4">{booking.zipCode}</td>
+                <td className="py-2 px-4">{new Date(booking.checkIn).toLocaleDateString()}</td>
+                <td className="py-2 px-4">{new Date(booking.checkOut).toLocaleDateString()}</td>
+                <td className="py-2 px-4">{booking.country}</td>
+                <td className="py-2 px-4">{booking.paymentMethod}</td>
+                <td className="py-2 px-4">{booking.amount}</td>
               </tr>
-            </thead>
-            <tbody>
-              {currentContacts.map((item, index) => (
-                <tr key={index}>
-                  <td className="border-b border-gray-300 py-2 px-4">
-                    {item.Title}
-                  </td>
-                  <td className="border-b border-gray-300 py-2 px-4">
-                    {item.Location}
-                  </td>
-                  <td className="border-b border-gray-300 py-2 px-4">
-                    {item.Orderdate}
-                  </td>
-                  <td className="border-b border-gray-300 py-2 px-4">
-                    {item.Stay}
-                  </td>
-                  <td className="border-b border-gray-300 py-2 px-4">
-                    {item.Cost}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <div className="mt-4 flex justify-center">
-            <nav>
-              <ul className="pagination flex flex-wrap ">
-                {pageNumbers.map((pageNumber) => (
-                  <li key={pageNumber} className="page-item  ">
-                    <button
-                      className={`page-link  border-2 py-3 px-3 ml-2 rounded-md ${pageNumber === currentPage
-                          ? " bg-blue-500 text-black dark:text-white"
-                          : ""
-                        }`}
-                      onClick={() => handlePageClick(pageNumber)}
-                    >
-                      {pageNumber}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-        </div>
+            ))}
+          </tbody>
+        </table>
       ) : (
-        <p className="text-center dark:text-white">No hotels found.</p>
+        <p>No bookings found.</p>
       )}
     </div>
   );
-};
-
-export default HistoryTable;
+}
