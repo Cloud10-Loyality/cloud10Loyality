@@ -33,13 +33,13 @@ class WalletService {
       .wallet.address();
 
     //* pay to this address
-    const txHash = await handlePaytoAddr(address);
+    // const txHash = await handlePaytoAddr(address);
 
     const wallet = this.model.create({
       ...data,
       privateKey,
       address,
-      txHash,
+      // txHash,
     });
 
     return wallet;

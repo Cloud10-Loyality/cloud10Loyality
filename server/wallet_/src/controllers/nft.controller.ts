@@ -11,6 +11,7 @@ import Mint from "../models/mintModel";
 import Burn from "../models/burnModel";
 import { secretSeed } from "../services/seed";
 import { lucid, policyId } from "../services";
+import { mintNftMetadata } from "../services/pointServicesV1/mintNftMetadata"
 
 export const mintNFTtoken = async (
   req: Request,
@@ -133,3 +134,34 @@ export const burnByPolicyId = async (
     });
   }
 };
+
+
+export const mintTokenMetadata = async (req: Request,
+  res: Response,
+  next: NextFunction) => {
+  try {
+    const { txHash, UNIT_VALUE, metadata } = await mintNftMetadata()
+    const address = await lucid
+      .selectWalletFromSeed(secretSeed)
+      .wallet.address();
+
+    const result = await Burn.create({
+      metadata,
+      policyId,
+      txHash,
+      address,
+      unit: UNIT_VALUE.toString(),
+    });
+    return res.status(201).json({
+      result,
+      metadata,
+      message: "success"
+    })
+
+  } catch (error) {
+    return res.status(404).json({
+      error: error.message
+    })
+  }
+
+}
