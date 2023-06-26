@@ -23,4 +23,3 @@ export async function burnNFT(name: string): Promise<BurnNFT> {
 
   return { txHash, UNIT_VALUE };
 }
-

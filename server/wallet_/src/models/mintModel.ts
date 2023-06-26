@@ -1,16 +1,23 @@
-import mongoose from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
+import { MintType } from "../../types";
 
-const mintSchema = new mongoose.Schema(
+type MintModelType = Model<MintType>;
+
+const mintSchema = new Schema<MintType>(
   {
     policyId: { type: String },
-    token_name: { type: String },
+    tokenName: { type: String },
     address: { type: String },
     txHash: { type: String },
     unit: { type: Number },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
 
-const Mint = mongoose.model("Mint", mintSchema);
+const Mint = mongoose.model<MintType, MintModelType>("Mint", mintSchema);
 
 export default Mint;

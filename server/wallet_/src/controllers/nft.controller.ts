@@ -1,45 +1,26 @@
-
-import { AppError } from "@cloud10lms/shared/build/utils/appError";
-import { catchAsync } from "@cloud10lms/shared/build/utils/catchAsync";
-import { Request, Response, NextFunction } from "express";
-import { Types } from "mongoose";
-import { WalletType } from "../../types";
-import { walletService } from "../services/wallet.db";
-import { mintNFT } from "../services/mintNFT";
+import { AppError, catchAsync, Request } from "@cloud10lms/shared";
+import { Response, NextFunction } from "express";
 import { burnNFT } from "../services/burnNFT";
 import Mint from "../models/mintModel";
 import Burn from "../models/burnModel";
 import { secretSeed } from "../services/seed";
 import { lucid, policyId } from "../services";
-import { mintNftMetadata } from "../services/pointServicesV1/mintNftMetadata"
+import { mintNftMetadata } from "../services/pointServiceV1/mintNftMetadata";
+import { nftService } from "../services/nft.db";
 
-export const mintNFTtoken = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const id = req.params.id as unknown as Types.ObjectId;
-    const wallet = await walletService.getWallet(id);
-    const pkey = wallet.privateKey;
-    const token_name = req.body.token_name;
+export const mintNFTtoken = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const tokenName = req.body.tokenName;
 
-    if (!token_name) {
-      return next(new AppError("Name is required", 400));
+    if (!tokenName) {
+      return next(new AppError("Token name is required", 400));
     }
 
-    const { txHash, UNIT_VALUE } = await mintNFT(token_name);
-
-    const address = await lucid
-      .selectWalletFromSeed(secretSeed)
-      .wallet.address();
-    const result = await Mint.create({
-      token_name,
+    const result = await nftService.handleMinting({
+      tokenName,
       policyId,
-      txHash,
-      address,
-      unit: UNIT_VALUE.toString(),
     });
+
     res.status(201).json({
       status: "success",
       error: false,
@@ -47,45 +28,31 @@ export const mintNFTtoken = async (
         result,
       },
     });
-  } catch (err) {
-    res.status(400).json({
-      error: "Name is required",
-    });
   }
-};
+);
 
-export const burnNFTtoken = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const token_name = req.body.token_name;
-    if (!token_name) {
-      return res.status(400).json({ message: "Name is required" });
+export const burnNFTtoken = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const tokenName = req.body.tokenName;
+
+    if (!tokenName) {
+      return next(new AppError("Token name is required", 400));
     }
-    const { txHash, UNIT_VALUE } = await burnNFT(token_name);
-    const address = await lucid
-      .selectWalletFromSeed(secretSeed)
-      .wallet.address();
-    const result = await Burn.create({
-      token_name,
+
+    const result = await nftService.handleBurning({
+      tokenName,
       policyId,
-      txHash,
-      address,
-      unit: UNIT_VALUE.toString(),
     });
-    res.status(200).json({
+
+    res.status(201).json({
       status: "success",
       error: false,
       data: {
         result,
       },
     });
-  } catch (err) {
-    next(err);
   }
-};
+);
 
 export const getNfts = async (
   req: Request,
@@ -135,12 +102,23 @@ export const burnByPolicyId = async (
   }
 };
 
+export const mintTokenMetadata = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email, description, label, tokenName } = req.body;
 
-export const mintTokenMetadata = async (req: Request,
-  res: Response,
-  next: NextFunction) => {
-  try {
-    const { txHash, UNIT_VALUE, metadata } = await mintNftMetadata()
+    const { txHash, UNIT_VALUE, metadata } = await nftService.mintNFTMetadata({
+      email,
+      description,
+      label,
+      tokenName,
+    });
+    console.log(
+      "🚀 ~ file: nft.controller.ts:115 ~ { txHash, UNIT_VALUE, metadata }:",
+      { txHash, UNIT_VALUE, metadata }
+    );
+
+    return;
+
     const address = await lucid
       .selectWalletFromSeed(secretSeed)
       .wallet.address();
@@ -153,15 +131,12 @@ export const mintTokenMetadata = async (req: Request,
       unit: UNIT_VALUE.toString(),
     });
     return res.status(201).json({
-      result,
-      metadata,
-      message: "success"
-    })
-
-  } catch (error) {
-    return res.status(404).json({
-      error: error.message
-    })
+      status: "success",
+      error: false,
+      data: {
+        result,
+        metadata,
+      },
+    });
   }
-
-}
+);

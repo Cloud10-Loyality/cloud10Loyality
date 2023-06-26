@@ -1,9 +1,12 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
+import { BurnType } from "../../types";
 
-const burnSchema = new mongoose.Schema(
+type BurnModelType = Model<BurnType>;
+
+const burnSchema = new mongoose.Schema<BurnType>(
   {
     policyId: { type: String },
-    token_name: { type: String },
+    tokenName: { type: String },
     address: { type: String },
     txHash: { type: String },
     unit: { type: Number },
@@ -11,6 +14,6 @@ const burnSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Burn = mongoose.model("Burn", burnSchema);
+const Burn = mongoose.model<BurnType, BurnModelType>("Burn", burnSchema);
 
 export default Burn;

@@ -4,7 +4,7 @@ import {
   fromText,
   NFTMetadataDetails,
   Label,
-  PolicyId
+  PolicyId,
 } from "lucid-cardano";
 import { lucid, mintingPolicy, policyId } from "..";
 
@@ -14,25 +14,21 @@ interface MintNFT {
   metadata: NFTMetadataDetails;
 }
 
-
 export async function mintNftMetadata(): Promise<MintNFT> {
-  const tokenName = "NADA"
-  const label: Label = 20
+  const tokenName = "NADA";
+  const label: Label = 20;
   const unit: Unit = policyId + fromText(tokenName);
   const UNIT_VALUE = 1n;
-  const metadata: NFTMetadataDetails = {
 
+  const metadata: NFTMetadataDetails = {
     email: "barik@gmail.com",
     description: "This NFT is minted by anil.",
     metadataLabel: [label],
     policyId: [policyId],
     tokenName: [tokenName],
     name: "ERC20",
-    image: ""
+    image: "",
   };
-
-
-
 
   const tx = await lucid
     .newTx()
