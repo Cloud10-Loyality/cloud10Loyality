@@ -12,7 +12,7 @@ export default function DashboardLayout({ children }: Props) {
     <Container type="dashboard">
       <Sidebar />
       <Header />
-      <div className="h-[90vh] px-6 overflow-y-auto">{children}</div>
+      <div className="h-[90vh] py-4 px-6 overflow-y-auto">{children}</div>
     </Container>
   );
 }

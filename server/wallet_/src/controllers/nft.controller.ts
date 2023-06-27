@@ -115,11 +115,18 @@ export const mintTokenMetadata = catchAsync(
       tokenName,
       name,
     });
-    console.log(
-      "🚀 ~ file: nft.controller.ts:115 ~ { txHash, UNIT_VALUE, metadata }:",
-      { txHash, UNIT_VALUE, metadata }
-    );
 
+    const address = await lucid
+      .selectWalletFromSeed(secretSeed)
+      .wallet.address();
+
+    const result = await Burn.create({
+      metadata,
+      policyId,
+      txHash,
+      address,
+      unit: UNIT_VALUE.toString(),
+    });
     return res.status(201).json({
       status: "success",
       error: false,

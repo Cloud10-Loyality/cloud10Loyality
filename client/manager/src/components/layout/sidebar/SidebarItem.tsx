@@ -17,7 +17,7 @@ const SidebarItem = ({
   return (
     <Link href={`${item?.href}`}>
       <div
-        className={`flex items-center mb-2 rounded-lg gap-3 hover:bg-secondary-light dark:hover:bg-secondary-dark ${
+        className={`flex items-center mb-2 rounded-lg gap-3 hover:bg-muted ${
           isActive && "bg-secondary-light dark:bg-secondary-dark"
         } cursor-pointer font-semibold transition-all duration-200 py-2 px-4`}
       >

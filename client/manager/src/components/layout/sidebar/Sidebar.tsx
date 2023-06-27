@@ -31,7 +31,7 @@ export default function Sidebar({}: Props) {
     <div
       className={`h-screen ${
         isOpen ? "min-w-[250px]" : "w-max"
-      } row-span-2 bg-primary-light dark:bg-primary-dark relative`}
+      } row-span-2 relative border-r-2 border-muted`}
     >
       <div className="pb-4">
         <div className="cursor-pointer px-6 h-[10vh] flex items-center">
