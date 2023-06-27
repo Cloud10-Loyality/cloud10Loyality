@@ -100,6 +100,7 @@ class NftService {
         policyId: policyId,
         tokenName: data.tokenName,
         image: "",
+        unit: UNIT_VALUE.toString(),
       },
     });
 
