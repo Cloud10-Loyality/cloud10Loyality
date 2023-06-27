@@ -112,12 +112,6 @@ export const mintTokenMetadata = catchAsync(
       label,
       tokenName,
     });
-    console.log(
-      "🚀 ~ file: nft.controller.ts:115 ~ { txHash, UNIT_VALUE, metadata }:",
-      { txHash, UNIT_VALUE, metadata }
-    );
-
-    return;
 
     const address = await lucid
       .selectWalletFromSeed(secretSeed)
