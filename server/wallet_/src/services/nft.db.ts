@@ -1,8 +1,9 @@
 import { Label, NFTMetadataDetails, Unit, fromText } from "lucid-cardano";
 import { lucid, mintingPolicy, policyId } from ".";
-import { BurnType, MintType } from "../../types";
+import { BurnType, MintType, MintMetadataType } from "../../types";
 import Burn from "../models/burnModel";
 import Mint from "../models/mintModel";
+import MintMetadata from "../models/mintMetadata.model";
 import { secretSeed } from "../services/seed";
 import { burnNFT } from "./burnNFT";
 import { mintNFT } from "./mintNFT";
@@ -10,6 +11,7 @@ import { mintNFT } from "./mintNFT";
 class NftService {
   private mintModel = Mint;
   private burnModel = Burn;
+  private mintMetadataModel = MintMetadata;
   private address: string = "";
   private MINT_UNIT_VALUE: bigint = 0n;
   private mintTxHash: string = "";
@@ -66,6 +68,7 @@ class NftService {
   }
 
   public async mintNFTMetadata(data: {
+    name: any;
     email: string;
     description: string;
     label: Label;
@@ -75,20 +78,30 @@ class NftService {
     UNIT_VALUE: bigint;
     metadata: NFTMetadataDetails;
   }> {
-    // const tokenName = "NADA";
-    // const label: Label = 20;
     const unit: Unit = policyId + fromText(data.tokenName);
     const UNIT_VALUE = 1n;
 
     const metadata: NFTMetadataDetails = {
       email: data.email,
       description: data.description,
-      metadataLabel: [data.label],
-      policyId: [policyId],
-      tokenName: [data.tokenName],
-      name: "ERC20",
+      label: "ERC20",
+      policyId: policyId,
+      tokenName: data.tokenName,
+      name: data.name,
       image: "",
     };
+
+    const res = await this.mintMetadataModel.create({
+      policyId: policyId,
+      metadata: {
+        email: data.email,
+        description: data.description,
+        label: data.label,
+        policyId: policyId,
+        tokenName: data.tokenName,
+        image: "",
+      },
+    });
 
     const tx = await lucid
       .newTx()

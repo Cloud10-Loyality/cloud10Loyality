@@ -7,6 +7,8 @@ import { secretSeed } from "../services/seed";
 import { lucid, policyId } from "../services";
 import { mintNftMetadata } from "../services/pointServiceV1/mintNftMetadata";
 import { nftService } from "../services/nft.db";
+import MintMetadata from "../models/mintMetadata.model";
+import axios from "axios";
 
 export const mintNFTtoken = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -104,39 +106,96 @@ export const burnByPolicyId = async (
 
 export const mintTokenMetadata = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { email, description, label, tokenName } = req.body;
+    const { email, description, label, tokenName, name } = req.body;
 
     const { txHash, UNIT_VALUE, metadata } = await nftService.mintNFTMetadata({
       email,
       description,
       label,
       tokenName,
+      name,
     });
     console.log(
       "🚀 ~ file: nft.controller.ts:115 ~ { txHash, UNIT_VALUE, metadata }:",
       { txHash, UNIT_VALUE, metadata }
     );
 
-    return;
-
-    const address = await lucid
-      .selectWalletFromSeed(secretSeed)
-      .wallet.address();
-
-    const result = await Burn.create({
-      metadata,
-      policyId,
-      txHash,
-      address,
-      unit: UNIT_VALUE.toString(),
-    });
     return res.status(201).json({
       status: "success",
       error: false,
       data: {
-        result,
+        policyId,
         metadata,
+        txHash,
       },
     });
+  }
+);
+
+export const getAssetDetails = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    MintMetadata.find()
+      .then((data) => {
+        if (data.length === 0) {
+          return res.status(404).json({
+            message: "Not found",
+          });
+        }
+        res.status(200).json(data);
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
+
+export const getPolicyId = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+    const _id = await MintMetadata.findById(id);
+    if (!_id) {
+      return res.status(404).json({ error: "id not found" });
+    }
+    const policyId = _id.metadata.policyId;
+    console.log(policyId, "_+_+_+_+_+_+_+_+");
+
+    const apiUrl = `https://cardano-preprod.blockfrost.io/api/v0/assets/policy/${policyId}`;
+    const config = {
+      headers: {
+        project_id: process.env.BLOCKFROST_KEY,
+      },
+    };
+    let assetHex: string;
+    try {
+      const response = await axios.get(apiUrl, config);
+      const responseData = response.data;
+      console.log(responseData, "&&&&&&&&&&&&&&&&&&&&&&&");
+      if (responseData && responseData.length > 0) {
+        const asset = responseData[0];
+        assetHex = asset.asset;
+        console.log(assetHex, "+++++++++++++++++");
+      }
+    } catch (error) {
+      return next(error);
+    }
+
+    const assetUrl = `https://cardano-preprod.blockfrost.io/api/v0/assets/${assetHex}`;
+
+    try {
+      const response = await axios.get(assetUrl, config);
+      const responseAsset = response.data;
+      console.log(responseAsset);
+      res.status(200).json({
+        status: "success",
+        error: false,
+        message: "Asset fetched successfully",
+        data: {
+          assetHex,
+          responseAsset,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 );

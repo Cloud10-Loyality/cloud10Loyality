@@ -4,6 +4,7 @@
         "envalid",
         "firstname",
         "lastname",
+        "mintnftmeta",
         "NATS"
     ]
 }
