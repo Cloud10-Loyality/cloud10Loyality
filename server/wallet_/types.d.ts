@@ -26,3 +26,16 @@ export type BurnType = {
   txHash?: string;
   unit?: number;
 };
+
+export type MintMetadataType = {
+  _id?: string;
+  policyId: String;
+  metadata: {
+    email: String;
+    description: String;
+    label: String;
+    policyId: String;
+    tokenName: String;
+    image: String;
+  };
+};
