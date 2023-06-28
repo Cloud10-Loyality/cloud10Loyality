@@ -12,7 +12,7 @@ type Props = {};
 export default function Dashboard({}: Props) {
   return (
     <>
-      <div className="dark:bg-gray-800 flex justify-between bg-gray-200 py-6 border-white border border-opacity-25 px-4 rounded-lg">
+      <div className="bg-muted flex justify-between py-6 border-white border border-opacity-25 px-4 rounded-lg">
         <h1 className="font-black text-2xl">
           Welcome to Cloud10 Loyalty Management System
         </h1>
@@ -67,7 +67,7 @@ const HeroCard = ({
   cta: string;
 }) => {
   return (
-    <div className="dark:bg-gray-900 bg-slate-100 p-4 rounded-lg flex items-center gap-4 justify-between">
+    <div className="bg-muted shadow-sm p-4 rounded-lg flex items-center gap-4 justify-between">
       <div className="aspect-square overflow-hidden rounded-full">
         <Image src={src} height={200} width={200} alt="This is the loyality" />
       </div>

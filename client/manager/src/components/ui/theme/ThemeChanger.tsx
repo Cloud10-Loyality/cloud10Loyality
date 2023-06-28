@@ -8,10 +8,11 @@ type Props = {};
 
 const ThemeChanger = (props: Props) => {
   const { systemTheme, theme, setTheme } = useTheme();
-  const currentTheme = theme === "system" ? systemTheme : theme;
 
   useEffect(() => {
-    setTheme("dark");
+    if (typeof window === "undefined") {
+      setTheme(JSON.stringify(localStorage.getItem("theme")));
+    }
   }, []);
 
   const handleThemeChange = (t: typeof theme) =>

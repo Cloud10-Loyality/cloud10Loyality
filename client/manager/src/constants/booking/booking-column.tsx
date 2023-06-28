@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUp } from "@/components/ui/icons";
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Reservation } from "@/libs/hooks/use-bookings";
+import { ChevronsUpDown } from "lucide-react";
 
 export const BOOKING_COLUMN: ColumnDef<Reservation>[] = [
   {
@@ -35,21 +36,13 @@ export const BOOKING_COLUMN: ColumnDef<Reservation>[] = [
     accessorKey: "user.email",
     header: ({ column }) => {
       return (
-        <span className="flex">
+        <span className="flex items-center gap-2">
           User Email
-          {column.getIsSorted() === "desc" ? (
-            <ArrowUp
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === "asc")
-              }
-            />
-          ) : (
-            <ArrowDown
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === "asc")
-              }
-            />
-          )}
+          <ChevronsUpDown
+            size={16}
+            strokeWidth={1.5}
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          />
         </span>
       );
     },
