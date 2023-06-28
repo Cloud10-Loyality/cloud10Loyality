@@ -1,6 +1,7 @@
 import {
   createManager,
   getManagers,
+  getMe,
   updateManager,
 } from "../controllers/manager.controller";
 
@@ -9,6 +10,8 @@ import { protect } from "@cloud10lms/shared";
 import { protectRoute } from "./../middlewares/auth.handler";
 
 const router = Router();
+
+router.route("/me").get(protect as any, protectRoute as any, getMe as any);
 
 router
   .route("/")

@@ -33,9 +33,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/api/v1/manager", managerRoutes);
-app.use("/api/v1/manager/user", userRoutes);
 app.use("/api/v1/manager/reservation", reservationRoutes);
+app.use("/api/v1/manager/user", userRoutes);
+app.use("/api/v1/manager", managerRoutes);
 
 app.all("*", (req: Request, _res: Response, next: NextFunction) => {
   next(new AppError(`Can't find ${req.originalUrl} path on the server`, 404));

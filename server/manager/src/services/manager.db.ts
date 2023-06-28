@@ -37,10 +37,10 @@ class ManagerService {
     return managers;
   }
 
-  public async getManagerById(id: Types.ObjectId): Promise<ManagerType | null> {
-    const manager = await this.model.findById(id);
+  public async getManagerById(id: Types.ObjectId): Promise<ManagerType> {
+    const manager = await this.model.findById(id).select("+username");
 
-    return manager;
+    return manager!;
   }
 
   //   public async getUserByEmail(email: string): Promise<UserType[] | null> {

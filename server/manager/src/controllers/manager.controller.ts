@@ -6,6 +6,18 @@ import { Types } from "mongoose";
 import { managerService } from "../services/manager.db";
 import { natsClient } from "../nats-client";
 
+export const getMe = catchAsync(async (req: Request, res: Response) => {
+  const manager = req.manager;
+
+  res.status(200).json({
+    status: "success",
+    error: false,
+    data: {
+      manager,
+    },
+  });
+});
+
 export const getManagers = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const queryObj = { ...req.query };

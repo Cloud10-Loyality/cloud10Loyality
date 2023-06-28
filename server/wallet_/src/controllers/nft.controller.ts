@@ -164,7 +164,6 @@ export const getPolicyId = catchAsync(
       return res.status(404).json({ error: "id not found" });
     }
     const policyId = _id.metadata.policyId;
-    console.log(policyId, "_+_+_+_+_+_+_+_+");
 
     const apiUrl = `https://cardano-preprod.blockfrost.io/api/v0/assets/policy/${policyId}`;
     const config = {
@@ -176,11 +175,9 @@ export const getPolicyId = catchAsync(
     try {
       const response = await axios.get(apiUrl, config);
       const responseData = response.data;
-      console.log(responseData, "&&&&&&&&&&&&&&&&&&&&&&&");
       if (responseData && responseData.length > 0) {
         const asset = responseData[0];
         assetHex = asset.asset;
-        console.log(assetHex, "+++++++++++++++++");
       }
     } catch (error) {
       return next(error);

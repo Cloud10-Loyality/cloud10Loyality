@@ -10,27 +10,13 @@ export const protectRoute = catchAsync(
     res: Response,
     next: NextFunction
   ) => {
-    let token;
-
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer")
-    ) {
-      token = req.headers.authorization.split(" ")[1];
-    }
-
-    if (!token) {
-      return next(
-        new AppError("You'r not logged in, please login to continue", 401)
-      );
-    }
+    const token = req.jwt;
 
     const decoded = await decodeToken(token, process.env.ACCESS_TOKEN_SECRET!);
 
     const manager = await managerService.getManagerById(decoded?.id);
 
-    req.jwt = token;
-    req.manager = manager!;
+    req.manager = manager;
     req.role = decoded?.role;
 
     next();

@@ -1,9 +1,32 @@
-import mongoose, { Model, Schema } from "mongoose";
+import mongoose, {
+  HydratedDocument,
+  Model,
+  QueryWithHelpers,
+  Schema,
+} from "mongoose";
 import { MintMetadataType } from "../../types";
 
-type MintMetadataModelType = Model<MintMetadataType>;
+interface MintNFTMetadataQueryHelpers {
+  byEmail(
+    email: string
+  ): QueryWithHelpers<
+    HydratedDocument<MintMetadataType>[],
+    HydratedDocument<MintMetadataType>,
+    MintNFTMetadataQueryHelpers
+  >;
+}
 
-const mintMetadataSchema = new Schema<MintMetadataType>(
+type MintMetadataModelType = Model<
+  MintMetadataType,
+  MintNFTMetadataQueryHelpers
+>;
+
+const mintMetadataSchema = new Schema<
+  MintMetadataType,
+  {},
+  {},
+  MintNFTMetadataQueryHelpers
+>(
   {
     policyId: { type: String },
     metadata: {
@@ -22,6 +45,17 @@ const mintMetadataSchema = new Schema<MintMetadataType>(
     toObject: { virtuals: true },
   }
 );
+
+mintMetadataSchema.query.byEmail = function (
+  this: QueryWithHelpers<
+    any,
+    HydratedDocument<MintMetadataType>,
+    MintNFTMetadataQueryHelpers
+  >,
+  email?: string
+) {
+  return this.where({ "metadata.email": email });
+};
 
 const MintMetadata = mongoose.model<MintMetadataType, MintMetadataModelType>(
   "MintMetadata",
