@@ -46,13 +46,23 @@ export class TierService {
     >((res, rej) => {
       res(this.getModel(type));
     });
-    const { name, minSpend, rewards, manager } = body;
+    const { name, points, rewards, manager } = body;
     return await model!.create({
       name,
-      minSpend,
+      points,
       rewards,
       manager,
     });
+  }
+
+  public async getAllTiersByManagerId(id: Types.ObjectId): Promise<TierType[]> {
+    const res = await Promise.all([
+      this.goldModel.find({ manager: id }),
+      this.silverModel.find({ manager: id }),
+      this.platinumModel.find({ manager: id }),
+    ]);
+
+    return res.flat();
   }
 
   public async updateTier(
@@ -68,14 +78,13 @@ export class TierService {
     >((res, rej) => {
       res(this.getModel(type));
     });
-    const { name, minSpend, rewards, users } = body;
+    const { name, points, rewards } = body;
     return await model!.findOneAndUpdate(
       { manager },
       {
         name,
-        minSpend,
+        points,
         rewards,
-        users: [users],
       }
     );
   }

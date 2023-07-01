@@ -6,7 +6,7 @@ import {
   compareHash,
   decodeToken,
 } from "@cloud10lms/shared";
-import { NextFunction, Response } from "express";
+import { NextFunction, Response, Request as BaseRequest } from "express";
 
 import { IntegrationCreatedPublisher } from "../events/publishers/integration-created-publisher";
 import { Types } from "mongoose";
@@ -76,16 +76,10 @@ export const login = catchAsync(
       env.JWT_REFRESH_EXPIRES_IN_DEV
     );
 
-    res.cookie("AUTH", refreshToken, {
-      path: "/",
-      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000 * 30),
-      httpOnly: true,
-      sameSite: "lax",
-    });
-
-    res.status(200).json({
-      message: "success",
+    res.cookie("AUTH", refreshToken).status(200).json({
+      status: "success",
       error: false,
+      message: "Logged in successfully",
       data: {
         accessToken,
       },
@@ -122,7 +116,7 @@ export const refresh = catchAsync(
 );
 
 export const logout = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: BaseRequest, res: Response, next: NextFunction) => {
     const { AUTH } = req.cookies;
 
     if (!AUTH) {
@@ -134,12 +128,13 @@ export const logout = catchAsync(
     res.clearCookie("AUTH", {
       sameSite: "lax",
       secure: env.NODE_ENV === "production",
-      httpOnly: true,
+      httpOnly: false,
     });
 
     res.status(200).json({
-      message: "success",
+      status: "success",
       error: false,
+      message: "Logged out successfully",
       data: null,
     });
   }

@@ -7,18 +7,40 @@ import Image from "next/image";
 import { ThemeChanger } from "@/components/ui/theme";
 import logo from "./../../../../public/assets/logo.png";
 import logo_light from "./../../../../public/assets/logo-dark.png";
-import { logout } from "@/redux/slices/authSlice";
-import { useDispatch } from "@/redux/store";
+import {
+  logout as deleteAccessToken,
+  setLoading,
+} from "@/redux/slices/authSlice";
+import { RootState, useDispatch, useSelector } from "@/redux/store";
 import { ProfileDropdown } from "./profile-dropdown";
+import axios from "axios";
+import { useAuth } from "@/libs/hooks/use-auth";
+import { toast } from "react-toastify";
 
 type Props = {};
 
 export default function Header({}: Props) {
-  const [dropdown, setDropdown] = useState(false);
-  const dropdownRef = React.useRef<HTMLDivElement | null>(null);
+  const { accessToken, authLoading, manager } = useSelector(
+    (state: RootState) => state.authReducer
+  );
   const dispatch = useDispatch();
+  const { logout } = useAuth();
 
-  const handleLogout = () => dispatch(logout());
+  const handleLogout = async () => {
+    const res = await logout();
+
+    if (res.error) {
+      toast(res.message || "Logout failed, please try again", {
+        type: "error",
+      });
+      return;
+    }
+
+    toast(res.message || "Logout successful, redirecting to login...", {
+      type: "success",
+    });
+    dispatch(deleteAccessToken());
+  };
 
   return (
     <div className="h-[10vh] sticky px-6 top-0 bg-muted left-0 py-2">
@@ -49,7 +71,13 @@ export default function Header({}: Props) {
             </div>
             <ThemeChanger />
           </div>
-          <ProfileDropdown />
+          <div>
+            <ProfileDropdown
+              manager={manager}
+              handleLogout={handleLogout}
+              loading={authLoading}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -11,15 +11,15 @@ import { protectRoute } from "./../middlewares/auth.handler";
 
 const router = Router();
 
-router.route("/me").get(protect as any, protectRoute as any, getMe as any);
+router.use(protect as any, protectRoute as any);
+
+router.route("/me").get(getMe as any);
 
 router
   .route("/")
-  .get(protectRoute as any, getManagers as any)
-  .post(protect as any, protectRoute as any, createManager as any);
+  .get(getManagers as any)
+  .post(createManager as any);
 
-router
-  .route("/:id")
-  .patch(protect as any, protectRoute as any, updateManager as any);
+router.route("/:id").patch(updateManager as any);
 
 export default router;

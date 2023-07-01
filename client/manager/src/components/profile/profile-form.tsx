@@ -1,0 +1,134 @@
+import React, { useReducer } from "react";
+
+import { Input } from "@/components/ui/input/Input";
+import { Label } from "@/components/ui/label/Label";
+import { Separator } from "@radix-ui/react-separator";
+import { Button } from "../ui/button";
+import { RootState, useSelector } from "@/redux/store";
+import { ManagerType } from "../../../types";
+
+type Props = {};
+
+const ProfileForm = (props: Props) => {
+  const { manager } = useSelector((state: RootState) => state.authReducer);
+
+  const [inputs, updateInputs] = useReducer(
+    (prev: ManagerType, next: any) => {
+      const updatedInputs = { ...prev, ...next };
+
+      return updatedInputs;
+    },
+    {
+      _id: manager?._id,
+      name: manager?.name,
+      username: manager?.username,
+      email: manager?.email,
+      city: manager?.city,
+      state: manager?.state,
+      pin: manager?.pin,
+      description: manager?.description,
+    }
+  );
+
+  return (
+    <div className="px-4">
+      <h1 className="text-2xl font-bold">Profile</h1>
+      <p className="text-sm text-muted-foreground">This is your profile</p>
+      <Separator className="my-8" />
+      <form className="w-1/2">
+        <div className="space-y-2 mb-8">
+          <Label htmlFor="_id" className="">
+            ID
+          </Label>
+          <Input
+            type="text"
+            value={inputs?._id}
+            onChange={(e) => updateInputs({ _id: e.target.value })}
+            disabled
+            id="_id"
+            placeholder="ID"
+          />
+          <p className="text-xs text-muted-foreground">
+            This is your id. This is auto generated and cannot be changed.
+          </p>
+        </div>
+        <div className="space-y-2 mb-8">
+          <Label htmlFor="name">Name</Label>
+          <Input
+            type="text"
+            id="name"
+            value={inputs?.name}
+            onChange={(e) => updateInputs({ name: e.target.value })}
+            placeholder="Name"
+          />
+        </div>
+        <div className="space-y-2 mb-8">
+          <Label htmlFor="username">Username</Label>
+          <Input
+            type="text"
+            id="username"
+            value={inputs?.username}
+            onChange={(e) => updateInputs({ username: e.target.value })}
+            placeholder="Username"
+          />
+        </div>
+        <div className="space-y-2 mb-8">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            type="email"
+            id="email"
+            placeholder="Email"
+            value={inputs?.email}
+            onChange={(e) => updateInputs({ email: e.target.value })}
+          />
+        </div>
+        <div className="space-y-2 mb-8">
+          <Label htmlFor="city">City</Label>
+          <Input
+            type="text"
+            id="city"
+            value={inputs?.city}
+            onChange={(e) => updateInputs({ city: e.target.value })}
+            placeholder="City"
+          />
+        </div>
+        <div className="space-y-2 mb-8">
+          <Label htmlFor="state">State</Label>
+          <Input
+            type="text"
+            id="state"
+            placeholder="State"
+            value={inputs?.state}
+            onChange={(e) => updateInputs({ state: e.target.value })}
+          />
+        </div>
+        <div className="space-y-2 mb-8">
+          <Label htmlFor="pin">Pin</Label>
+          <Input
+            type="text"
+            id="pin"
+            placeholder="Pin"
+            value={inputs?.pin}
+            onChange={(e) => updateInputs({ pin: e.target.value })}
+          />
+        </div>
+        <div className="space-y-2 mb-8">
+          <Label htmlFor="description">Description</Label>
+          <Input
+            type="text"
+            id="discription"
+            placeholder="Description"
+            value={inputs?.description}
+            onChange={(e) => updateInputs({ description: e.target.value })}
+          />
+        </div>
+
+        <div className="flex items-center justify-end">
+          <Button className="ml-auto">Update</Button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default ProfileForm;

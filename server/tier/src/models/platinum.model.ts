@@ -8,21 +8,14 @@ const platinumTierSchema = new Schema<TierType>({
     auto: false,
     default: "Platinum",
   },
-  minSpend: {
+  points: {
     type: Number,
-    default: 20000,
+    default: 25,
   },
   manager: {
     type: Schema.Types.ObjectId,
     ref: "Manager",
   },
-  users: [
-    {
-      email: {
-        type: String,
-      },
-    },
-  ],
   rewards: [
     {
       type: String,

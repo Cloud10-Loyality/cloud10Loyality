@@ -73,7 +73,16 @@ build:
         manual:
           - src: "src/**/*.tsx"
             dest: .
-          - src: "src/**/*.ts"
+          - src: "public/**/*"
+            dest: .
+    - image: cloud10lms/user-client
+      context: ./client/user
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+      sync:
+        manual:
+          - src: "src/**/*.tsx"
             dest: .
           - src: "public/**/*"
             dest: .

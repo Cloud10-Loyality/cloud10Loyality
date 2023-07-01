@@ -39,7 +39,10 @@ export enum Gender {
 
 export const useUser = async (): Promise<User[]> => {
   const res = await axios.get<RootObject>(
-    "http://cloud10lms.com/api/v1/manager/user"
+    "http://cloud10lms.com/api/v1/manager/user",
+    {
+      withCredentials: true,
+    }
   );
 
   return res.data.data.users;

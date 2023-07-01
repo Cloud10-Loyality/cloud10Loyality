@@ -10,6 +10,12 @@ const AuthSlice = createSlice({
   name: "authSlice",
   initialState: authState,
   reducers: {
+    setLoading(
+      state: Draft<typeof authState>,
+      action: PayloadAction<(typeof authState)["authLoading"]>
+    ) {
+      state.authLoading = action.payload;
+    },
     setAccessToken(
       state: Draft<typeof authState>,
       action: PayloadAction<(typeof authState)["accessToken"]>
@@ -25,18 +31,20 @@ const AuthSlice = createSlice({
   },
 });
 
-export const { setAccessToken, setManager } = AuthSlice.actions;
+export const { setAccessToken, setManager, setLoading } = AuthSlice.actions;
 
 export const login =
-  (data: { email: string; password: string }) =>
+  (data: { accessToken?: string }) =>
   async (dispatch: typeof store.dispatch) => {
-    const {
-      data: {
-        data: { accessToken },
-      },
-    } = await axios.post<LoginResponse>("/api/login", data);
+    // dispatch(setLoading(true));
+    // const {
+    //   data: {
+    //     data: { accessToken },
+    //   },
+    // } = await axios.post<LoginResponse>("/api/login", data);
 
-    dispatch(setAccessToken(accessToken));
+    dispatch(setAccessToken(data.accessToken!));
+    // dispatch(setLoading(false));
   };
 
 export const handleManager =
@@ -46,8 +54,6 @@ export const handleManager =
 
 export const logout = () => async (dispatch: typeof store.dispatch) => {
   dispatch(setAccessToken(""));
-
-  await axios.post("/api/logout");
 };
 
 export default AuthSlice.reducer;

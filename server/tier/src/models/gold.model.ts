@@ -8,19 +8,14 @@ const goldTierSchema = new Schema<TierType>({
     auto: false,
     default: "Gold",
   },
-  minSpend: {
+  points: {
     type: Number,
-    default: 30000,
+    default: 20,
   },
   manager: {
     type: Schema.Types.ObjectId,
     ref: "Manager",
   },
-  users: [
-    {
-      type: String,
-    },
-  ],
   rewards: [
     {
       type: String,

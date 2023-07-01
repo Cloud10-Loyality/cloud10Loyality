@@ -8,21 +8,14 @@ const sliveTierSchema = new Schema<TierType>({
     auto: false,
     default: "Silver",
   },
-  minSpend: {
+  points: {
     type: Number,
-    default: 10000,
+    default: 5,
   },
   manager: {
     type: Schema.Types.ObjectId,
     ref: "Manager",
   },
-  users: [
-    {
-      email: {
-        type: String,
-      },
-    },
-  ],
   rewards: [
     {
       type: String,

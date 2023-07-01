@@ -7,10 +7,20 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Separator } from "@/components/ui/separator";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import React from "react";
+import { ManagerType } from "../../../../types";
+import { useRouter } from "next/navigation";
+
+type Props = {
+  handleLogout: () => void;
+  loading: boolean;
+  manager?: ManagerType;
+};
 
 export const ProfileDropdown = React.forwardRef(
-  ({ handleLogout }: any, ref) => {
+  ({ handleLogout, loading, manager }: Props, ref) => {
+    const router = useRouter();
     return (
       <NavigationMenu>
         <NavigationMenuList>
@@ -20,7 +30,16 @@ export const ProfileDropdown = React.forwardRef(
                 <div className="cursor-pointer">
                   <Profile />
                 </div>
-                <span>Hi, Ritesh</span>
+                <span>
+                  Hi,{" "}
+                  {loading ? (
+                    <span className="h-4 w-4 bg-muted animate-pulse">
+                      &nbsp;
+                    </span>
+                  ) : (
+                    manager?.name?.split(" ")[0]
+                  )}
+                </span>
               </div>
             </NavigationMenuTrigger>
             <NavigationMenuContent className="flex bg-muted flex-col items-center justify-center p-2">
@@ -29,13 +48,17 @@ export const ProfileDropdown = React.forwardRef(
                 className="flex p-2 px-3 hover:rounded-lg hover:bg-background cursor-pointer min-w-[120px] items-center justify-center gap-2"
               >
                 <span>
-                  <Logout />
+                  {loading ? (
+                    <ReloadIcon className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Logout />
+                  )}
                 </span>
                 <span>Logout</span>
               </div>
               <Separator className="my-2" />
               <div
-                onClick={handleLogout}
+                onClick={() => router.push("/app/profile")}
                 className="flex p-2 px-3 hover:rounded-lg hover:bg-background cursor-pointer min-w-[120px] items-center justify-center gap-2"
               >
                 <span>

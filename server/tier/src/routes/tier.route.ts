@@ -1,6 +1,7 @@
 import {
   createTier,
   deleteTier,
+  getAllTiersByManagerId,
   getTiers,
   updateTier,
 } from "../controllers/tier.controllors";
@@ -16,6 +17,7 @@ router
 
 router
   .route("/:managerId")
+  .get(getAllTiersByManagerId as any)
   .patch(updateTier as any)
   .delete(deleteTier as any);
 

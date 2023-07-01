@@ -1,17 +1,25 @@
 "use client";
 
 import { LoginResponse } from "@/app/api/login/route";
-import { login } from "@/redux/slices/authSlice";
-import { useDispatch } from "@/redux/store";
+import { useManager } from "@/libs/hooks/use-manager";
+import { login as handleLogin, setLoading } from "@/redux/slices/authSlice";
+import { RootState, useDispatch, useSelector } from "@/redux/store";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useReducer } from "react";
+import { Button } from "../ui/button";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { useAuth } from "@/libs/hooks/use-auth";
+import { toast } from "react-toastify";
 
 type Props = {};
 
 export default function LoginForm({}: Props) {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { login } = useAuth();
+
+  const { authLoading } = useSelector((state: RootState) => state.authReducer);
 
   const [inputs, updateInputs] = useReducer(
     (prev: any, next: any) => {
@@ -27,8 +35,18 @@ export default function LoginForm({}: Props) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    await dispatch(login(inputs));
+    const res = await login(inputs);
+    if (res.error) {
+      toast(res.message || "Login failed, please try again", {
+        type: "error",
+      });
+      return;
+    }
+    const { data } = res as LoginResponse;
+    toast(res.message || "Login successful, redirecting to dashboard...", {
+      type: "success",
+    });
+    await dispatch(handleLogin(data));
   };
 
   return (
@@ -75,12 +93,12 @@ export default function LoginForm({}: Props) {
           </div>
         </div>
         <div>
-          <button
-            type="submit"
-            className="font-bold px-4 py-2 w-full bg-indigo-600 text-white rounded-lg"
-          >
+          <Button className="w-full" variant={"default"} disabled={authLoading}>
+            {authLoading && (
+              <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+            )}
             Login
-          </button>
+          </Button>
           <p className="text-center text-xs mt-2">
             You&apos;r not already registered,{" "}
             <span

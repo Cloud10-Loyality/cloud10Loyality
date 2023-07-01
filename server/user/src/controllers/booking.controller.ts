@@ -15,7 +15,7 @@ export const getMe = catchAsync(
     res.status(200).json({
       status: "success",
       error: false,
-      totalLength: bookings!.length,
+      totalResults: bookings!.length,
       data: {
         bookings,
       },
@@ -47,7 +47,7 @@ export const getBookings = catchAsync(
     res.status(200).json({
       status: "success",
       error: false,
-      totalLength: bookings!.length,
+      totalResults: bookings!.length,
       data: {
         bookings,
       },

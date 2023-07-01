@@ -25,6 +25,23 @@ export const getTiers = catchAsync(
   }
 );
 
+export const getAllTiersByManagerId = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const managerId = req.params.managerId as unknown as Types.ObjectId;
+
+    const tiers = await tierService.getAllTiersByManagerId(managerId);
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      totalResults: tiers.length,
+      data: {
+        tiers,
+      },
+    });
+  }
+);
+
 export const createTier = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const type = req.query.type as unknown as TierName;
@@ -49,6 +66,10 @@ export const updateTier = catchAsync(
     const managerId = req.params.managerId as unknown as Types.ObjectId;
     const type = req.query.type as unknown as TierName;
     const body = req.body;
+
+    console.log(body);
+
+    return;
 
     if (!body) {
       return next(new AppError("Please fill all the required fields", 400));
