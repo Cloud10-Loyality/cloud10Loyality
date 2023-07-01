@@ -4,10 +4,11 @@ import { RootState, useSelector } from "@/redux/store";
 import axios from "axios";
 
 export interface RootObject {
-  data: Data;
-  error: boolean;
-  status: string;
-  totalResults: number;
+  data?: Data;
+  error?: boolean;
+  status?: string;
+  totalResults?: number;
+  message?: string;
 }
 
 export interface Data {
@@ -37,12 +38,25 @@ export const useTier = () => {
       }
     );
 
-    return res.data.data.tiers;
-    };
-    
-    const updateTier = async () => {
-        
-    }
+    return res.data.data!.tiers;
+  };
 
-  return { getTiers };
+  const updateTier = async (
+    body: Partial<Tier>,
+    type?: "SILVER" | "GOLD" | "PLATINUM"
+  ) => {
+    const res = await axios.patch<RootObject>(
+      `http://cloud10lms.com/api/v1/tier/${manager?._id}?type=${type}`,
+      { ...body },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    return res.data.message;
+  };
+
+  return { getTiers, updateTier };
 };

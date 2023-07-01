@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useTransition } from "react";
 import {
   Card,
   CardContent,
@@ -23,6 +23,9 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Badge } from "../ui/badge";
 import { Cross1Icon } from "@radix-ui/react-icons";
+import { useTier } from "@/libs/hooks/use-tier";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
@@ -31,6 +34,10 @@ const TierForm = (props: Props) => {
   const [points, setPoints] = React.useState<number>(0);
   const [rewards, setRewards] = React.useState<string>("");
   const [filteredRewards, setFilteredRewards] = React.useState<string[]>([]);
+
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+  const { updateTier } = useTier();
 
   useEffect(() => {
     document.addEventListener("keydown", (event) => {
@@ -54,6 +61,21 @@ const TierForm = (props: Props) => {
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setRewards(e.target.value);
+  };
+
+  const handleTierUpdate = async () => {
+    const data = {
+      points,
+      rewards: filteredRewards.length ? filteredRewards : [rewards],
+    };
+
+    const res = await updateTier(data, tier as any);
+
+    startTransition(() => {
+      router.refresh();
+    });
+
+    toast.success(res);
   };
 
   return (
@@ -124,9 +146,7 @@ const TierForm = (props: Props) => {
           </form>
         </CardContent>
         <CardFooter>
-          <Link href="/app/tier">
-            <Button>Save</Button>
-          </Link>
+          <Button onClick={handleTierUpdate}>Save</Button>
         </CardFooter>
       </Card>
     </div>

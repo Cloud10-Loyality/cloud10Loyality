@@ -67,11 +67,7 @@ export const updateTier = catchAsync(
     const type = req.query.type as unknown as TierName;
     const body = req.body;
 
-    console.log(body);
-
-    return;
-
-    if (!body) {
+    if (!Object.entries(body).length) {
       return next(new AppError("Please fill all the required fields", 400));
     }
 

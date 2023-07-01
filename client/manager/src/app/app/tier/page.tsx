@@ -1,5 +1,6 @@
 import { TierCard, TierForm } from "@/components/tier";
 import { useTier } from "@/libs/hooks/use-tier";
+import { getTiers } from "@/redux/slices/tierSlice";
 import { store } from "@/redux/store";
 import React from "react";
 

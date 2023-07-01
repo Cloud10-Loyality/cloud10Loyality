@@ -3,14 +3,22 @@ import {
   useDispatch as useDispatchBase,
   useSelector as useSelectorBase,
 } from "react-redux";
-import { sidebarReducer, authReducer } from "./slices";
+import { sidebarReducer, authReducer, tierReducer } from "./slices";
 
-export const store = configureStore({
-  reducer: {
-    sidebarReducer,
-    authReducer,
-  },
-});
+export function createStore(preloadedState = {}) {
+  const store = configureStore({
+    reducer: {
+      sidebarReducer,
+      authReducer,
+      tierReducer,
+    },
+    preloadedState,
+  });
+
+  return store;
+}
+
+export const store = createStore({});
 
 export type RootState = ReturnType<typeof store.getState>;
 
