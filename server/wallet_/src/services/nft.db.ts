@@ -119,6 +119,56 @@ class NftService {
 
     return { txHash, UNIT_VALUE, metadata };
   }
+
+  public async burnNFTMetadata(data: {
+    // email: string;
+    tokenName: string;
+  }): Promise<{
+    txHash: string;
+    // UNIT_VALUE: bigint;
+    // metadata: NFTMetadataDetails;
+  }> {
+    const { tokenName } = data;
+    const unit: Unit = policyId + fromText(tokenName);
+    const UNIT_VALUE = -1n;
+
+    const metadata: NFTMetadataDetails = {
+      // email: email,
+      description: "",
+      label: "ERC20",
+      policyId: policyId,
+      tokenName: tokenName,
+      name: "",
+      image: "",
+    };
+
+    // const res = await this.burnMetadataModel.create({
+    //   policyId: policyId,
+    //   metadata: {
+    //     email: email,
+    //     description: "",
+    //     label: "",
+    //     policyId: policyId,
+    //     tokenName: tokenName,
+    //     image: "",
+    //     unit: UNIT_VALUE.toString(),
+    //   },
+    // });
+
+    const tx = await lucid
+      .newTx()
+      .mintAssets({ [unit]: UNIT_VALUE })
+      .validTo(Date.now() + 100000)
+      .attachMintingPolicy(mintingPolicy)
+      // .attachMetadata("", metadata)
+      .complete();
+
+    const signedTx = await tx.sign().complete();
+
+    const txHash = await signedTx.submit();
+
+    return { txHash };
+  }
 }
 
 export const nftService = new NftService();

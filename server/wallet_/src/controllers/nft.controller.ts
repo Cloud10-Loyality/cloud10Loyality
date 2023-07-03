@@ -205,3 +205,47 @@ export const getPolicyId = catchAsync(
     }
   }
 );
+
+export const burnTokenMetadata = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { tokenName } = req.body;
+    const { txHash } = await nftService.burnNFTMetadata({
+      tokenName,
+    });
+
+    if (!tokenName) {
+      return res.status(404).json({
+        message: "Not found",
+      });
+    }
+    res.status(201).json({
+      status: "success",
+      error: false,
+      data: {
+        txHash,
+        policyId,
+      },
+    });
+  }
+);
+
+export const getPoints = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { email } = req.query;
+
+      // Find documents with the specified email
+      const documents = await MintMetadata.find({ "metadata.email": email });
+
+      // Calculate the sum of units
+      let sum = 0;
+      documents.forEach((doc) => {
+        sum += doc.metadata.unit.valueOf();
+      });
+
+      res.status(200).json({ totalUnits: sum });
+    } catch (err) {
+      next(err);
+    }
+  }
+);

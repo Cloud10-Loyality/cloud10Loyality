@@ -74,7 +74,7 @@ export default function page({ }: Props) {
         </div>
       </div>
       {/* //* Timeline */}
-      <Timeline />
+      {/* <Timeline /> */}
     </div>
   );
 }

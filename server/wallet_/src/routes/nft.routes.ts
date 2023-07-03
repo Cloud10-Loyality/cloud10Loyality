@@ -4,6 +4,7 @@ import {
   burnNFTtoken,
   getAssetDetails,
   getNfts,
+  getPoints,
   getPolicyId,
   mintNFTtoken,
   mintTokenMetadata,
@@ -16,4 +17,5 @@ router.route("/burn").post(burnNFTtoken);
 router.route("/burn/:policyId").delete(burnByPolicyId);
 router.route("/mintnftmetadata").post(mintTokenMetadata).get(getAssetDetails);
 router.route("/mintnftmetadata/:id").get(getPolicyId);
+router.route("/points").get(getPoints);
 export default router;

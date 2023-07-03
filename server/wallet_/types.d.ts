@@ -38,6 +38,7 @@ export type MintMetadataType = {
     policyId: String;
     tokenName: String;
     image: String;
+    unit: Number;
   };
 };
 
