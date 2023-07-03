@@ -1,17 +1,15 @@
 "use client";
 
-import React from "react";
 import { Provider } from "react-redux";
-import { createStore, store } from "./store";
+import React from "react";
 import { ThemeProvider } from "next-themes";
+import { store } from "./store";
 
 type Props = {
   children: React.ReactNode;
-  preloadedState?: any;
 };
 
-export default function AppProvider({ children, preloadedState }: Props) {
-  const store = createStore(preloadedState);
+export default function AppProvider({ children }: Props) {
   return (
     <Provider store={store}>
       <ThemeProvider attribute="class">{children}</ThemeProvider>

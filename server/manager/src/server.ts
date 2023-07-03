@@ -3,6 +3,7 @@ import { CLIENT_ID, PORT } from ".";
 import { IntegrationCreatedListener } from "./events/listeners/integration-created-listener";
 import { IntegrationDeletedListener } from "./events/listeners/integration-deleted-listener";
 import { ReservationCreatedListener } from "./events/listeners/reservation-created-listener";
+import { ReservationDeletedListener } from "./events/listeners/reservation-deleted-listener";
 import { UserCreatedListener } from "./events/listeners/user-created-listener";
 import { UserDeleteListener } from "./events/listeners/user-deleted-listener";
 import app from ".";
@@ -29,6 +30,7 @@ natsClient
     // Event listeners
     // await Promise.all([
     new ReservationCreatedListener(natsClient.client).listen();
+    new ReservationDeletedListener(natsClient.client).listen();
     new IntegrationCreatedListener(natsClient.client).listen();
     new IntegrationDeletedListener(natsClient.client).listen();
     new UserCreatedListener(natsClient.client).listen();

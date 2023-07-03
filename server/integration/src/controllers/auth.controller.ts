@@ -5,8 +5,8 @@ import {
   catchAsync,
   compareHash,
   decodeToken,
-} from "@cloud10lms/shared";
-import { NextFunction, Response, Request as BaseRequest } from "express";
+} from "@c10lms/common";
+import { Request as BaseRequest, NextFunction, Response } from "express";
 
 import { IntegrationCreatedPublisher } from "../events/publishers/integration-created-publisher";
 import { Types } from "mongoose";

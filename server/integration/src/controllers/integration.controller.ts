@@ -1,4 +1,4 @@
-import { AppError, Request, catchAsync } from "@cloud10lms/shared";
+import { AppError, Request, catchAsync } from "@c10lms/common";
 import { ManagerType, Role } from "../../types";
 import { NextFunction, Response } from "express";
 

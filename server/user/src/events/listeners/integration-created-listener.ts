@@ -2,7 +2,7 @@ import {
   IntegrationCreatedEvent,
   Listener,
   Subjects,
-} from "@cloud10lms/shared";
+} from "@c10lms/common";
 
 export class IntegrationCreatedListener extends Listener<IntegrationCreatedEvent> {
   subject: Subjects.IntegrationCreated = Subjects.IntegrationCreated;

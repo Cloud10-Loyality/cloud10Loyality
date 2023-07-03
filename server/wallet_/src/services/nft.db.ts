@@ -1,12 +1,13 @@
+import { BurnType, MintMetadataType, MintType } from "../../types";
 import { Label, NFTMetadataDetails, Unit, fromText } from "lucid-cardano";
 import { lucid, mintingPolicy, policyId } from ".";
-import { BurnType, MintType, MintMetadataType } from "../../types";
+
 import Burn from "../models/burnModel";
 import Mint from "../models/mintModel";
 import MintMetadata from "../models/mintMetadata.model";
-import { secretSeed } from "../services/seed";
 import { burnNFT } from "./burnNFT";
 import { mintNFT } from "./mintNFT";
+import { secretSeed } from "../services/seed";
 
 class NftService {
   private mintModel = Mint;
@@ -57,10 +58,10 @@ class NftService {
     await this.burnNft(body.tokenName);
 
     const res = await this.burnModel.create({
+      metadata: body.metadata,
       address: this.address,
-      policyId: body.policyId,
-      tokenName: body.tokenName,
-      txHash: this.burnTxHash,
+      policyId: policyId,
+      txHash: body.txHash,
       unit: this.BURN_UNIT_VALUE.toString(),
     });
 

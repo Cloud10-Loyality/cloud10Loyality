@@ -1,4 +1,4 @@
-import { AppError, Request, assignToken, catchAsync } from "@cloud10lms/shared";
+import { AppError, Request, assignToken, catchAsync } from "@c10lms/common";
 import { NextFunction, Response } from "express";
 
 import { Types } from "mongoose";
@@ -149,7 +149,7 @@ export const deleteUser = catchAsync(
 
     const user = await userService.deleteUser(id as unknown as Types.ObjectId);
     await new UserDeletedPublisher(natsClient.client).publish({
-      id,
+      id: user!._id,
       email: user!.email,
     });
 

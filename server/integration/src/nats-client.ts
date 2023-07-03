@@ -1,6 +1,6 @@
 import nats, { Stan } from "node-nats-streaming";
 
-import { AppError } from "@cloud10lms/shared/build/utils/appError";
+import { AppError } from "@c10lms/common/build/utils/appError";
 
 class NatsClient {
   private _client?: Stan;

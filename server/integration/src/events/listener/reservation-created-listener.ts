@@ -2,7 +2,7 @@ import {
   Listener,
   ReservationCreatedEvent,
   Subjects,
-} from "@cloud10lms/shared";
+} from "@c10lms/common";
 
 export class ReservationCreatedListener extends Listener<ReservationCreatedEvent> {
   subject: Subjects.ReservationCreated = Subjects.ReservationCreated;

@@ -1,6 +1,7 @@
 import {
   createTier,
   deleteTier,
+  deleteTierByTierId,
   getAllTiersByManagerId,
   getTiers,
   updateTier,
@@ -14,6 +15,8 @@ router
   .route("/")
   .get(getTiers as any)
   .post(createTier as any);
+
+// router.route("/:tierId").delete(deleteTierByTierId as any);
 
 router
   .route("/:managerId")

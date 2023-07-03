@@ -2,7 +2,7 @@ import {
   Publisher,
   ReservationCreatedEvent,
   Subjects,
-} from "@cloud10lms/shared";
+} from "@c10lms/common";
 
 export class ReservationCreatedPublisher extends Publisher<ReservationCreatedEvent> {
   subject: Subjects.ReservationCreated = Subjects.ReservationCreated;

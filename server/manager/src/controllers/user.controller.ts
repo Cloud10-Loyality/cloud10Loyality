@@ -1,4 +1,4 @@
-import { AppError, Request, catchAsync } from "@cloud10lms/shared";
+import { AppError, Request, catchAsync } from "@c10lms/common";
 
 import { NextFunction } from "express-serve-static-core";
 import { Response } from "express";

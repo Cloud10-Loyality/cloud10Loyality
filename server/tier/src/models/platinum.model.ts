@@ -15,6 +15,7 @@ const platinumTierSchema = new Schema<TierType>({
   manager: {
     type: Schema.Types.ObjectId,
     ref: "Manager",
+    required: [true, "Manager is required"],
   },
   rewards: [
     {

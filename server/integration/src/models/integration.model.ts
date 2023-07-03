@@ -1,7 +1,7 @@
 import { InferSchemaType, Model, Schema, model } from "mongoose";
 
 import { ManagerType } from "../../types";
-import { createHash } from "@cloud10lms/shared";
+import { createHash } from "@c10lms/common";
 import validator from "validator";
 
 type IntegrationModelType = Model<ManagerType>;

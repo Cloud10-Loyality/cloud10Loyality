@@ -2,7 +2,7 @@ import {
   IntegrationUpdatedEvent,
   Listener,
   Subjects,
-} from "@cloud10lms/shared";
+} from "@c10lms/common";
 
 import { Types } from "mongoose";
 import { integrationService } from "../../services/integrations.db";

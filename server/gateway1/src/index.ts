@@ -2,7 +2,7 @@ import {
   AppError,
   errorHandler,
   generateRandomString,
-} from "@cloud10lms/shared";
+} from "@c10lms/common";
 import { NextFunction, Request, Response } from "express";
 
 import cors from "cors";
@@ -10,9 +10,9 @@ import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
 import reservationRoutes from "./routes/reservation.routes";
-import userRoutes from "./routes/user.routes";
-import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./utils/swaggerSpec";
+import swaggerUi from "swagger-ui-express";
+import userRoutes from "./routes/user.routes";
 
 export const PORT = process.env.GATEWAY_1_PORT || 5000;
 

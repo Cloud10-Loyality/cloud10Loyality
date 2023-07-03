@@ -1,5 +1,7 @@
 import app, { CLIENT_ID } from ".";
 
+import { ReservationCreatedListener } from "./events/listeners/reservation-created-listener";
+import { ReservationDeletedListener } from "./events/listeners/reservation-deleted-listener";
 import { UserCreatedListener } from "./events/listeners/user-created-listener";
 import { config } from "dotenv";
 import mongoose from "mongoose";
@@ -22,7 +24,9 @@ natsClient
 
     console.log("[Wallet Service Nats]: Connected to NATS");
 
-    await new UserCreatedListener(natsClient.client).listen();
+    // await new UserCreatedListener(natsClient.client).listen();
+    await new ReservationCreatedListener(natsClient.client).listen();
+    await new ReservationDeletedListener(natsClient.client).listen();
 
     try {
       const connection = await mongoose.connect(DB!);

@@ -1,16 +1,16 @@
-import { AppError, Request, catchAsync } from "@c10lms/common";
 import { NextFunction, Response } from "express";
+import { Request, catchAsync } from "@c10lms/common";
 
-import { Types } from "mongoose";
-import { userService } from "../services/users.db";
+import { userService } from "../services/user.db";
 
-export const getUsers = catchAsync(
+export const getAllUsers = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const users = await userService.getAllUsers();
 
     res.status(200).json({
       status: "success",
       error: false,
+      totalResults: users.length,
       data: {
         users,
       },
@@ -18,23 +18,18 @@ export const getUsers = catchAsync(
   }
 );
 
-export const deleteUsers = catchAsync(
+export const deleteUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { email } = req.query;
-
-    const user = await userService.getUserByEmail(email as string);
-
-    if (!user) {
-      return next(new AppError("User not found", 404));
-    }
-
-    await userService.deleteUser(email as string);
+    const email = req.body.email;
+    const user = await userService.deleteUser(email);
 
     res.status(200).json({
       status: "success",
       error: false,
       message: "User deleted successfully",
-      data: null,
+      data: {
+        user,
+      },
     });
   }
 );

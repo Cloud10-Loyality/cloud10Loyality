@@ -6,7 +6,7 @@ import {
 } from "../controllers/manager.controller";
 
 import { Router } from "express";
-import { protect } from "@cloud10lms/shared";
+import { protect } from "@c10lms/common";
 import { protectRoute } from "./../middlewares/auth.handler";
 
 const router = Router();

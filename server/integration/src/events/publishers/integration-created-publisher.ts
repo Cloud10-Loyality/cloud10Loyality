@@ -1,6 +1,6 @@
-import { IntegrationCreatedEvent, Publisher } from '@cloud10lms/shared/build/events';
+import { IntegrationCreatedEvent, Publisher } from '@c10lms/common/build/events';
 
-import { Subjects } from '@cloud10lms/shared/build/events/subjects';
+import { Subjects } from '@c10lms/common/build/events/subjects';
 
 export class IntegrationCreatedPublisher extends Publisher<IntegrationCreatedEvent> {
   subject: Subjects.IntegrationCreated = Subjects.IntegrationCreated;

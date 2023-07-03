@@ -1,13 +1,13 @@
-import { protect } from "@cloud10lms/shared";
-import { Router } from "express";
-
-import { login, logout, refresh, signup } from "../controllers/auth.controller";
 import {
   deleteIntegration,
   getIntegration,
   getIntegrations,
   updateIntegration,
 } from "../controllers/integration.controller";
+import { login, logout, refresh, signup } from "../controllers/auth.controller";
+
+import { Router } from "express";
+import { protect } from "@c10lms/common";
 import { protectRoute } from "../middleware/auth.handler";
 
 const router = Router();

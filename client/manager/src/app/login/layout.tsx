@@ -1,8 +1,10 @@
 "use client";
 
-import { RootState, useSelector } from "@/redux/store";
-import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
+import { RootState, useSelector } from "@/redux/store";
+
+import { encodeStr } from "@/libs/utils";
+import { useRouter } from "next/navigation";
 
 type Props = {
   children: React.ReactNode;
@@ -13,7 +15,9 @@ export default function LoginLayout({ children }: Props) {
   const { accessToken } = useSelector((state: RootState) => state.authReducer);
 
   useEffect(() => {
-    if (accessToken) router.push("/app/");
+    const query = JSON.stringify({ accessToken });
+    const q = encodeStr(query);
+    if (accessToken) router.push(`/app?q=${q}`);
   }, [accessToken]);
 
   return <>{children}</>;

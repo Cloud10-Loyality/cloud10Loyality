@@ -1,9 +1,9 @@
 import {
   IntegrationUpdatedEvent,
   Publisher,
-} from "@cloud10lms/shared/build/events";
+} from "@c10lms/common/build/events";
 
-import { Subjects } from "@cloud10lms/shared/build/events/subjects";
+import { Subjects } from "@c10lms/common/build/events/subjects";
 
 export class IntegrationUpdatedPublisher extends Publisher<IntegrationUpdatedEvent> {
   subject: Subjects.IntegrationUpdated = Subjects.IntegrationUpdated;

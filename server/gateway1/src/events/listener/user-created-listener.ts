@@ -1,4 +1,4 @@
-import { Listener, Subjects, UserCreatedEvent } from "@cloud10lms/shared";
+import { Listener, Subjects, UserCreatedEvent } from "@c10lms/common";
 
 import { Message } from "node-nats-streaming";
 import { Types } from "mongoose";
@@ -12,7 +12,7 @@ export class UserCreatedListener extends Listener<UserCreatedEvent> {
     const { id, email, phone } = data;
     console.log("Event data!: User Created", data);
     await userService.createUser({
-      _id: id as unknown as Types.ObjectId,
+      _id: id,
       email,
       phone,
     });

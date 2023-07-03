@@ -1,4 +1,4 @@
-import { AppError, Request, catchAsync, decodeToken } from "@cloud10lms/shared";
+import { AppError, Request, catchAsync, decodeToken } from "@c10lms/common";
 import { NextFunction, Response } from "express";
 
 import { userService } from "../services/user.db";

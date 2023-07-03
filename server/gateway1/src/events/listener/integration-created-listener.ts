@@ -1,7 +1,7 @@
-import { IntegrationCreatedEvent } from "@cloud10lms/shared/build/events/";
-import { Listener } from "@cloud10lms/shared/build/events/base-listener";
+import { IntegrationCreatedEvent } from "@c10lms/common/build/events/";
+import { Listener } from "@c10lms/common/build/events/base-listener";
 import { Message } from "node-nats-streaming";
-import { Subjects } from "@cloud10lms/shared/build/events/subjects";
+import { Subjects } from "@c10lms/common/build/events/subjects";
 import { Types } from "mongoose";
 import { integrationService } from "../../services/integrations.db";
 

@@ -2,7 +2,7 @@ import {
   AppError,
   errorHandler,
   generateRandomString,
-} from "@cloud10lms/shared";
+} from "@c10lms/common";
 import { NextFunction, Request, Response } from "express";
 
 import authRoutes from "./routes/auth.routes";

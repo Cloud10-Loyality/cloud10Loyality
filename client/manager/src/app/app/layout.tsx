@@ -1,13 +1,16 @@
 "use client";
 
+import React, { useEffect } from "react";
+import { RootState, useDispatch, useSelector } from "@/redux/store";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import useSwr, { mutate } from "swr";
+
 import { Container } from "@/components/layout/container";
 import { Header } from "@/components/layout/header";
-import React, { useEffect } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
-import { RootState, useDispatch, useSelector } from "@/redux/store";
-import { useManager } from "@/libs/hooks/use-manager";
-import { useRouter } from "next/navigation";
+import { encodeStr } from "@/libs/utils";
 import { setManager } from "@/redux/slices/authSlice";
+import { useManager } from "@/libs/hooks/use-manager";
 
 type Props = {
   children: React.ReactNode;
@@ -21,6 +24,16 @@ export default function DashboardLayout({ children }: Props) {
   const dispatch = useDispatch();
 
   const router = useRouter();
+  const pathname = usePathname();
+
+  const searchParams = useSearchParams();
+
+  useSwr([pathname, manager], replaceURLParams, {
+    revalidateOnFocus: false,
+    revalidateOnMount: false,
+  });
+
+  // console.log(pathname, replaceURLParams);
 
   useEffect(() => {
     !accessToken && router.push("/login");
@@ -33,6 +46,15 @@ export default function DashboardLayout({ children }: Props) {
       });
     }
   }, [accessToken]);
+
+  function replaceURLParams() {
+    const query = JSON.stringify({ accessToken, manager });
+    const q = encodeStr(query);
+    router.push(`${pathname}?q=${q}`);
+  }
+
+  // useEffect(() => {
+  // }, [pathname]);
 
   return (
     <Container type="dashboard">

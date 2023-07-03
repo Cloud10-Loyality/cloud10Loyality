@@ -1,4 +1,4 @@
-import { AppError, Request, catchAsync } from "@cloud10lms/shared";
+import { AppError, Request, catchAsync } from "@c10lms/common";
 import { Lucid, Slot } from "lucid-cardano";
 import { NextFunction, Response } from "express";
 

@@ -1,4 +1,4 @@
-import { Listener, Subjects, UserDeletedEvent } from "@cloud10lms/shared";
+import { Listener, Subjects, UserDeletedEvent } from "@c10lms/common";
 
 import { Types } from "mongoose";
 import { userService } from "../../services/user.db";

@@ -1,14 +1,15 @@
-import { AppError, catchAsync, Request } from "@cloud10lms/shared";
-import { Response, NextFunction } from "express";
-import { burnNFT } from "../services/burnNFT";
-import Mint from "../models/mintModel";
-import Burn from "../models/burnModel";
-import { secretSeed } from "../services/seed";
+import { AppError, Request, catchAsync } from "@c10lms/common";
+import { NextFunction, Response } from "express";
 import { lucid, policyId } from "../services";
-import { mintNftMetadata } from "../services/pointServiceV1/mintNftMetadata";
-import { nftService } from "../services/nft.db";
+
+import Burn from "../models/burnModel";
+import Mint from "../models/mintModel";
 import MintMetadata from "../models/mintMetadata.model";
 import axios from "axios";
+import { burnNFT } from "../services/burnNFT";
+import { mintNftMetadata } from "../services/pointServiceV1/mintNftMetadata";
+import { nftService } from "../services/nft.db";
+import { secretSeed } from "../services/seed";
 
 export const mintNFTtoken = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -120,13 +121,14 @@ export const mintTokenMetadata = catchAsync(
       .selectWalletFromSeed(secretSeed)
       .wallet.address();
 
-    const result = await Burn.create({
+    await nftService.handleBurning({
       metadata,
       policyId,
       txHash,
       address,
-      unit: UNIT_VALUE.toString(),
+      tokenName,
     });
+
     return res.status(201).json({
       status: "success",
       error: false,

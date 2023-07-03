@@ -1,4 +1,4 @@
-import { Listener, Subjects, UserCreatedEvent } from "@cloud10lms/shared";
+import { Listener, Subjects, UserCreatedEvent } from "@c10lms/common";
 
 export class UserCreatedListener extends Listener<UserCreatedEvent> {
   subject: Subjects.UserCreated = Subjects.UserCreated;

@@ -89,6 +89,21 @@ export class TierService {
     );
   }
 
+  public async deleteTierByTierId(
+    id: Types.ObjectId,
+    type: TierName
+  ): Promise<TierType | null> {
+    const model = await new Promise<
+      | typeof this.goldModel
+      | typeof this.silverModel
+      | typeof this.platinumModel
+      | undefined
+    >((res, rej) => {
+      res(this.getModel(type));
+    });
+    return await model!.findByIdAndDelete(id);
+  }
+
   public async deleteTier(
     manager: Types.ObjectId,
     type: TierName

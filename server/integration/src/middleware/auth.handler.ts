@@ -1,6 +1,6 @@
 import { ManagerType, Role } from "../../types";
 import { NextFunction, Response } from "express";
-import { Request, catchAsync, decodeToken } from "@cloud10lms/shared";
+import { Request, catchAsync, decodeToken } from "@c10lms/common";
 
 import { env } from "../env";
 import { integrationService } from "../services/integrations.db";

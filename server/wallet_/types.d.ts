@@ -25,6 +25,7 @@ export type BurnType = {
   address?: string;
   txHash?: string;
   unit?: number;
+  metadata?: any;
 };
 
 export type MintMetadataType = {
@@ -38,4 +39,22 @@ export type MintMetadataType = {
     tokenName: String;
     image: String;
   };
+};
+
+export type UserType = {
+  _id?: Types.ObjectId;
+  firstname?: string;
+  lastname?: string;
+  email?: string;
+  uid?: string;
+  dob?: Date;
+  age?: number;
+  points?: number;
+  tier?: "SILVER" | "GOLD" | "PLATINUM";
+  gender?: "male" | "female" | "other";
+  phone?: number;
+  country?: string;
+  state?: string;
+  city?: string;
+  zipCode?: number;
 };

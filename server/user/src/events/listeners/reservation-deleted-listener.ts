@@ -2,7 +2,7 @@ import {
   Listener,
   ReservationCancelledEvent,
   Subjects,
-} from "@cloud10lms/shared";
+} from "@c10lms/common";
 
 import { UserType } from "../../../types";
 import { userService } from "../../services/user.db";

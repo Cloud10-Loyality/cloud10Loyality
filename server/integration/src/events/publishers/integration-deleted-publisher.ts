@@ -2,7 +2,7 @@ import {
   IntegrationDeletedEvent,
   Publisher,
   Subjects,
-} from "@cloud10lms/shared";
+} from "@c10lms/common";
 
 export class IntegrationDeletedPublisher extends Publisher<IntegrationDeletedEvent> {
   subject: Subjects.IntegrationDeleted = Subjects.IntegrationDeleted;

@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect, useTransition } from "react";
 import {
   Card,
   CardContent,
@@ -9,9 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Button } from "../ui/button";
-import Link from "next/link";
-import { Label } from "../ui/label";
+import React, { useEffect, useTransition } from "react";
+import { RootState, useSelector } from "@/redux/store";
 import {
   Select,
   SelectContent,
@@ -19,25 +17,50 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
+import { useRouter, useSearchParams } from "next/navigation";
+
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import { Cross1Icon } from "@radix-ui/react-icons";
-import { useTier } from "@/libs/hooks/use-tier";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import Link from "next/link";
+import { ManagerType } from "../../../types";
+import { Textarea } from "../ui/textarea";
+import { Tier } from "@/app/app/tier/page";
+import axios from "axios";
+import { decodeStr } from "@/libs/utils";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { useTier } from "@/libs/hooks/use-tier";
 
-type Props = {};
+type Props = {
+  tiers?: Tier[];
+};
 
-const TierForm = (props: Props) => {
+export interface RootObject {
+  data?: Data;
+  error?: boolean;
+  status?: string;
+  totalResults?: number;
+  message?: string;
+}
+
+export interface Data {
+  tiers: Tier[];
+}
+
+const TierForm = ({ tiers }: Props) => {
   const [tier, setTier] = React.useState<string>("");
   const [points, setPoints] = React.useState<number>(0);
   const [rewards, setRewards] = React.useState<string>("");
   const [filteredRewards, setFilteredRewards] = React.useState<string[]>([]);
 
+  const { accessToken, manager } = useSelector(
+    (state: RootState) => state.authReducer
+  );
+
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  const { updateTier } = useTier();
 
   useEffect(() => {
     document.addEventListener("keydown", (event) => {
@@ -57,19 +80,28 @@ const TierForm = (props: Props) => {
     };
   }, [rewards]);
 
+  const compareTierNames = () => {
+    return (
+      tiers?.map((tier) => tier?.name?.toLowerCase())[0] === tier?.toLowerCase()
+    );
+  };
+
   const handleRewardsInputChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setRewards(e.target.value);
   };
 
-  const handleTierUpdate = async () => {
+  const handleTierModification = async () => {
     const data = {
       points,
       rewards: filteredRewards.length ? filteredRewards : [rewards],
     };
 
-    const res = await updateTier(data, tier as any);
+    const res =
+      tiers?.length && !compareTierNames()
+        ? await createTier(manager, accessToken, data, tier as any)
+        : await updateTier(manager, accessToken, data, tier as any);
 
     startTransition(() => {
       router.refresh();
@@ -77,6 +109,44 @@ const TierForm = (props: Props) => {
 
     toast.success(res);
   };
+
+  async function updateTier(
+    manager: ManagerType,
+    accessToken: string,
+    body: Partial<Tier>,
+    type?: "SILVER" | "GOLD" | "PLATINUM"
+  ) {
+    const res = await axios.patch<RootObject>(
+      `http://cloud10lms.com/api/v1/tier/${manager?._id}?type=${type}`,
+      { ...body },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    return res.data.message;
+  }
+
+  async function createTier(
+    manager: ManagerType,
+    accessToken: string,
+    body: Partial<Tier>,
+    type?: "SILVER" | "GOLD" | "PLATINUM"
+  ) {
+    const res = await axios.post<RootObject>(
+      `http://cloud10lms.com/api/v1/tier?type=${type}`,
+      { ...body, manager: manager?._id },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    return res.data.message;
+  }
 
   return (
     <div>
@@ -146,7 +216,9 @@ const TierForm = (props: Props) => {
           </form>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleTierUpdate}>Save</Button>
+          <Button onClick={handleTierModification}>
+            {tiers?.length ? "Save" : "Create"}
+          </Button>
         </CardFooter>
       </Card>
     </div>

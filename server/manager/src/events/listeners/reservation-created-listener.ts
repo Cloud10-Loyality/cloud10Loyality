@@ -1,7 +1,7 @@
-import { Listener, ReservationCreatedEvent } from "@cloud10lms/shared";
+import { Listener, ReservationCreatedEvent } from "@c10lms/common";
 
 import { Message } from "node-nats-streaming";
-import { Subjects } from "@cloud10lms/shared/build/events/subjects";
+import { Subjects } from "@c10lms/common/build/events/subjects";
 import { Types } from "mongoose";
 import { reservationService } from "../../services/reservation.db";
 

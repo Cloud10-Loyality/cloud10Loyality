@@ -9,7 +9,7 @@ import {
   RequestParamHandler,
 } from "express-serve-static-core";
 
-import { Request } from "@cloud10lms/shared";
+import { Request } from "@c10lms/common";
 
 type CatchAsyncFN<Manager, Role, User> = (
   req: Request<Manager, Role, User>,

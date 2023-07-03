@@ -52,6 +52,10 @@ const userSchema = new Schema<UserType, IUserMethods, {}, UserQueryHelpers>({
     minLength: [3, "Email must be at least 3 characters long"],
     maxLength: [55, "Email must be at most 55 characters long"],
   },
+  points: {
+    type: Number,
+    default: 0,
+  },
   gender: {
     type: String,
     enum: ["male", "female", "other"],

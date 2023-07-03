@@ -1,4 +1,4 @@
-import { AppError, Request, catchAsync } from "@cloud10lms/shared";
+import { AppError, Request, catchAsync } from "@c10lms/common";
 import { NextFunction, Response } from "express";
 
 import { TierName } from "../../types";
@@ -77,6 +77,23 @@ export const updateTier = catchAsync(
       status: "success",
       error: false,
       message: "Tier updated successfully",
+    });
+  }
+);
+
+export const deleteTierByTierId = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const tierId = req.params.tierId as unknown as Types.ObjectId;
+
+    await tierService.deleteTierByTierId(
+      tierId,
+      req.query.type as unknown as TierName
+    );
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      message: "Tier deleted successfully",
     });
   }
 );

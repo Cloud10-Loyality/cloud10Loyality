@@ -1,24 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { authReducer, sidebarReducer, tierReducer } from "./slices";
 import {
   useDispatch as useDispatchBase,
   useSelector as useSelectorBase,
 } from "react-redux";
-import { sidebarReducer, authReducer, tierReducer } from "./slices";
 
-export function createStore(preloadedState = {}) {
-  const store = configureStore({
-    reducer: {
-      sidebarReducer,
-      authReducer,
-      tierReducer,
-    },
-    preloadedState,
-  });
+import { configureStore } from "@reduxjs/toolkit";
 
-  return store;
-}
-
-export const store = createStore({});
+export const store = configureStore({
+  reducer: {
+    sidebarReducer,
+    authReducer,
+    tierReducer,
+  },
+});
 
 export type RootState = ReturnType<typeof store.getState>;
 

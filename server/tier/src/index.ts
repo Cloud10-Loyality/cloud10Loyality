@@ -1,8 +1,4 @@
-import {
-  AppError,
-  errorHandler,
-  generateRandomString,
-} from "@cloud10lms/shared";
+import { AppError, errorHandler, generateRandomString } from "@c10lms/common";
 import { NextFunction, Request, Response } from "express";
 
 import cookieParser from "cookie-parser";

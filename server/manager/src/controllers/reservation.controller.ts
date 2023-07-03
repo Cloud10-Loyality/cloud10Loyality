@@ -1,4 +1,4 @@
-import { AppError, Request, catchAsync } from "@cloud10lms/shared";
+import { AppError, Request, catchAsync } from "@c10lms/common";
 import { NextFunction, Response } from "express";
 
 import Reservation from "../models/reservation.model";
@@ -78,22 +78,22 @@ export const getReservations = catchAsync(
 //   }
 // );
 
-// export const deleteReservation = catchAsync(
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     const id = req.params.id;
+export const deleteReservation = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
 
-//     const reservation = await reservationService.getReservationById(id);
+    const reservation = await reservationService.getReservationById(id);
 
-//     if (!reservation) {
-//       return next(new AppError("Reservation not found", 404));
-//     }
+    if (!reservation) {
+      return next(new AppError("Reservation not found", 404));
+    }
 
-//     await reservationService.deleteReservation(id);
+    await reservationService.deleteReservation(id);
 
-//     res.status(200).json({
-//       status: "success",
-//       error: false,
-//       data: null,
-//     });
-//   }
-// );
+    res.status(200).json({
+      status: "success",
+      error: false,
+      data: null,
+    });
+  }
+);
