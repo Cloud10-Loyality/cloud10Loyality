@@ -85,7 +85,6 @@ const reservationSchema = new Schema<ReservationType>(
       },
       phone: {
         type: Number,
-        unique: true,
         minLength: [3, "Phone number must be at least 3 characters long"],
         maxLength: [10, "Phone number must be at most 10 characters long"],
       },

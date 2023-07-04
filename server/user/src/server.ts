@@ -1,6 +1,7 @@
 import { CLIENT_ID, PORT } from ".";
 
 import { IntegrationCreatedListener } from "./events/listeners/integration-created-listener";
+import { PointsCreatedListener } from "./events/listeners/points-created-listener";
 import { ReservationCreatedListener } from "./events/listeners/reservation-created-listener";
 import app from ".";
 import mongoose from "mongoose";
@@ -25,6 +26,7 @@ natsClient
 
     await new ReservationCreatedListener(natsClient.client).listen();
     await new IntegrationCreatedListener(natsClient.client).listen();
+    await new PointsCreatedListener(natsClient.client).listen();
 
     mongoose
       .connect(DB!)

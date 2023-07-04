@@ -961,10 +961,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@c10lms/common@^1.0.40":
-  version "1.0.40"
-  resolved "https://registry.yarnpkg.com/@c10lms/common/-/common-1.0.40.tgz#7772b29a854cecd8b0ef37c590857ff51236a96b"
-  integrity sha512-ueJf2CzY8hjBw7ew+TNPOtrbOaRorZP0zlmDp8YdPe9wxgVoE6JvFyFU7rKm0prObu41P1fX5u4RF2chC8/b+A==
+"@c10lms/common@^1.0.41":
+  version "1.0.41"
+  resolved "https://registry.yarnpkg.com/@c10lms/common/-/common-1.0.41.tgz#ae139761e1240e2a47bd2747f0b24c078d55938a"
+  integrity sha512-h3Yn7D//0ssch19A2jSjcTlxbQGWjV2r86nH+I2wznHOnN3hYG2Qnlym4sP4gz6wVOCzGRx5gHY/SM5rKBcVRw==
   dependencies:
     bcryptjs "^2.4.3"
     express "^4.18.2"

@@ -5,8 +5,10 @@ import { lucid, mintingPolicy, policyId } from ".";
 import Burn from "../models/burnModel";
 import Mint from "../models/mintModel";
 import MintMetadata from "../models/mintMetadata.model";
+import { PointsCreatedPublisher } from "../events/publishers/points-created-publisher";
 import { burnNFT } from "./burnNFT";
 import { mintNFT } from "./mintNFT";
+import { natsClient } from "../nats-client";
 import { secretSeed } from "../services/seed";
 
 class NftService {
@@ -105,6 +107,13 @@ class NftService {
       },
     });
 
+    const totalUnits = await this.getPoints(data.email);
+
+    await new PointsCreatedPublisher(natsClient.client).publish({
+      email: data.email,
+      points: totalUnits,
+    });
+
     const tx = await lucid
       .newTx()
       .mintAssets({ [unit]: UNIT_VALUE })
@@ -168,6 +177,18 @@ class NftService {
     const txHash = await signedTx.submit();
 
     return { txHash };
+  }
+
+  public async getPoints(email: string): Promise<any> {
+    const documents = await this.mintMetadataModel.find().byEmail(email);
+
+    // Calculate the sum of units
+    let sum = 0;
+    documents.forEach((doc) => {
+      sum += doc.metadata.unit.valueOf();
+    });
+
+    return sum;
   }
 }
 

@@ -231,21 +231,24 @@ export const burnTokenMetadata = catchAsync(
 
 export const getPoints = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { email } = req.query;
+    // try {
+    const { email } = req.query;
 
-      // Find documents with the specified email
-      const documents = await MintMetadata.find({ "metadata.email": email });
+    // Find documents with the specified email
+    const units = await nftService.getPoints(email as unknown as string);
 
-      // Calculate the sum of units
-      let sum = 0;
-      documents.forEach((doc) => {
-        sum += doc.metadata.unit.valueOf();
-      });
-
-      res.status(200).json({ totalUnits: sum });
-    } catch (err) {
-      next(err);
-    }
+    res.status(200).json({
+      status: "success",
+      error: false,
+      data: {
+        points: {
+          email,
+          points: units,
+        },
+      },
+    });
+    // } catch (err) {
+    //   next(err);
+    // }
   }
 );

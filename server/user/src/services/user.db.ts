@@ -86,6 +86,14 @@ class UserService {
     return user;
   }
 
+  public async updateUserByEmail(
+    email?: string,
+    body?: Partial<UserType>
+  ): Promise<UserType | null> {
+    const user = await this.model.findOneAndUpdate({ email }, { ...body });
+    return user;
+  }
+
   public async deleteUser(id: Types.ObjectId): Promise<UserType | null> {
     const user = await this.model.findByIdAndDelete(id);
 
