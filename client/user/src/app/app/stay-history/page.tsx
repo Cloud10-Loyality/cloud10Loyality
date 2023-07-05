@@ -1,16 +1,23 @@
 "use client";
 
-import HistoryTable from "../../../components/table/HistoryTable";
+import { BOOKING_COLUMN } from "@/components/constants/booking/booking-coulmns";
+import BookingTable from "@/components/booking-table/BookingHistory";
 import React from "react";
+import { useBooking } from "@/utils/hooks/use-bookings";
 
 type Props = {};
 
-const page = (props: Props) => {
-  return (
-    <div>
-      <HistoryTable />
-    </div>
-  );
-};
+export default function Bookings({ }: Props) {
+  const { bookings, loading } = useBooking();
 
-export default page;
+  return (
+    <>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <BookingTable column={BOOKING_COLUMN} data={bookings} />
+      )}
+    </>
+  );
+}
+

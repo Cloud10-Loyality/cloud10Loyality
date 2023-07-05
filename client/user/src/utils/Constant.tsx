@@ -21,6 +21,7 @@ export const menuData = [
     icon: <Points />,
     label: "Point Summary",
     link: "/app/point-summary",
+    disabled:true,
   },
   {
     id: 3,
@@ -33,17 +34,20 @@ export const menuData = [
     icon: <TierBenifits />,
     label: "Tier Beneifits",
     link: "/app/tier-beneifits",
+    disabled:true,
   },
   {
     id: 5,
     icon: <Redemption />,
     label: "Points Redemption",
     link: "/app/points-redemption",
+    disabled:true,
   },
   {
     id: 6,
     icon: <Referal />,
     label: "Referal Programs",
     link: "/app/referal-programs",
+    disabled: true,
   },
 ];

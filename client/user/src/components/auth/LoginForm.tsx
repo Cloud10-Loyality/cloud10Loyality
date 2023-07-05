@@ -23,21 +23,21 @@ export default function LoginForm() {
 
     await login({ email });
 
-    if (response?.error == "fail") {
-      toast.error(response.message);
+    if (!response.data || response.data.message === "User not found") {
+      toast.error("Incorrect email or password");
       return;
     }
 
-    const accessToken = response?.data?.accessToken;
+    const accessToken = response.data.accessToken;
 
-    console.log(response);
+    // console.log(response);
 
-    console.log("This is the accessToken", accessToken);
+    // console.log("This is the accessToken", accessToken);
     dispatch(setAccessToken(accessToken!));
     // localStorage.setItem("accessToken", accessToken!);
     router.push(`/app`);
 
-    toast.success(response?.message);
+    toast.success("Login successful");
   };
 
   return (

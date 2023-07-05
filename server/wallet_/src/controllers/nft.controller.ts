@@ -10,6 +10,7 @@ import { burnNFT } from "../services/burnNFT";
 import { mintNftMetadata } from "../services/pointServiceV1/mintNftMetadata";
 import { nftService } from "../services/nft.db";
 import { secretSeed } from "../services/seed";
+import { Types } from "mongoose";
 
 export const mintNFTtoken = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -115,6 +116,7 @@ export const mintTokenMetadata = catchAsync(
       label,
       tokenName,
       name,
+      managerId,
     });
 
     const address = await lucid

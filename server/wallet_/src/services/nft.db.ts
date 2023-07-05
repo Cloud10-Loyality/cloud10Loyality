@@ -10,6 +10,7 @@ import { burnNFT } from "./burnNFT";
 import { mintNFT } from "./mintNFT";
 import { natsClient } from "../nats-client";
 import { secretSeed } from "../services/seed";
+import { Types } from "mongoose";
 
 class NftService {
   private mintModel = Mint;
@@ -76,6 +77,7 @@ class NftService {
     description: string;
     label: Label;
     tokenName: string;
+    managerId: Types.ObjectId;
   }): Promise<{
     txHash: string;
     UNIT_VALUE: bigint;
@@ -107,7 +109,7 @@ class NftService {
       },
     });
 
-    const totalUnits = await this.getPoints(data.email);
+    const totalUnits = await this.getPoints(data.email, data.managerId);
 
     await new PointsCreatedPublisher(natsClient.client).publish({
       email: data.email,
@@ -179,8 +181,13 @@ class NftService {
     return { txHash };
   }
 
-  public async getPoints(email: string): Promise<any> {
-    const documents = await this.mintMetadataModel.find().byEmail(email);
+  public async getPoints(
+    email: string,
+    managerId: Types.ObjectId
+  ): Promise<any> {
+    const documents = await this.mintMetadataModel
+      .find()
+      .byEmailAndManagerId(email, managerId);
 
     // Calculate the sum of units
     let sum = 0;

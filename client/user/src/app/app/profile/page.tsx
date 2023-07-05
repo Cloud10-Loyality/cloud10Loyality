@@ -45,7 +45,12 @@ function formatDate(dateString: string | number | Date) {
  <div className="w-10/12 ml-6 mt-8 dark:text-white dark:bg-[#272F3C] bg-white p-6 rounded-lg shadow-lg">
   {user && Object.keys(user).length > 0 ? (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Welcome, {user.firstname}!</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">Welcome, {user.firstname}!</h1>
+        <h2 className="bg-blue-500 text-white font-semibold py-2 px-4 rounded">
+          Points: {user.points}
+        </h2>
+      </div>
       <div className="border-b pb-4 mb-6 grid grid-cols-2 gap-8">
         <div>
           <p className="flex items-center mb-2">
