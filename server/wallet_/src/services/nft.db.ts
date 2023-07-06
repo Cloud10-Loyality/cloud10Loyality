@@ -13,6 +13,7 @@ import { natsClient } from "../nats-client";
 import { secretSeed } from "../services/seed";
 
 class NftService {
+  [x: string]: any;
   private mintModel = Mint;
   private burnModel = Burn;
   private mintMetadataModel = MintMetadata;
@@ -196,6 +197,20 @@ class NftService {
     });
 
     return sum;
+  }
+
+  public async getMintNFTMetadataById(
+    id: string
+  ): Promise<MintMetadataType | null> {
+    const mintMetadata = await MintMetadata.findById(id);
+    return mintMetadata;
+  }
+
+  public async deleteMintMetadata(
+    id: string
+  ): Promise<MintMetadataType | null> {
+    const mintMetadata = await MintMetadata.findByIdAndDelete(id);
+    return mintMetadata;
   }
 }
 
