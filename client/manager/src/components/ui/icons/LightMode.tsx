@@ -4,7 +4,7 @@ type Props = {
   onClick?: () => void;
 };
 
-const LightMode = (props: Props) => {
+const LightMode = (props?: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

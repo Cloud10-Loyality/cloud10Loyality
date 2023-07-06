@@ -2,9 +2,9 @@
 
 import { ArrowDown, ArrowUp } from "@/components/ui/icons";
 
+import { ChevronsUpDown } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Reservation } from "@/libs/hooks/use-bookings";
-import { ChevronsUpDown } from "lucide-react";
 
 export const BOOKING_COLUMN: ColumnDef<Reservation>[] = [
   {
@@ -26,7 +26,7 @@ export const BOOKING_COLUMN: ColumnDef<Reservation>[] = [
   },
   {
     accessorKey: "managerId",
-    header: () => <div className="w-max">Manager ID</div>,
+    header: () => <div className="w-max">ManagerType ID</div>,
   },
   {
     accessorKey: "amount",

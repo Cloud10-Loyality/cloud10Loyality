@@ -1,6 +1,7 @@
 import { AppError, Request, catchAsync } from "@c10lms/common";
 import { NextFunction, Response } from "express";
 
+import { Types } from "mongoose";
 import { UserType } from "../../types";
 import { bookingService } from "../services/bookings.db";
 
@@ -25,13 +26,13 @@ export const getMe = catchAsync(
 
 export const getBookings = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const role = req.role;
+    // const role = req.role;
 
-    if (role === "USER") {
-      return next(
-        new AppError("You are not authorized to perform this action", 403)
-      );
-    }
+    // if (role === "USER") {
+    //   return next(
+    //     new AppError("You are not authorized to perform this action", 403)
+    //   );
+    // }
 
     const { fields, limit, sort } = req.query;
     const queryObj = { ...req.query };
@@ -51,6 +52,28 @@ export const getBookings = catchAsync(
       data: {
         bookings,
       },
+    });
+  }
+);
+
+export const deleteBooking = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    // const role = req.role;
+
+    // if (role === "USER") {
+    //   return next(
+    //     new AppError("You are not authorized to perform this action", 403)
+    //   );
+    // }
+
+    const { id } = req.params;
+
+    await bookingService.deleteBooking(id as unknown as Types.ObjectId);
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      data: null,
     });
   }
 );

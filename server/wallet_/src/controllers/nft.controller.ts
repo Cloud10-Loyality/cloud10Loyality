@@ -5,12 +5,12 @@ import { lucid, policyId } from "../services";
 import Burn from "../models/burnModel";
 import Mint from "../models/mintModel";
 import MintMetadata from "../models/mintMetadata.model";
+import { Types } from "mongoose";
 import axios from "axios";
 import { burnNFT } from "../services/burnNFT";
 import { mintNftMetadata } from "../services/pointServiceV1/mintNftMetadata";
 import { nftService } from "../services/nft.db";
 import { secretSeed } from "../services/seed";
-import { Types } from "mongoose";
 
 export const mintNFTtoken = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -108,7 +108,7 @@ export const burnByPolicyId = async (
 
 export const mintTokenMetadata = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { email, description, label, tokenName, name } = req.body;
+    const { email, description, label, tokenName, name, managerId } = req.body;
 
     const { txHash, UNIT_VALUE, metadata } = await nftService.mintNFTMetadata({
       email,
@@ -176,6 +176,18 @@ export const getAssetDetails = catchAsync(
       .catch((error) => {
         next(error);
       });
+  }
+);
+
+export const deleteAssets = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    await MintMetadata.deleteMany();
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      message: "Data deleted successfully",
+    });
   }
 );
 
@@ -254,9 +266,13 @@ export const getPoints = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     // try {
     const { email } = req.query;
+    const { managerId } = req.body;
 
     // Find documents with the specified email
-    const units = await nftService.getPoints(email as unknown as string);
+    const units = await nftService.getPoints(
+      email as unknown as string,
+      managerId
+    );
 
     res.status(200).json({
       status: "success",

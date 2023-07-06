@@ -1,4 +1,5 @@
 import { AppError, Request, catchAsync } from "@c10lms/common";
+import { ManagerType, Role } from "../../types";
 import { NextFunction, Response } from "express";
 
 import Reservation from "../models/reservation.model";
@@ -11,7 +12,19 @@ import { reservationService } from "../services/reservation.db";
 // import { reservationService } from "../services/reservations.db";
 
 export const getReservations = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (
+    req: Request<ManagerType, Role>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const role = req.role;
+
+    if (role !== "ADMIN") {
+      return next(
+        new AppError("You are not authorized to perform this action", 403)
+      );
+    }
+
     const { populate, fields, limit, sort } = req.query;
     const queryObj = { ...req.query };
 
@@ -23,6 +36,48 @@ export const getReservations = catchAsync(
     };
 
     const reservations = await reservationService.getAllReservations(
+      queryObj,
+      options
+    );
+
+    res.status(200).json({
+      message: "success",
+      error: false,
+      totalRecords: reservations.length,
+      data: {
+        reservations,
+      },
+    });
+  }
+);
+
+export const getReservationsByManager = catchAsync(
+  async (
+    req: Request<ManagerType, Role>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const role = req.role;
+    const { _id } = req.manager;
+
+    if (role === "USER") {
+      return next(
+        new AppError("You are not authorized to perform this action", 403)
+      );
+    }
+
+    const { populate, fields, limit, sort } = req.query;
+    const queryObj = { ...req.query };
+
+    const options = {
+      populate,
+      fields,
+      limit,
+      sort,
+    };
+
+    const reservations = await reservationService.getAllReservationsByManager(
+      _id!,
       queryObj,
       options
     );

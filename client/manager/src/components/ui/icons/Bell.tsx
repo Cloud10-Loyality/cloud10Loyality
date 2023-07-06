@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {};
 
-const Bell = (props: Props) => {
+const Bell = (props?: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

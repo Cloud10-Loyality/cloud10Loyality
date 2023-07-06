@@ -68,8 +68,8 @@ class UserService {
     return user;
   }
 
-  public async deleteUser(id: Types.ObjectId): Promise<UserType | null> {
-    const user = await this.model.findByIdAndDelete(id);
+  public async deleteUser(email: string): Promise<UserType | null> {
+    const user = await this.model.findOneAndDelete({ email });
 
     return user;
   }

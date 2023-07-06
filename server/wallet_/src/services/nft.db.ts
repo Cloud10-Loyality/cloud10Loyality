@@ -6,11 +6,11 @@ import Burn from "../models/burnModel";
 import Mint from "../models/mintModel";
 import MintMetadata from "../models/mintMetadata.model";
 import { PointsCreatedPublisher } from "../events/publishers/points-created-publisher";
+import { Types } from "mongoose";
 import { burnNFT } from "./burnNFT";
 import { mintNFT } from "./mintNFT";
 import { natsClient } from "../nats-client";
 import { secretSeed } from "../services/seed";
-import { Types } from "mongoose";
 
 class NftService {
   [x: string]: any;
@@ -93,6 +93,7 @@ class NftService {
       label: "ERC20",
       policyId: policyId,
       tokenName: data.tokenName,
+      managerId: data.managerId,
       name: data.name,
       image: "",
     };
@@ -105,17 +106,18 @@ class NftService {
         label: data.label,
         policyId: policyId,
         tokenName: data.tokenName,
+        managerId: data.managerId,
         image: "",
         unit: UNIT_VALUE.toString(),
       },
     });
 
-    const totalUnits = await this.getPoints(data.email, data.managerId);
+    // const totalUnits = await this.getPoints(data.email);
 
-    await new PointsCreatedPublisher(natsClient.client).publish({
-      email: data.email,
-      points: totalUnits,
-    });
+    // await new PointsCreatedPublisher(natsClient.client).publish({
+    //   email: data.email,
+    //   points: totalUnits,
+    // });
 
     const tx = await lucid
       .newTx()

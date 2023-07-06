@@ -1,7 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
 import { DarkMode, LightMode } from "../icons";
+import { Moon, SunMoon } from "lucide-react";
+import React, { useEffect } from "react";
+
+import { Button } from "../button";
 import { useTheme } from "next-themes";
 
 type Props = {};
@@ -19,9 +22,13 @@ const ThemeChanger = (props: Props) => {
 
   const showTheme = (t: typeof theme) =>
     t === "dark" ? (
-      <LightMode onClick={() => handleThemeChange(t)} />
+      <Button variant={"outline"}>
+        <SunMoon size={20} onClick={() => handleThemeChange(t)} />
+      </Button>
     ) : t === "light" ? (
-      <DarkMode onClick={() => handleThemeChange(t)} />
+      <Button variant={"outline"}>
+        <Moon size={20} onClick={() => handleThemeChange(t)} />
+      </Button>
     ) : null;
 
   return <div className="cursor-pointer">{showTheme(theme)}</div>;

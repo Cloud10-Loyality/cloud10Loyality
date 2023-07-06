@@ -24,7 +24,7 @@ const bookingSchema = new Schema<BookingType, {}, {}, BookingQueryHelpers>(
   {
     _id: {
       type: Schema.Types.ObjectId,
-      auto: true,
+      auto: false,
     },
     hotelName: {
       type: String,

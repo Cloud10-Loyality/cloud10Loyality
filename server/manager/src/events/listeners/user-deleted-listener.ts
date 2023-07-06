@@ -8,7 +8,7 @@ export class UserDeleteListener extends Listener<UserDeletedEvent> {
   queueGroupName = "manager-service";
 
   async onMessage(data: UserDeletedEvent["data"], msg: any) {
-    await userService.deleteUser(data.id as unknown as Types.ObjectId);
+    await userService.deleteUser(data.email!);
     msg.ack();
   }
 }

@@ -1,15 +1,15 @@
 import React, { useReducer } from "react";
+import { RootState, useSelector } from "@/redux/store";
 
+import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input/Input";
 import { Label } from "@/components/ui/label/Label";
-import { Separator } from "@radix-ui/react-separator";
-import { Button } from "../ui/button";
-import { RootState, useSelector } from "@/redux/store";
 import { ManagerType } from "../../../types";
+import { Separator } from "@radix-ui/react-separator";
 
 type Props = {};
 
-const ProfileForm = (props: Props) => {
+const ProfileForm = (props?: Props) => {
   const { manager } = useSelector((state: RootState) => state.authReducer);
 
   const [inputs, updateInputs] = useReducer(

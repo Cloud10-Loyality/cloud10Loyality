@@ -4,7 +4,7 @@ type Props = {
   onClick?: () => void;
 };
 
-const Hamburger = (props: Props) => {
+const Hamburger = (props?: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

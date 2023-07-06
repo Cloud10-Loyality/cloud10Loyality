@@ -1,10 +1,9 @@
-import { HydratedDocument } from "mongoose";
+import { HydratedDocument, Types } from "mongoose";
+
 import Reservation from "../models/reservation.model";
 import { ReservationType } from "../../types";
 
 // import Reservation from "../models/reservation.model";
-
-
 
 class ReservationService {
   private model = Reservation;
@@ -26,6 +25,38 @@ class ReservationService {
     queryStr = excludedFields.forEach((el) => delete queryObj![el]);
 
     let query = this.model.find((queryStr as any) ?? queryObj);
+
+    if (sort) {
+      const sortBy = sort.split(",").join(" ");
+      query = query.sort(sortBy);
+    }
+    if (limit) query = query.limit(limit);
+    if (fields) query = query.select(fields);
+    // if (populate) query = query.populate(populate);
+
+    const reservations = await query.sort(sort);
+
+    return reservations;
+  }
+
+  public async getAllReservationsByManager(
+    id: Types.ObjectId,
+    queryObj?: Record<string, any>,
+    options?: {
+      limit?: number | any;
+      sort?: string | any;
+      fields?: string[] | any;
+      populate?: string[] | any;
+    }
+  ): Promise<ReservationType[]> {
+    const { limit, fields, sort, populate } = options ?? {};
+
+    let queryStr;
+    const excludedFields = ["populate", "sort", "limit", "fields"];
+
+    queryStr = excludedFields.forEach((el) => delete queryObj![el]);
+
+    let query = this.model.find((queryStr as any) ?? queryObj).byManager(id!);
 
     if (sort) {
       const sortBy = sort.split(",").join(" ");

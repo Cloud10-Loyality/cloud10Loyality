@@ -1,10 +1,31 @@
-import { InferSchemaType, Model, Schema, model } from "mongoose";
+import {
+  HydratedDocument,
+  Model,
+  QueryWithHelpers,
+  Schema,
+  Types,
+  model,
+} from "mongoose";
+import { ManagerType, ReservationType } from "../../types";
 
-import { ReservationType } from "../../types";
+interface ReservationQueryHelpers {
+  byManager(
+    managerId: Types.ObjectId
+  ): QueryWithHelpers<
+    HydratedDocument<ManagerType>[],
+    HydratedDocument<ManagerType>,
+    ReservationQueryHelpers
+  >;
+}
 
-type ReservationModelType = Model<ReservationType>;
+type ReservationModelType = Model<ReservationType, ReservationQueryHelpers>;
 
-const reservationSchema = new Schema<ReservationType>(
+const reservationSchema = new Schema<
+  ReservationType,
+  {},
+  {},
+  ReservationQueryHelpers
+>(
   {
     _id: {
       type: Schema.Types.ObjectId,
@@ -67,7 +88,6 @@ const reservationSchema = new Schema<ReservationType>(
       email: {
         type: String,
         required: [true, "Email is required"],
-        unique: true,
         lowercase: true,
       },
       gender: {
@@ -86,7 +106,6 @@ const reservationSchema = new Schema<ReservationType>(
       },
       phone: {
         type: Number,
-        unique: true,
         minLength: [3, "Phone number must be at least 3 characters long"],
         maxLength: [10, "Phone number must be at most 10 characters long"],
       },
@@ -112,6 +131,17 @@ const reservationSchema = new Schema<ReservationType>(
 );
 
 reservationSchema.index({ hotelName: 1 });
+
+reservationSchema.query.byManager = function (
+  this: QueryWithHelpers<
+    any,
+    HydratedDocument<ManagerType>,
+    ReservationQueryHelpers
+  >,
+  managerId: Types.ObjectId
+) {
+  return this.where({ managerId });
+};
 
 const Reservation = model<ReservationType, ReservationModelType>(
   "Reservation",

@@ -7,6 +7,7 @@ import useSwr, { mutate } from "swr";
 
 import { Container } from "@/components/layout/container";
 import { Header } from "@/components/layout/header";
+import { ManagerType } from "../../../types";
 import { Sidebar } from "@/components/layout/sidebar";
 import { encodeStr } from "@/libs/utils";
 import { setManager } from "@/redux/slices/authSlice";
@@ -42,7 +43,7 @@ export default function DashboardLayout({ children }: Props) {
   useEffect(() => {
     if (accessToken) {
       getManager(accessToken).then((res) => {
-        dispatch(setManager(res.data?.manager!));
+        dispatch(setManager(res.data?.manager! as unknown as ManagerType));
       });
     }
   }, [accessToken]);

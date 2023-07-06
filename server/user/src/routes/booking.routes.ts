@@ -1,4 +1,8 @@
-import { getBookings, getMe } from "../controllers/booking.controller";
+import {
+  deleteBooking,
+  getBookings,
+  getMe,
+} from "../controllers/booking.controller";
 
 import { Router } from "express";
 import { protect } from "@c10lms/common";
@@ -12,5 +16,6 @@ router.use(protectRoute as any);
 router.route("/me").get(getMe as any);
 
 router.route("/").get(getBookings as any);
+router.route("/:id").delete(deleteBooking as any);
 
 export default router;

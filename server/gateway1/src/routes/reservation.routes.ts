@@ -1,5 +1,6 @@
 import {
   createReservation,
+  deleteAllReservations,
   deleteReservation,
   getReservations,
   updateReservation,
@@ -149,7 +150,7 @@ const router = Router();
 router
   .route("/")
   .get(getReservations as any)
-  .post(createReservation as any);
+  .post(createReservation as any).delete(deleteAllReservations as any)
 
 /**
  * @openapi

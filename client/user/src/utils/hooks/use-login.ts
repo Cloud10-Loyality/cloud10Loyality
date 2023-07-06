@@ -53,13 +53,13 @@ export const useLogin = () => {
         body
       );
 
-      setResponse({
+      return {
         error: ResStatus.Success,
         message: res.data.message,
         data: {
           accessToken: res.data.data.accessToken,
         },
-      });
+      };
     } catch (error) {
       if (axios.isAxiosError<ErrorRootObject, Record<string, unknown>>(error)) {
         // console.log(error.response?.data.message);

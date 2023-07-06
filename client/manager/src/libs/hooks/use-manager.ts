@@ -25,11 +25,11 @@ export interface Data {
 }
 
 export interface Manager {
-  __v: number;
-  _id: string;
-  createdAt: Date;
-  email: string;
-  id: string;
+  __v?: number;
+  _id?: string;
+  createdAt?: Date;
+  email?: string;
+  id?: string;
   name: string;
   role: string;
   updatedAt: Date;
@@ -74,7 +74,7 @@ export const useManager = () => {
       };
     } catch (err) {
       setLoading(false);
-      if (axios.isAxiosstatus<ErrRootObject, Record<string, unknown>>(err)) {
+      if (axios.isAxiosError<ErrRootObject, Record<string, unknown>>(err)) {
         return {
           error: true,
           status: ResStatus.Fail,
