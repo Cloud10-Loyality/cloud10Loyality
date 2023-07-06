@@ -2,7 +2,7 @@
 
 import { RootState, useSelector } from "@/redux/store";
 
-import { Manager } from "./use-manager";
+import { ManagerType } from "../../../types";
 import axios from "axios";
 
 export interface RootObject {
@@ -32,7 +32,7 @@ export const useTier = () => {
   // );
   const getTiers = async (
     accessToken: string,
-    manager: Manager
+    manager: ManagerType
   ): Promise<Tier[]> => {
     const res = await axios.get<RootObject>(
       `http://cloud10lms.com/api/v1/tier/${manager?._id}`,
@@ -47,7 +47,7 @@ export const useTier = () => {
   };
 
   const updateTier = async (
-    manager: Manager,
+    manager: ManagerType,
     accessToken: string,
     body: Partial<Tier>,
     type?: "SILVER" | "GOLD" | "PLATINUM"

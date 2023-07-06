@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
 import ProfileForm from "./profile-form";
+import React from "react";
 
 type Props = {};
 
-const Profile = (props: Props) => {
+const Profile = (props?: Props) => {
   return (
     <div>
       <ProfileForm />

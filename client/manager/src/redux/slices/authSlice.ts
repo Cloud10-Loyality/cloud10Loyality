@@ -1,10 +1,11 @@
 import { Draft, PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { authState } from "../states";
-import { store } from "../store";
-import axios from "axios";
+
 import { LoginResponse } from "@/app/api/login/route";
-import { staticGenerationAsyncStorage } from "next/dist/client/components/static-generation-async-storage";
 import { ManagerType } from "../../../types";
+import { authState } from "../states";
+import axios from "axios";
+import { staticGenerationAsyncStorage } from "next/dist/client/components/static-generation-async-storage";
+import { store } from "../store";
 
 const AuthSlice = createSlice({
   name: "authSlice",
@@ -48,7 +49,7 @@ export const login =
   };
 
 export const handleManager =
-  (data: Partial<ManagerType>) => async (dispatch: typeof store.dispatch) => {
+  (data: ManagerType) => async (dispatch: typeof store.dispatch) => {
     dispatch(setManager(data));
   };
 

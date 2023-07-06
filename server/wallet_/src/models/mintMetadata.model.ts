@@ -3,12 +3,14 @@ import mongoose, {
   Model,
   QueryWithHelpers,
   Schema,
+  Types,
 } from "mongoose";
 import { MintMetadataType } from "../../types";
 
 interface MintNFTMetadataQueryHelpers {
-  byEmail(
-    email: string
+  byEmailAndManagerId(
+    email: string,
+    managerId: Types.ObjectId
   ): QueryWithHelpers<
     HydratedDocument<MintMetadataType>[],
     HydratedDocument<MintMetadataType>,
@@ -37,6 +39,10 @@ const mintMetadataSchema = new Schema<
       tokenName: { type: String },
       image: { type: String },
       unit: { type: Number },
+      managerId: {
+        type: Schema.Types.ObjectId,
+        required: [true, "Manager Id required"],
+      },
     },
   },
   {
@@ -46,15 +52,19 @@ const mintMetadataSchema = new Schema<
   }
 );
 
-mintMetadataSchema.query.byEmail = function (
+mintMetadataSchema.query.byEmailAndManagerId = function (
   this: QueryWithHelpers<
     any,
     HydratedDocument<MintMetadataType>,
     MintNFTMetadataQueryHelpers
   >,
-  email?: string
+  email?: string,
+  managerId?: Types.ObjectId
 ) {
-  return this.where({ "metadata.email": email });
+  return this.where({
+    "metadata.email": email,
+    "metadata.managerId": managerId,
+  });
 };
 
 const MintMetadata = mongoose.model<MintMetadataType, MintMetadataModelType>(

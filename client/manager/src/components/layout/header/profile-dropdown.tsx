@@ -6,16 +6,17 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Separator } from "@/components/ui/separator";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import React from "react";
+
 import { ManagerType } from "../../../../types";
+import React from "react";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
 
 type Props = {
   handleLogout: () => void;
   loading: boolean;
-  manager?: ManagerType;
+  manager?: Partial<ManagerType>;
 };
 
 export const ProfileDropdown = React.forwardRef(
@@ -73,3 +74,5 @@ export const ProfileDropdown = React.forwardRef(
     );
   }
 );
+
+ProfileDropdown.displayName = "ProfileDropdown";

@@ -62,41 +62,56 @@ const Navbar = () => {
     }
   };
 
+  const isSearchDisabled = true; // Set this to true to disable the search button and input
+  const isNotificationDisabled = true; // Set this to true to disable the notification button
+  const isSettingsDisabled = true; // Set this to true to disable the settings button
+
   return (
     <>
       <div className="h-[10vh] sticky mr-6 top-0 left-0 py-2 ">
         <div className="flex items-center h-full px-4 rounded-lg justify-between bg-opacity-40">
-          <div className="mt-5  p-[10px]  ml-2 dark:bg-[#272F3C] bg-white rounded-md">
+          <div className="mt-5  p-[10px]  ml-2 font-bold dark:bg-[#272F3C] bg-white rounded-md">
             <span className="flex items-center space-x-3 pr-3">
               <BsArrowRight />
               <span className="sm:text-sm ">{getActiveLabel()}</span>
             </span>
           </div>
-          <div className="mt-5  ml-6">
+          {/* <div className="mt-5  ml-6">
             <form onSubmit={handleSearchSubmit} className="flex items-center">
               <input
                 type="text"
                 value={searchText}
                 onChange={handleSearchChange}
                 placeholder="Search"
-                className="py-2 px-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={`py-2 px-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  isSearchDisabled ? "cursor-not-allowed " : ""
+                }`}
+                disabled={isSearchDisabled}
               />
               <button
                 type="submit"
-                className="ml-1 py-2 px-3 text-lg bg-blue-500 rounded-md text-white"
+                className={`ml-1 py-2 px-3 text-lg bg-blue-500 rounded-md text-white ${
+                  isSearchDisabled ? "cursor-not-allowed " : ""
+                }`}
+                disabled={isSearchDisabled}
               >
                 <FiSearch className="h-5 w-5" />
               </button>
             </form>
-          </div>
+          </div> */}
 
           <div className="ml-3 mt-5 flex  ">
             <div ref={notificationRef}>
               <div
-                className={`pt-[7px] px-[11px] ml-16 bg-white text-lg rounded-md dark:text-black ${showNotification ? "bg-gray-300" : ""
-                  }`}
+                className={`pt-[7px] px-[11px] ml-16 bg-white text-lg rounded-md dark:text-black ${
+                  isNotificationDisabled ? "cursor-not-allowed " : ""
+                }`}
               >
-                <button className="text-xl" onClick={handleClick}>
+                <button
+                  className={`text-xl ${isNotificationDisabled ? "cursor-not-allowed" : ""}`}
+                  onClick={handleClick}
+                  disabled={isNotificationDisabled}
+                >
                   <IoMdNotifications />
                 </button>
               </div>
@@ -115,7 +130,7 @@ const Navbar = () => {
               )}
             </div>
             <div className=" pt-[7px] px-[11px]   ml-6 bg-white text-lg rounded-md dark:text-black">
-              <button className="text-xl">
+              <button className={`text-xl ${isSettingsDisabled ? "cursor-not-allowed" : ""}`} disabled={isSettingsDisabled}>
                 <Settings />
               </button>
             </div>

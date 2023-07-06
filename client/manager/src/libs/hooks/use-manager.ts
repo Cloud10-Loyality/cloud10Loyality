@@ -25,11 +25,11 @@ export interface Data {
 }
 
 export interface Manager {
-  __v: number;
-  _id: string;
-  createdAt: Date;
-  email: string;
-  id: string;
+  __v?: number;
+  _id?: string;
+  createdAt?: Date;
+  email?: string;
+  id?: string;
   name: string;
   role: string;
   updatedAt: Date;

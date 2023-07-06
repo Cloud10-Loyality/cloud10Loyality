@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 
 type Props = {};
 
-const ThemeChanger = (props: Props) => {
+const ThemeChanger = (props?: Props) => {
   const { systemTheme, theme, setTheme } = useTheme();
 
   console.log(systemTheme);

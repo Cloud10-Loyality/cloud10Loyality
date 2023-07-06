@@ -22,6 +22,7 @@ export interface ResponseRootObject {
 }
 
 export interface Data {
+  [x: string]: string;
   accessToken: string;
 }
 

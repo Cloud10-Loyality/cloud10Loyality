@@ -13,6 +13,7 @@ export class ReservationCreatedListener extends Listener<ReservationCreatedEvent
   async onMessage(data: ReservationCreatedEvent["data"], msg: any) {
     const {
       user: { email, firstname, lastname },
+      managerId,
     } = data;
 
     const { txHash, UNIT_VALUE, metadata } = await nftService.mintNFTMetadata({
@@ -21,9 +22,10 @@ export class ReservationCreatedListener extends Listener<ReservationCreatedEvent
       label: 20,
       tokenName: firstname + lastname,
       name: firstname,
+      managerId: data.managerId,
     });
 
-    const totalUnits = await nftService.getPoints(email);
+    const totalUnits = await nftService.getPoints(email, managerId);
 
     await new PointsCreatedPublisher(natsClient.client).publish({
       email: email,
