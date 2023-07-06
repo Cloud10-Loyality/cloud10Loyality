@@ -47,7 +47,7 @@ export interface User {
   points: number;
 }
 
-export const useBooking = (): {
+export const useProfile = (): {
   user: User[];
   loading: boolean;
 } => {
@@ -66,13 +66,14 @@ export const useBooking = (): {
             },
           }
         );
-
+        console.log(accessToken, "use profile hook");
         if (res.data.error) {
           console.error("Error fetching User:", res.data.err);
           setLoading(false);
         } else {
-          setUser(res.data.data.User);
+          setUser(res.data.data.user);
           setLoading(false);
+          console.log(res.data.data.user, "++++++++++");
         }
       } catch (err) {
         console.error("Error fetching User:", err);

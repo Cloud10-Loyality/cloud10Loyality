@@ -56,7 +56,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="rounded-md border min-w-max dark:text-white mr-8 ml-3  mt-2">
+      <div className="rounded-md border w-[80%] flex justify-center place-items-center dark:text-white mr-8 ml-3  mt-2">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -67,7 +67,7 @@ export function DataTable<TData, TValue>({
                       {header.isPlaceholder ? (
                         (null as unknown as React.ReactNode)
                       ) : (
-                        <th className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <th className=" text-sm font-medium text-gray-700 dark:text-gray-300">
                           {flexRender(
                             header.column.columnDef.header,
                             header.getContext()
