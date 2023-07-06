@@ -21,8 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="dark:bg-[#20232b] {poppins.className}">
+      <body className={poppins.className}>
         <AppProvider>{children}</AppProvider>
+        {/* <ToastContainer /> */}
       </body>
     </html>
   );
