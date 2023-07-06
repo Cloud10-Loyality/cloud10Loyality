@@ -61,6 +61,11 @@ class ReservationService {
     const deletedReservation = await this.model.findByIdAndDelete(id);
     return deletedReservation!;
   }
+
+  public async deleteAllReservations(): Promise<any> {
+    const deletedReservations = await this.model.deleteMany({});
+    return deletedReservations;
+  }
 }
 
 export const reservationService = new ReservationService();

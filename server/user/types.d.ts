@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export type UserType = {
   _id?: Types.ObjectId;
   firstname?: string;
@@ -30,3 +32,26 @@ export type BookingType = {
   country?: string;
   zipCode?: number;
 };
+
+export type TierType = {
+  name?: TierEnum;
+  points?: number;
+  rewards?: string[];
+  manager?: Types.ObjectId;
+};
+
+export enum TierEnum {
+  GOLD = "Gold",
+  SILVER = "Silver",
+  PLATINUM = "Platinum",
+}
+
+export type UserTierType = {
+  _id?: Types.ObjectId;
+  email?: string;
+  points?: number;
+  tier?: "Silver" | "Gold" | "Platinum";
+  manager?: Types.ObjectId;
+};
+
+export type TierName = "GOLD" | "SILVER" | "PLATINUM";

@@ -1,8 +1,10 @@
 import { AppError, Request, catchAsync } from "@c10lms/common";
 import { NextFunction, Response } from "express";
 
+import { TierCreatedPublisher } from "../events/publishers/tier-created-publisher";
 import { TierName } from "../../types";
 import { Types } from "mongoose";
+import { natsClient } from "../nats-client";
 import { tierService } from "../services/tier.db";
 
 export const getTiers = catchAsync(
@@ -51,7 +53,13 @@ export const createTier = catchAsync(
       return next(new AppError("Please fill all the reqired fields", 400));
     }
 
-    await tierService.createTier(type, body);
+    const tier = await tierService.createTier(type, body);
+    await new TierCreatedPublisher(natsClient.client).publish({
+      name: tier!.name,
+      points: tier!.points,
+      rewards: tier!.rewards,
+      manager: tier!.manager,
+    });
 
     res.status(201).json({
       status: "success",

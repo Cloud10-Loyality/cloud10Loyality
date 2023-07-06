@@ -1,8 +1,4 @@
-import {
-  AppError,
-  errorHandler,
-  generateRandomString,
-} from "@c10lms/common";
+import { AppError, errorHandler, generateRandomString } from "@c10lms/common";
 import { NextFunction, Request, Response } from "express";
 
 import authRoutes from "./routes/auth.routes";
@@ -12,6 +8,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
+import tiersRoutes from "./routes/tiers.routes";
 import userRoutes from "./routes/user.routes";
 
 export const PORT = process.env.USER_PORT || 8000;
@@ -31,6 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use("/api/v1/user/tier", tiersRoutes);
 app.use("/api/v1/user/auth", authRoutes);
 app.use("/api/v1/user/bookings", bookingRoutes);
 app.use("/api/v1/user", userRoutes);

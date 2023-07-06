@@ -1,8 +1,12 @@
 "use client";
 
+import React, { useReducer } from "react";
+
+import { Button } from "../ui/button";
+import { Loader2Icon } from "lucide-react";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { useReducer } from "react";
 
 type Props = {};
 
@@ -22,15 +26,21 @@ export default function RegisterForm({}: Props) {
     }
   );
 
+  const [loading, setLoading] = React.useState(false);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setLoading(true);
     const res = await axios.post(
       "http://cloud10lms.com/api/v1/integration/register",
       inputs
     );
+    setLoading(false);
 
-    console.log(res);
+    if (!res.data.error) {
+      router.push("/login");
+    }
   };
 
   return (
@@ -112,12 +122,9 @@ export default function RegisterForm({}: Props) {
           </div>
         </div>
         <div>
-          <button
-            type="submit"
-            className="font-bold px-4 py-2 w-full bg-indigo-600 text-white rounded-lg"
-          >
-            Register
-          </button>
+          <Button disabled={loading} type="submit" className="w-full">
+            {loading && <ReloadIcon className="animate-spin" />} Register
+          </Button>
           <p className="text-center text-xs mt-2">
             You&apos;r already registered,{" "}
             <span

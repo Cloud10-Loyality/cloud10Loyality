@@ -39,7 +39,7 @@ export const deleteUser = catchAsync(
       return next(new AppError("No user found with that ID", 404));
     }
 
-    await userService.deleteUser(id as unknown as Types.ObjectId);
+    await userService.deleteUser(user.email);
 
     res.status(200).json({
       status: "success",

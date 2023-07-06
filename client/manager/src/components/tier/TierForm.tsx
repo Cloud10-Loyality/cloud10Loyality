@@ -8,7 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import React, { useEffect, useTransition } from "react";
+import { Cross1Icon, ReloadIcon } from "@radix-ui/react-icons";
+import React, {
+  SetStateAction,
+  useEffect,
+  useState,
+  useTransition,
+} from "react";
 import { RootState, useSelector } from "@/redux/store";
 import {
   Select,
@@ -21,7 +27,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { Cross1Icon } from "@radix-ui/react-icons";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import Link from "next/link";
@@ -50,10 +55,12 @@ export interface Data {
 }
 
 const TierForm = ({ tiers }: Props) => {
-  const [tier, setTier] = React.useState<string>("");
-  const [points, setPoints] = React.useState<number>(0);
-  const [rewards, setRewards] = React.useState<string>("");
-  const [filteredRewards, setFilteredRewards] = React.useState<string[]>([]);
+  const [tier, setTier] = useState<string>("");
+  const [points, setPoints] = useState<number>(0);
+  const [rewards, setRewards] = useState<string>("");
+  const [filteredRewards, setFilteredRewards] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [updateMode, setUpdateMode] = useState<boolean>(false);
 
   const { accessToken, manager } = useSelector(
     (state: RootState) => state.authReducer
@@ -61,6 +68,21 @@ const TierForm = ({ tiers }: Props) => {
 
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+
+  const searchParams = useSearchParams().get("q");
+
+  useEffect(() => {
+    if (searchParams) {
+      const q = searchParams && decodeStr(searchParams);
+
+      if (q?.tier) {
+        setTier(q?.tier?.name.toUpperCase());
+        setPoints(q?.tier?.points);
+        setFilteredRewards(q?.tier?.rewards);
+        setUpdateMode(true);
+      }
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     document.addEventListener("keydown", (event) => {
@@ -80,12 +102,6 @@ const TierForm = ({ tiers }: Props) => {
     };
   }, [rewards]);
 
-  const compareTierNames = () => {
-    return (
-      tiers?.map((tier) => tier?.name?.toLowerCase())[0] === tier?.toLowerCase()
-    );
-  };
-
   const handleRewardsInputChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -98,13 +114,25 @@ const TierForm = ({ tiers }: Props) => {
       rewards: filteredRewards.length ? filteredRewards : [rewards],
     };
 
-    const res =
-      tiers?.length && !compareTierNames()
-        ? await createTier(manager, accessToken, data, tier as any)
-        : await updateTier(manager, accessToken, data, tier as any);
+    setLoading(true);
+
+    let res;
+
+    if (updateMode) {
+      res = await updateTier(manager, accessToken, data, tier as any);
+    } else {
+      res = await createTier(manager, accessToken, data, tier as any);
+    }
+
+    setTier("");
+    setPoints(0);
+    setRewards("");
+    setFilteredRewards([]);
+    setUpdateMode(false);
 
     startTransition(() => {
       router.refresh();
+      setLoading(false);
     });
 
     toast.success(res);
@@ -159,7 +187,7 @@ const TierForm = ({ tiers }: Props) => {
           <form className="space-y-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Tier</Label>
-              <Select onValueChange={(value) => setTier(value)}>
+              <Select value={tier} onValueChange={(value) => setTier(value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a tier" />
                   <SelectContent position="popper">
@@ -217,7 +245,8 @@ const TierForm = ({ tiers }: Props) => {
         </CardContent>
         <CardFooter>
           <Button onClick={handleTierModification}>
-            {tiers?.length ? "Save" : "Create"}
+            {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+            {updateMode ? "Update" : "Create"}
           </Button>
         </CardFooter>
       </Card>

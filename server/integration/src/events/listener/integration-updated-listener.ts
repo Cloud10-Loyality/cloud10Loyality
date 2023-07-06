@@ -1,8 +1,4 @@
-import {
-  IntegrationUpdatedEvent,
-  Listener,
-  Subjects,
-} from "@c10lms/common";
+import { IntegrationUpdatedEvent, Listener, Subjects } from "@c10lms/common";
 
 import { Types } from "mongoose";
 import { integrationService } from "../../services/integrations.db";

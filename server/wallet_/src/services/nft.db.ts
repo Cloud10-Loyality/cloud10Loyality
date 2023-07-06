@@ -107,12 +107,12 @@ class NftService {
       },
     });
 
-    const totalUnits = await this.getPoints(data.email);
+    // const totalUnits = await this.getPoints(data.email);
 
-    await new PointsCreatedPublisher(natsClient.client).publish({
-      email: data.email,
-      points: totalUnits,
-    });
+    // await new PointsCreatedPublisher(natsClient.client).publish({
+    //   email: data.email,
+    //   points: totalUnits,
+    // });
 
     const tx = await lucid
       .newTx()

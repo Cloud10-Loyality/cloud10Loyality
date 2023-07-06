@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@c10lms/common@^1.0.41":
-  version "1.0.41"
-  resolved "https://registry.yarnpkg.com/@c10lms/common/-/common-1.0.41.tgz#ae139761e1240e2a47bd2747f0b24c078d55938a"
-  integrity sha512-h3Yn7D//0ssch19A2jSjcTlxbQGWjV2r86nH+I2wznHOnN3hYG2Qnlym4sP4gz6wVOCzGRx5gHY/SM5rKBcVRw==
+"@c10lms/common@^1.0.43":
+  version "1.0.43"
+  resolved "https://registry.yarnpkg.com/@c10lms/common/-/common-1.0.43.tgz#e09a7cd89446d6080adf8d1ca67db30d7c73fc7c"
+  integrity sha512-NmRsMOU5P94TLlwa+89K73n+MxomWUq6+57+yrIAfNJh+2oDag9Q3RcjZTLa123bf7P92T1N/X8PuF2qBHlZRA==
   dependencies:
     bcryptjs "^2.4.3"
     express "^4.18.2"

@@ -1,8 +1,4 @@
-import {
-  AppError,
-  errorHandler,
-  generateRandomString,
-} from "@c10lms/common";
+import { AppError, errorHandler, generateRandomString } from "@c10lms/common";
 import { NextFunction, Request, Response } from "express";
 
 import cors from "cors";

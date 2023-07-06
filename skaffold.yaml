@@ -1,89 +1,121 @@
-apiVersion: skaffold/v2alpha3
+apiVersion: skaffold/v4beta2
 kind: Config
-deploy:
-  kubectl:
-    manifests:
-      - "./k8s/*"
+metadata:
+  name: cloud10lms
 build:
+  artifacts:
+  - image: cloud10lms/gateway1
+    context: ./server/gateway1
+    sync:
+      manual:
+      - src: "src/**/*.ts"
+        dest: .
+    docker:
+      dockerfile: Dockerfile
+      noCache: false
+  - image: cloud10lms/integration
+    context: ./server/integration
+    docker:
+      dockerfile: Dockerfile
+      noCache: false
+    sync:
+      manual:
+        - src: "src/**/*.ts"
+          dest: .
+  - image: cloud10lms/manager
+    context: ./server/manager
+    docker:
+      dockerfile: Dockerfile
+      noCache: false
+    sync:
+      manual:
+        - src: "src/**/*.ts"
+          dest: .
+  - image: cloud10lms/user
+    context: ./server/user
+    docker:
+      dockerfile: Dockerfile
+      noCache: false
+    sync:
+      manual:
+        - src: "src/**/*.ts"
+          dest: .
+  - image: cloud10lms/tier
+    context: ./server/tier
+    docker:
+      dockerfile: Dockerfile
+      noCache: false
+    sync:
+      manual:
+        - src: "src/**/*.ts"
+          dest: .
+  - image: cloud10lms/wallet
+    context: ./server/wallet_
+    docker:
+      dockerfile: Dockerfile
+      noCache: false
+    sync:
+      manual:
+        - src: "src/**/*.ts"
+          dest: .
+  - image: cloud10lms/manager-client
+    context: ./client/manager
+    docker:
+      dockerfile: Dockerfile
+      noCache: false
+    sync:
+      manual:
+        - src: "src/**/*.tsx"
+          dest: .
+        - src: "public/**/*"
+          dest: .
+  - image: cloud10lms/user-client
+    context: ./client/user
+    docker:
+      dockerfile: Dockerfile
+      noCache: false
+    sync:
+      manual:
+        - src: "src/**/*.tsx"
+          dest: .
+        - src: "public/**/*"
+          dest: .
   local:
     concurrency: 0
+    tryImportMissing: false
     useDockerCLI: false
-    push: false
-  artifacts:
-    - image: cloud10lms/gateway1
-      context: ./server/gateway1
-      docker:
-        dockerfile: Dockerfile
-        noCache: false
-      sync:
-        manual:
-          - src: "src/**/*.ts"
-            dest: .
-    - image: cloud10lms/integration
-      context: ./server/integration
-      docker:
-        dockerfile: Dockerfile
-        noCache: false
-      sync:
-        manual:
-          - src: "src/**/*.ts"
-            dest: .
-    - image: cloud10lms/manager
-      context: ./server/manager
-      docker:
-        dockerfile: Dockerfile
-        noCache: false
-      sync:
-        manual:
-          - src: "src/**/*.ts"
-            dest: .
-    - image: cloud10lms/user
-      context: ./server/user
-      docker:
-        dockerfile: Dockerfile
-        noCache: false
-      sync:
-        manual:
-          - src: "src/**/*.ts"
-            dest: .
-    - image: cloud10lms/tier
-      context: ./server/tier
-      docker:
-        dockerfile: Dockerfile
-        noCache: false
-      sync:
-        manual:
-          - src: "src/**/*.ts"
-            dest: .
-    - image: cloud10lms/wallet
-      context: ./server/wallet_
-      docker:
-        dockerfile: Dockerfile
-        noCache: false
-      sync:
-        manual:
-          - src: "src/**/*.ts"
-            dest: .
-    - image: cloud10lms/manager-client
-      context: ./client/manager
-      docker:
-        dockerfile: Dockerfile
-        noCache: false
-      sync:
-        manual:
-          - src: "src/**/*.tsx"
-            dest: .
-          - src: "public/**/*"
-            dest: .
-    - image: cloud10lms/user-client
-      context: ./client/user
-      docker:
-        dockerfile: Dockerfile
-        noCache: false
-      sync:
-        manual:
-          - src: "src/**/*.tsx"
-            dest: .
-          - src: "public/**/*"
-            dest: .
+manifests:
+  rawYaml:
+    - "./k8s/*.yaml"
+    # - image: cloud10lms/wallet
+    #   context: ./server/wallet_
+    #   docker:
+    #     dockerfile: Dockerfile
+    #     noCache: false
+    #   sync:
+    #     manual:
+    #       - src: "src/**/*.ts"
+    #         dest: .
+    # - image: cloud10lms/manager-client
+    #   context: ./client/manager
+    #   docker:
+    #     dockerfile: Dockerfile
+    #     noCache: false
+    #   sync:
+    #     manual:
+    #       - src: "src/**/*.tsx"
+    #         dest: .
+    #       - src: "public/**/*"
+    #         dest: .
+    # - image: cloud10lms/user-client
+    #   context: ./client/user
+    #   docker:
+    #     dockerfile: Dockerfile
+    #     noCache: false
+    #   sync:
+    #     manual:
+    #       - src: "src/**/*.tsx"
+    #         dest: .
+    #       - src: "public/**/*"
+    #         dest: .
   

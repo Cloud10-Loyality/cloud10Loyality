@@ -74,7 +74,7 @@ export const useManager = () => {
       };
     } catch (err) {
       setLoading(false);
-      if (axios.isAxiosstatus<ErrRootObject, Record<string, unknown>>(err)) {
+      if (axios.isAxiosError<ErrRootObject, Record<string, unknown>>(err)) {
         return {
           error: true,
           status: ResStatus.Fail,

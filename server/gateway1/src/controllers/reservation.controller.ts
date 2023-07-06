@@ -139,6 +139,20 @@ export const deleteReservation = catchAsync(
     res.status(200).json({
       status: "success",
       error: false,
+      message: "Reservation deleted successfully",
+      data: null,
+    });
+  }
+);
+
+export const deleteAllReservations = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    await reservationService.deleteAllReservations();
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      message: "All reservations deleted successfully",
       data: null,
     });
   }
