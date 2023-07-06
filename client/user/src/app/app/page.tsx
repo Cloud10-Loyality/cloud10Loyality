@@ -1,35 +1,42 @@
-import Navbar from "@/components/Navbar";
-import Timeline from "@/components/Timeline";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
 
+import Navbar from "@/components/Navbar";
 import React from "react";
+import Timeline from "@/components/Timeline";
 
 type Props = {};
 
-export default function page({ }: Props) {
+export default function page({}: Props) {
   return (
     <div className=" font-light h-full">
       <div className="flex flex-row  ml-3">
-        <div className="p-3 w-80 ml-2 mr-2 dark:text-white bg-white dark:bg-[#272F3C] rounded-md ">
-          <div className="p-2 gap-2 space-y-2">
+        <Card className="w-80">
+          <CardHeader>
             <h3>Total Spending</h3>
-            <p className="text-xl font-bold">$450</p>
-          </div>
-          <hr />
-          <ul className="m-2  text-md space-y-3">
-            <li className="flex place-content-between gap-4 ">
-              <h4>Avg Booking Value</h4>
-              <span>$210</span>
-            </li>
-            <li className="flex place-content-between">
-              <h4>Bookings</h4>
-              <span>18</span>
-            </li>
-            <li className="flex place-content-between">
-              <h4>Since the last bookings</h4>
-              <span>3</span>
-            </li>
-          </ul>
-        </div>
+            <CardDescription>$450</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul className="text-md space-y-3">
+              <li className="flex place-content-between gap-4 ">
+                <h4>Avg Booking Value</h4>
+                <span>$210</span>
+              </li>
+              <li className="flex place-content-between">
+                <h4>Bookings</h4>
+                <span>18</span>
+              </li>
+              <li className="flex place-content-between">
+                <h4>Since the last bookings</h4>
+                <span>3</span>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
         <div className="p-3 w-80 ml-9 mr-4 dark:text-white bg-white dark:bg-[#272F3C] rounded-md ">
           <div className="p-2 gap-2 space-y-2">
             <h3>Active Points</h3>

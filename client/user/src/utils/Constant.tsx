@@ -1,6 +1,14 @@
 // menuData.ts
 
 import {
+  Boxes,
+  GalleryVerticalEnd,
+  KanbanSquare,
+  LayoutGrid,
+  PiggyBank,
+  RefreshCcwDot,
+} from "lucide-react";
+import {
   History,
   Home,
   Points,
@@ -12,40 +20,40 @@ import {
 export const menuData = [
   {
     id: 1,
-    icon: <Home />,
+    icon: <LayoutGrid size={20} />,
     label: "Home",
     link: "/app",
   },
   {
     id: 2,
-    icon: <Points />,
+    icon: <KanbanSquare size={20} />,
     label: "Point Summary",
     link: "/app/point-summary",
-    disabled:true,
+    disabled: true,
   },
   {
     id: 3,
-    icon: <History />,
+    icon: <GalleryVerticalEnd size={20} />,
     label: "Stay History",
     link: "/app/stay-history",
   },
   {
     id: 4,
-    icon: <TierBenifits />,
+    icon: <Boxes size={20} />,
     label: "Tier Beneifits",
     link: "/app/tier-beneifits",
-    disabled:true,
+    disabled: true,
   },
   {
     id: 5,
-    icon: <Redemption />,
+    icon: <PiggyBank size={20} />,
     label: "Points Redemption",
     link: "/app/points-redemption",
-    disabled:true,
+    disabled: true,
   },
   {
     id: 6,
-    icon: <Referal />,
+    icon: <RefreshCcwDot size={20} />,
     label: "Referal Programs",
     link: "/app/referal-programs",
     disabled: true,

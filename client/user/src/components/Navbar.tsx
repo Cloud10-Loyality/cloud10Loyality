@@ -1,14 +1,18 @@
 "use client";
-import { FiSearch } from "react-icons/fi";
+
+import { ArrowRight, Bell, LogOut, Settings, User2 } from "lucide-react";
+import { DarkMode, Profile } from "./ui/icons";
+// import { IoMdNotifications, IoMdSettings } from "react-icons/io";
+import { useEffect, useRef, useState } from "react";
+
 import { BsArrowRight } from "react-icons/bs";
-import { IoMdNotifications, IoMdSettings } from "react-icons/io";
+import { Button } from "./ui/button";
 import { FiLogOut } from "react-icons/fi";
-import { useState, useEffect, useRef } from "react";
+import { FiSearch } from "react-icons/fi";
 import Link from "next/link";
 import { ThemeChanger } from "@/components/ui/theme";
-import { DarkMode, Profile, Settings } from "./ui/icons";
-import { usePathname } from "next/navigation";
 import { menuData } from "../utils/Constant";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [searchText, setSearchText] = useState("");
@@ -70,9 +74,9 @@ const Navbar = () => {
     <>
       <div className="h-[10vh] sticky mr-6 top-0 left-0 py-2 ">
         <div className="flex items-center h-full px-4 rounded-lg justify-between bg-opacity-40">
-          <div className="mt-5  p-[10px]  ml-2 font-bold dark:bg-[#272F3C] bg-white rounded-md">
+          <div className="p-[10px] font-semibold ml-2 bg-muted rounded-md">
             <span className="flex items-center space-x-3 pr-3">
-              <BsArrowRight />
+              <ArrowRight size={20} />
               <span className="sm:text-sm ">{getActiveLabel()}</span>
             </span>
           </div>
@@ -100,59 +104,46 @@ const Navbar = () => {
             </form>
           </div> */}
 
-          <div className="ml-3 mt-5 flex  ">
-            <div ref={notificationRef}>
-              <div
-                className={`pt-[7px] px-[11px] ml-16 bg-white text-lg rounded-md dark:text-black ${
-                  isNotificationDisabled ? "cursor-not-allowed " : ""
-                }`}
-              >
-                <button
-                  className={`text-xl ${isNotificationDisabled ? "cursor-not-allowed" : ""}`}
-                  onClick={handleClick}
-                  disabled={isNotificationDisabled}
-                >
-                  <IoMdNotifications />
-                </button>
-              </div>
+          <div className="flex items-center gap-4">
+            {/* <div ref={notificationRef}> */}
+            <Button
+              variant="outline"
+              disabled={isNotificationDisabled}
+              onClick={handleClick}
+            >
+              <Bell size={20} />
+            </Button>
 
-              {showNotification && (
-                <div className="absolute  ml-[-170px] bottom-[-100%]  p-4 bg-white text-black rounded-md shadow-md">
-                  {/* Content of the notification */}
-                  This is a notification message.
-                  {/* <button
+            {/* {showNotification && ( */}
+            {/* <div className="absolute  ml-[-170px] bottom-[-100%]  p-4 bg-white text-black rounded-md shadow-md"> */}
+            {/* Content of the notification */}
+            {/* This is a notification message. */}
+            {/* <button
                 className="text-sm mt-2 underline"
                 onClick={handleClick}
                 >
                 Close
               </button> */}
-                </div>
-              )}
-            </div>
-            <div className=" pt-[7px] px-[11px]   ml-6 bg-white text-lg rounded-md dark:text-black">
-              <button className={`text-xl ${isSettingsDisabled ? "cursor-not-allowed" : ""}`} disabled={isSettingsDisabled}>
-                <Settings />
-              </button>
-            </div>
-            <div className=" pt-[7px] px-[11px]   ml-6 bg-white text-lg rounded-md dark:text-black">
-              <Link href="/app/profile" className="text-xl">
-                <Profile />
-              </Link>
-            </div>
-            <div className=" pt-[7px] px-[11px]  cursor-pointer ml-6 bg-white text-lg rounded-md dark:text-black">
+            {/* </div> */}
+            {/* )} */}
+            {/* </div> */}
+            <Button variant="outline" disabled={isSettingsDisabled}>
+              <Settings size={20} />
+            </Button>
+            {/* <div className="bg-muted text-lg rounded-md"> */}
+            <Link href="/app/profile" className="text-xl">
+              <Button variant="outline">
+                <User2 size={20} />
+              </Button>
+            </Link>
+            {/* </div> */}
+            <div className="cursor-pointer bg-muted text-lg rounded-md">
               <ThemeChanger />
             </div>
-            <div className="pt-[7px] cursor-pointer px-[11px] ml-32 bg-red-300 rounded-md flex items-center justify-center">
-              <Link href="/login">
-                <span
-                  className="flex items-center space-x-3 pr-3 dark:text-black"
-                  onClick={handleLogout}
-                >
-                  <FiLogOut />
-                  <span className="mt-[-4px]">Logout</span>
-                </span>
-              </Link>
-            </div>
+            <Button variant="destructive" onClick={handleLogout}>
+              <LogOut size={20} className="mr-2" />
+              Logout
+            </Button>
           </div>
         </div>
       </div>

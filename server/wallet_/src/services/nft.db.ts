@@ -93,6 +93,7 @@ class NftService {
       label: "ERC20",
       policyId: policyId,
       tokenName: data.tokenName,
+      managerId: data.managerId,
       name: data.name,
       image: "",
     };
@@ -105,6 +106,7 @@ class NftService {
         label: data.label,
         policyId: policyId,
         tokenName: data.tokenName,
+        managerId: data.managerId,
         image: "",
         unit: UNIT_VALUE.toString(),
       },

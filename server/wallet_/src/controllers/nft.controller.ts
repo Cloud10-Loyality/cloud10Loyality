@@ -179,6 +179,18 @@ export const getAssetDetails = catchAsync(
   }
 );
 
+export const deleteAssets = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    await MintMetadata.deleteMany();
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      message: "Data deleted successfully",
+    });
+  }
+);
+
 export const getPolicyId = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
