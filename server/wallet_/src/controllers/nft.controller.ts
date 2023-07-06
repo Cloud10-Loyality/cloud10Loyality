@@ -142,6 +142,25 @@ export const mintTokenMetadata = catchAsync(
     });
   }
 );
+export const deleteMintMetaData = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+
+    const mintMetadata = await nftService.getMintNFTMetadataById(id);
+
+    if (!mintMetadata) {
+      return next(new AppError("Data not found", 404));
+    }
+
+    await nftService.deleteMintMetadata(id);
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      message: "Data deleted successfully",
+    });
+  }
+);
 
 export const getAssetDetails = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {

@@ -37,7 +37,6 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-
 export function DataTable<TData, TValue>({
   columns,
   data,
@@ -65,16 +64,16 @@ export function DataTable<TData, TValue>({
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? (null as unknown as React.ReactNode)
-                        : (flexRender(
+                      {header.isPlaceholder ? (
+                        (null as unknown as React.ReactNode)
+                      ) : (
+                        <th className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                          {flexRender(
                             header.column.columnDef.header,
-                          header.getContext()
-                            
-                        ) as unknown as React.ReactNode)}
-                      
-                        
-                      
+                            header.getContext()
+                          )}
+                        </th>
+                      )}
                     </TableHead>
                   );
                 })}
@@ -87,15 +86,14 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className={row.index % 2 === 1 ? "bg-gray-200" : ""}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {
-                        flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        ) as unknown as React.ReactNode
-                      }
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -113,6 +111,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
+
       {/* <DataTablePagination table={table} /> */}
     </>
   );
