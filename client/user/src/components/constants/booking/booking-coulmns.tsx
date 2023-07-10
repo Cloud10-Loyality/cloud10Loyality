@@ -16,10 +16,7 @@ export const BOOKING_COLUMN: ColumnDef<Bookings>[] = [
       return <div className="">{hotelName as unknown as React.ReactNode}</div>;
     },
   },
-  {
-    accessorKey: "amount",
-    header: () => <div className="">Amount</div>,
-  },
+
   {
     accessorKey: "checkIn",
     header: () => <div className="">Check In</div>,
@@ -47,11 +44,20 @@ export const BOOKING_COLUMN: ColumnDef<Bookings>[] = [
     header: () => <div className="">City</div>,
   },
   {
+    accessorKey: "state",
+    header: () => <div className="">State</div>,
+  },
+
+  {
+    accessorKey: "zipCode",
+    header: () => <div className="">Pin</div>,
+  },
+  {
     accessorKey: "paymentMethod",
     header: () => <div className="">Payment Method</div>,
   },
   {
-    accessorKey: "zipCode",
-    header: () => <div className="">Pin</div>,
+    accessorKey: "amount",
+    header: () => <div className="">Amount</div>,
   },
 ];

@@ -1,5 +1,12 @@
 "use client";
 import { useProfile, User } from "@/utils/hooks/use-profile";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
+
 export default function UserProfile() {
   const { user, loading } = useProfile();
 
@@ -18,57 +25,55 @@ export default function UserProfile() {
   }
 
   return (
-    <div className="w-10/12 ml-6 mt-8 dark:text-white dark:bg-[#272F3C] bg-white p-6 rounded-lg shadow-lg">
+    <div className="w-10/12 ml-6 mt-8 ">
       {loading ? (
         <p>Loading user data...</p>
       ) : user.length !== 0 ? (
         <div>
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold">Welcome, {user.firstname}!</h1>
-            <h2 className="bg-blue-500 text-white font-semibold py-2 px-4 rounded">
-              Points: {user.points}
-            </h2>
-          </div>
-          <div className="border-b pb-4 mb-6 grid grid-cols-2 gap-8">
-            <div>
+          <Card>
+            <CardHeader className="text-2xl">
+              <h1>
+                Welcome, <span>{user.firstname}!</span>
+              </h1>
+            </CardHeader>
+            <CardContent>
               <p className="flex items-center mb-2">
-                <span className="font-semibold mr-2">Full Name:</span>
-                <span>
+                <span className=" mr-2">Full Name:</span>
+                <CardDescription>
                   {user.firstname} {user.lastname}
-                </span>
+                </CardDescription>
               </p>
               <p className="flex items-center mb-2">
-                <span className="font-semibold mr-2">Dob:</span>
-                <span>{user.dob}</span>
+                <span className=" mr-2">Dob:</span>
+                <CardDescription>{formatDate(user.dob)}</CardDescription>
               </p>
               <p className="flex items-center mb-2">
-                <span className="font-semibold mr-2">Email:</span>
-                <span>{user.email}</span>
-              </p>
-            </div>
-            <div>
-              <p className="flex items-center mb-2">
-                <span className="font-semibold mr-2">Phone:</span>
-                <span>{user.phone}</span>
+                <span className=" mr-2">Email:</span>
+                <CardDescription>{user.email}</CardDescription>
               </p>
               <p className="flex items-center mb-2">
-                <span className="font-semibold mr-2">City:</span>
-                <span>{user.city}</span>
+                <span className=" mr-2">Phone:</span>
+                <CardDescription>{user.phone}</CardDescription>
               </p>
               <p className="flex items-center mb-2">
-                <span className="font-semibold mr-2">State:</span>
-                <span>{user.state}</span>
+                <span className=" mr-2">City:</span>
+                <CardDescription>{user.city}</CardDescription>
+              </p>
+
+              <p className="flex items-center mb-2">
+                <span className=" mr-2">State:</span>
+                <CardDescription>{user.state}</CardDescription>
               </p>
               <p className="flex items-center mb-2">
-                <span className="font-semibold mr-2">Zip Code:</span>
-                <span>{user.zipCode}</span>
+                <span className=" mr-2">Country:</span>
+                <CardDescription>{user.country}</CardDescription>
               </p>
-              {/* Render other user properties */}
-            </div>
-          </div>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-            Edit Profile
-          </button>
+              <p className="flex items-center mb-2">
+                <span className="mr-2">Zip Code:</span>
+                <CardDescription>{user.zipCode}</CardDescription>
+              </p>
+            </CardContent>
+          </Card>
         </div>
       ) : (
         <p>No user data found.</p>
