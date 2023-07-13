@@ -16,7 +16,7 @@ export interface User {
   _id: string;
   age: number;
   city: string;
-  country: Country;
+  country: string;
   dob: Date;
   email: string;
   firstname: string;
@@ -26,10 +26,6 @@ export interface User {
   state: string;
   uid: string;
   zipCode: number;
-}
-
-export enum Country {
-  India = "India",
 }
 
 export enum Gender {

@@ -4,7 +4,7 @@ import { ChevronsUpDown } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Reservation } from "@/libs/hooks/use-bookings";
 
-export const BOOKING_COLUMN: ColumnDef<Reservation>[] = [
+export const USER_BOOKING_COLUMN: ColumnDef<Reservation>[] = [
   {
     accessorKey: "_id",
     header: "ID",
@@ -29,33 +29,6 @@ export const BOOKING_COLUMN: ColumnDef<Reservation>[] = [
   {
     accessorKey: "amount",
     header: () => <div className="w-max">Amount</div>,
-  },
-  {
-    accessorKey: "user.email",
-    header: ({ column }) => {
-      return (
-        <span className="flex items-center gap-2">
-          User Email
-          <ChevronsUpDown
-            size={16}
-            strokeWidth={1.5}
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          />
-        </span>
-      );
-    },
-  },
-  {
-    accessorKey: "user.firstname",
-    header: () => <div className="w-max">User Firstname</div>,
-  },
-  {
-    accessorKey: "user.lastname",
-    header: () => <div className="w-max">User Lastname</div>,
-  },
-  {
-    accessorKey: "user.phone",
-    header: () => <div className="w-max">User Phone</div>,
   },
   {
     accessorKey: "checkIn",

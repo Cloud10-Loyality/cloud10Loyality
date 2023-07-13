@@ -20,7 +20,7 @@ const sliveTierSchema = new Schema<TierType>({
   rewards: [
     {
       type: String,
-      default: ["Free Room Upgrade", "Late Check-Out"],
+      default: ["Late Check-Out"],
     },
   ],
 });

@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import { UserTierType } from "../../types";
 import { UserTiers } from "../models/userTiers.mode";
 
@@ -6,6 +7,16 @@ export class UserTiersService {
 
   public async getUserTiers(email: string): Promise<UserTierType[] | null> {
     const res = await this.model.find().byUserEmail(email);
+    return res;
+  }
+
+  public async getUserTiersByManagerIdAndUserEmail(
+    managerId: Types.ObjectId,
+    email: string
+  ): Promise<UserTierType[]> {
+    const res = await this.model
+      .find()
+      .byUserEmailAndManagerId(email, managerId);
     return res;
   }
 

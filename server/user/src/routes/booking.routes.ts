@@ -1,4 +1,5 @@
 import {
+  deleteAllBookings,
   deleteBooking,
   getBookings,
   getMe,
@@ -15,7 +16,10 @@ router.use(protectRoute as any);
 
 router.route("/me").get(getMe as any);
 
-router.route("/").get(getBookings as any);
+router
+  .route("/")
+  .get(getBookings as any)
+  .delete(deleteAllBookings as any);
 router.route("/:id").delete(deleteBooking as any);
 
 export default router;

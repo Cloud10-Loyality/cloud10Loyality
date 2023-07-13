@@ -77,3 +77,15 @@ export const deleteBooking = catchAsync(
     });
   }
 );
+
+export const deleteAllBookings = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    await bookingService.deleteAllBookings();
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      data: null,
+    });
+  }
+);

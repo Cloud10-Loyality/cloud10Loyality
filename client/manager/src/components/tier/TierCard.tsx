@@ -15,6 +15,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import Image from "next/image";
 import { Tier } from "@/app/app/tier/page";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -73,8 +74,24 @@ const TierCard = ({ tiers }: Props) => {
             <CardTitle>Tiers</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center justify-between w-full">
-              <h1 className="text-2xl">No Tiers</h1>
+            <div className="flex flex-col space-y-4 items-center justify-between w-full">
+              <div className="hidden dark:block">
+                <Image
+                  src="/assets/no_tier_dark.svg"
+                  width={200}
+                  height={200}
+                  alt="No Tiers"
+                />
+              </div>
+              <div className="block dark:hidden">
+                <Image
+                  src="/assets/no_tier_light.svg"
+                  width={200}
+                  height={200}
+                  alt="No Tiers"
+                />
+              </div>
+              <h1 className="font-bold">No Tiers</h1>
             </div>
           </CardContent>
         </Card>

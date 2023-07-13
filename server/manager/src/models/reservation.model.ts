@@ -16,6 +16,13 @@ interface ReservationQueryHelpers {
     HydratedDocument<ManagerType>,
     ReservationQueryHelpers
   >;
+  byUser(
+    userEmail: string
+  ): QueryWithHelpers<
+    HydratedDocument<ManagerType>[],
+    HydratedDocument<ManagerType>,
+    ReservationQueryHelpers
+  >;
 }
 
 type ReservationModelType = Model<ReservationType, ReservationQueryHelpers>;
@@ -87,6 +94,7 @@ const reservationSchema = new Schema<
       },
       email: {
         type: String,
+        unique: false,
         required: [true, "Email is required"],
         lowercase: true,
       },
@@ -106,6 +114,7 @@ const reservationSchema = new Schema<
       },
       phone: {
         type: Number,
+        unique: false,
         minLength: [3, "Phone number must be at least 3 characters long"],
         maxLength: [10, "Phone number must be at most 10 characters long"],
       },
@@ -143,9 +152,23 @@ reservationSchema.query.byManager = function (
   return this.where({ managerId });
 };
 
+reservationSchema.query.byUser = function (
+  this: QueryWithHelpers<
+    any,
+    HydratedDocument<ManagerType>,
+    ReservationQueryHelpers
+  >,
+  userEmail: string
+) {
+  return this.where({ "user.email": userEmail });
+};
+
 const Reservation = model<ReservationType, ReservationModelType>(
   "Reservation",
   reservationSchema
 );
+
+// Reservation.collection.dropIndex(user.email);
+// Reservation.collection.dropIndex("user.phone_1");
 
 export default Reservation;

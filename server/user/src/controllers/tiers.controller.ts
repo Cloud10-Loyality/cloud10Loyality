@@ -2,6 +2,7 @@ import { NextFunction, Response } from "express";
 import { Request, catchAsync } from "@c10lms/common";
 
 import { Types } from "mongoose";
+import { UserTiers } from "../models/userTiers.mode";
 import { UserType } from "../../types";
 import { tierService } from "../services/tiers.db";
 import { userTiersService } from "../services/userTiers.db";
@@ -19,6 +20,19 @@ export const getMe = catchAsync(
       data: {
         tiers,
       },
+    });
+  }
+);
+
+export const deleteAllTiers = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    await UserTiers.deleteMany();
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      message: "All tiers deleted successfully",
+      data: null,
     });
   }
 );

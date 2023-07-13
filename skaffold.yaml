@@ -58,28 +58,28 @@ build:
       manual:
         - src: "src/**/*.ts"
           dest: .
-  - image: cloud10lms/manager-client
-    context: ./client/manager
-    docker:
-      dockerfile: Dockerfile
-      noCache: false
-    sync:
-      manual:
-        - src: "src/**/*.tsx"
-          dest: .
-        - src: "public/**/*"
-          dest: .
-  - image: cloud10lms/user-client
-    context: ./client/user
-    docker:
-      dockerfile: Dockerfile
-      noCache: false
-    sync:
-      manual:
-        - src: "src/**/*.tsx"
-          dest: .
-        - src: "public/**/*"
-          dest: .
+  # - image: cloud10lms/manager-client
+  #   context: ./client/manager
+  #   docker:
+  #     dockerfile: Dockerfile
+  #     noCache: false
+  #   sync:
+  #     manual:
+  #       - src: "src/**/*.tsx"
+  #         dest: .
+  #       - src: "public/**/*"
+  #         dest: .
+  # - image: cloud10lms/user-client
+  #   context: ./client/user
+  #   docker:
+  #     dockerfile: Dockerfile
+  #     noCache: false
+  #   sync:
+  #     manual:
+  #       - src: "src/**/*.tsx"
+  #         dest: .
+  #       - src: "public/**/*"
+  #         dest: .
   local:
     concurrency: 0
     tryImportMissing: false

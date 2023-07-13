@@ -57,6 +57,8 @@ export const getReservationsByManager = catchAsync(
     res: Response,
     next: NextFunction
   ) => {
+    console.log(req.manager, "----");
+
     const role = req.role;
     const { _id } = req.manager;
 
@@ -65,6 +67,7 @@ export const getReservationsByManager = catchAsync(
         new AppError("You are not authorized to perform this action", 403)
       );
     }
+    console.log(req.manager, "--+++--");
 
     const { populate, fields, limit, sort } = req.query;
     const queryObj = { ...req.query };
@@ -75,6 +78,8 @@ export const getReservationsByManager = catchAsync(
       limit,
       sort,
     };
+
+    console.log(req.manager, "--__--");
 
     const reservations = await reservationService.getAllReservationsByManager(
       _id!,

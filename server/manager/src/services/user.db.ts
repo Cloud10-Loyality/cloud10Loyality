@@ -1,10 +1,12 @@
 import { NullExpression, Types } from "mongoose";
+import { ReservationType, UserType } from "../../types";
 
+import Reservation from "../models/reservation.model";
 import User from "../models/user.model";
-import { UserType } from "../../types";
 
 class UserService {
   private model = User;
+  private reservationModel = Reservation;
 
   public async getAllUsers(
     queryObj?: Record<string, any>,
@@ -36,7 +38,45 @@ class UserService {
     return users;
   }
 
-  public async getUserId(id: Types.ObjectId): Promise<UserType | null> {
+  public async getUserBookings(
+    userEmail: string,
+    queryObj?: Record<string, any>,
+    options?: {
+      limit?: string;
+      sort?: string;
+      fields?: string;
+    }
+  ): Promise<ReservationType[]> {
+    const { limit, fields, sort } = options ?? {};
+
+    let queryStr;
+
+    // console.log("hello");
+
+    const excludedFields = ["sort", "limit", "fields"];
+
+    // console.log("byy");
+
+    // queryStr = excludedFields.forEach((el) => delete queryObj![el]);
+
+    // console.log("hii-------");
+    let query = this.reservationModel
+      .find((queryStr as any) ?? queryObj)
+      .byUser(userEmail);
+
+    if (sort) {
+      const sortBy = sort.split(",").join(" ");
+      query = query.sort(sortBy);
+    }
+    if (limit) query = query.limit(parseInt(limit));
+    if (fields) query = query.select(fields);
+
+    const bookings = await query;
+
+    return bookings;
+  }
+
+  public async getUserById(id: Types.ObjectId): Promise<UserType | null> {
     const user = await this.model.findById(id);
 
     return user;

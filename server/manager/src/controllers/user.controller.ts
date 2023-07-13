@@ -29,11 +29,53 @@ export const getUsers = catchAsync(
   }
 );
 
+export const getUser = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+
+    if (!id) {
+      return next(new AppError("User ID must be provided", 400));
+    }
+
+    const user = await userService.getUserById(id as unknown as Types.ObjectId);
+
+    if (!user) {
+      return next(new AppError("No user found with that ID", 404));
+    }
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      data: {
+        user,
+      },
+    });
+  }
+);
+
+export const getUserBookings = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userEmail = req.query.userEmail;
+    console.log(userEmail);
+
+    const bookings = await userService.getUserBookings(userEmail as string);
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      totalRecords: bookings.length,
+      data: {
+        bookings,
+      },
+    });
+  }
+);
+
 export const deleteUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
 
-    const user = await userService.getUserId(id as unknown as Types.ObjectId);
+    const user = await userService.getUserById(id as unknown as Types.ObjectId);
 
     if (!user) {
       return next(new AppError("No user found with that ID", 404));
