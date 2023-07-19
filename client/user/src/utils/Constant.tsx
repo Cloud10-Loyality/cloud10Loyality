@@ -27,9 +27,8 @@ export const menuData = [
   {
     id: 2,
     icon: <KanbanSquare size={20} />,
-    label: "Point Summary",
-    link: "/app/point-summary",
-    disabled: true,
+    label: "Points",
+    link: "/app/points",
   },
   {
     id: 3,

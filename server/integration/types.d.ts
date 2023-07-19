@@ -12,3 +12,11 @@ export type ManagerType = {
 };
 
 type Role = "ADMIN" | "MANAGER" | "USER";
+
+export type ResponseBody = {
+  status: "success" | "fail";
+  error: boolean;
+  message: string;
+  totalRecords?: number;
+  data: any;
+};

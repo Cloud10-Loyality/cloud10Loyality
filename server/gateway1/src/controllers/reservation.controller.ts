@@ -4,12 +4,13 @@ import { NextFunction, Response } from "express";
 import Reservation from "../models/reservation.model";
 import { ReservationCreatedPublisher } from "../events/publisher/reservation-created-publisher";
 import { ReservationDeletedPublisher } from "../events/publisher/reservation-deleted-publisher";
+import { ResponseBody } from "../../types";
 import { Types } from "mongoose";
 import { natsClient } from "../nats-client";
 import { reservationService } from "../services/reservations.db";
 
 export const getReservations = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response<ResponseBody>, next: NextFunction) => {
     const { populate, fields, limit, sort } = req.query;
     const queryObj = { ...req.query };
 
@@ -26,8 +27,9 @@ export const getReservations = catchAsync(
     );
 
     res.status(200).json({
-      message: "success",
+      status: "success",
       error: false,
+      message: "Reservations fetched successfully",
       totalRecords: reservations.length,
       data: reservations,
     });
@@ -35,7 +37,7 @@ export const getReservations = catchAsync(
 );
 
 export const updateReservation = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response<ResponseBody>, next: NextFunction) => {
     const id = req.params.id;
 
     const reservation = reservationService.getReservationById(id);
@@ -48,6 +50,7 @@ export const updateReservation = catchAsync(
 
     res.status(200).json({
       status: "success",
+      message: "Reservation updated successfully",
       error: false,
       data: null,
     });
@@ -55,7 +58,7 @@ export const updateReservation = catchAsync(
 );
 
 export const createReservation = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response<ResponseBody>, next: NextFunction) => {
     const body = req.body;
 
     if (!body) {
@@ -97,8 +100,9 @@ export const createReservation = catchAsync(
     });
 
     res.status(201).json({
-      message: "success",
+      status: "success",
       error: false,
+      message: "Reservation created successfully",
       data: null,
     });
   }

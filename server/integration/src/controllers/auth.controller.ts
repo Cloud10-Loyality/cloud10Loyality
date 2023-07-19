@@ -9,13 +9,14 @@ import {
 import { Request as BaseRequest, NextFunction, Response } from "express";
 
 import { IntegrationCreatedPublisher } from "../events/publishers/integration-created-publisher";
+import { ResponseBody } from "../../types";
 import { Types } from "mongoose";
 import { env } from "../env";
 import { integrationService } from "../services/integrations.db";
 import { natsClient } from "../nats-client";
 
 export const signup = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response<ResponseBody>, next: NextFunction) => {
     const body = req.body;
 
     if (!body) {
@@ -41,7 +42,8 @@ export const signup = catchAsync(
     });
 
     res.status(201).json({
-      message: "success",
+      status: "success",
+      message: "Integration created successfully",
       error: false,
       data: null,
     });
@@ -49,7 +51,7 @@ export const signup = catchAsync(
 );
 
 export const login = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response<ResponseBody>, next: NextFunction) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -88,7 +90,7 @@ export const login = catchAsync(
 );
 
 export const refresh = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response<ResponseBody>, next: NextFunction) => {
     const { AUTH } = req.cookies;
 
     if (!AUTH) {
@@ -106,7 +108,8 @@ export const refresh = catchAsync(
     );
 
     res.status(200).json({
-      message: "success",
+      status: "success",
+      message: "Token refreshed successfully",
       error: false,
       data: {
         accessToken,
@@ -116,7 +119,7 @@ export const refresh = catchAsync(
 );
 
 export const logout = catchAsync(
-  async (req: BaseRequest, res: Response, next: NextFunction) => {
+  async (req: BaseRequest, res: Response<ResponseBody>, next: NextFunction) => {
     const { AUTH } = req.cookies;
 
     if (!AUTH) {

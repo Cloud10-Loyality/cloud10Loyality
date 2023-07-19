@@ -2,7 +2,7 @@ import { NextFunction, Response } from "express";
 import { Request, catchAsync } from "@c10lms/common";
 
 import { Types } from "mongoose";
-import { UserTiers } from "../models/userTiers.mode";
+import { UserTiers } from "../models/userTiers.model";
 import { UserType } from "../../types";
 import { tierService } from "../services/tiers.db";
 import { userTiersService } from "../services/userTiers.db";
@@ -20,6 +20,21 @@ export const getMe = catchAsync(
       data: {
         tiers,
       },
+    });
+  }
+);
+
+export const deleteMyTiers = catchAsync(
+  async (req: Request<{}, {}, UserType>, res: Response, next: NextFunction) => {
+    const user = req.user;
+
+    await userTiersService.deleteUserTiers(user.email!);
+
+    res.status(200).json({
+      status: "success",
+      error: false,
+      message: "Tiers deleted successfully",
+      data: null,
     });
   }
 );

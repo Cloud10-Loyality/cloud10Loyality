@@ -1,67 +1,36 @@
-"use client";
-
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import React, { useEffect, useState } from "react";
-
-import { useProfile } from "@/utils/hooks/use-profile";
-import { Bookings, useBooking } from "@/utils/hooks/use-bookings";
 
 type Props = {};
 
 export default function page({}: Props) {
-  const { user } = useProfile();
-  const { bookings, loading } = useBooking();
-  const [totalSpending, setTotalSpending] = useState<number>(0);
-  const [avgBookingValue, setAvgBookingValue] = useState<number>(0);
-  const [lastCheckIn, setLastCheckIn] = useState<Date | null>(null);
-
-  useEffect(() => {
-    if (!loading && bookings.length > 0) {
-      const amounts = bookings.map((booking: Bookings) => booking.amount);
-      const sum = amounts.reduce(
-        (accumulator, currentValue) => accumulator + currentValue,
-        0
-      );
-      const avgValue = sum / amounts.length;
-      const checkInDates = bookings.map(
-        (booking: Bookings) => new Date(booking.checkIn)
-      );
-      const lastCheckInDate = new Date(
-        Math.max(...checkInDates.map((date) => date.getTime()))
-      );
-
-      setTotalSpending(sum);
-      setAvgBookingValue(avgValue);
-      setLastCheckIn(lastCheckInDate);
-    }
-  }, [loading, bookings]);
-
   return (
     <div className=" font-light h-full">
       <div className="flex flex-row  ml-3">
         <Card className="w-90">
           <CardHeader>
-            <h3>Total Spending</h3>
-            <CardDescription>{totalSpending}</CardDescription>
+            <CardTitle>Total Spending</CardTitle>
+            <CardDescription>{"totalSpending"}</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="text-md space-y-3">
               <li className="flex place-content-between gap-4 ">
                 <h4>Avg Booking Value</h4>
-                <span>{avgBookingValue}</span>
+                <span>{""}</span>
               </li>
               <li className="flex place-content-between">
                 <h4>Bookings</h4>
-                <span>{bookings.length}</span>
+                <span>{""}</span>
               </li>
               <li className="flex place-content-between gap-4">
                 <h4>Last booking</h4>
-                <span>{lastCheckIn ? lastCheckIn.toDateString() : ""}</span>
+                <span>{""}</span>
               </li>
             </ul>
           </CardContent>
@@ -69,8 +38,8 @@ export default function page({}: Props) {
 
         <Card className="w-80 ml-8">
           <CardHeader>
-            <h3>Active Points</h3>
-            <CardDescription>{user.points}</CardDescription>
+            <CardTitle>Active Points</CardTitle>
+            <CardDescription>{"points"}</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="text-md space-y-3">
@@ -92,7 +61,7 @@ export default function page({}: Props) {
 
         <Card className="w-80 ml-8">
           <CardHeader>
-            <h3>Current Tier</h3>
+            <CardTitle>Current Tier</CardTitle>
             <CardDescription>Silver</CardDescription>
           </CardHeader>
           <CardContent>

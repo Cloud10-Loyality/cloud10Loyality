@@ -42,8 +42,18 @@ const userTiersSchema = new Schema<UserTierType, {}, {}, UserTiersQueryHelpers>(
       type: Number,
     },
     manager: {
-      type: Schema.Types.ObjectId,
-      required: [true, "Manager is required"],
+      _id: {
+        type: Schema.Types.ObjectId,
+        required: [true, "Manager ID is required"],
+      },
+      email: {
+        type: String,
+        required: [true, "Manager email is required"],
+      },
+      name: {
+        type: String,
+        required: [true, "Manager name is required"],
+      },
     },
   }
 );
@@ -69,7 +79,7 @@ userTiersSchema.query.byUserEmailAndManagerId =
     email: string,
     managerId: Types.ObjectId
   ) {
-    return this.where({ email, manager: managerId });
+    return this.where({ email, "manager._id": managerId });
   };
 
 export const UserTiers = model<UserTierType, UserTiersModelType>(

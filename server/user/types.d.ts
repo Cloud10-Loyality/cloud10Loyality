@@ -51,7 +51,17 @@ export type UserTierType = {
   email?: string;
   points?: number;
   tier?: "Silver" | "Gold" | "Platinum";
-  manager?: Types.ObjectId;
+  manager?: {
+    _id?: Types.ObjectId;
+    email?: string;
+    name?: string;
+  };
+};
+
+export type IntegrationType = {
+  _id?: Types.ObjectId;
+  name?: string;
+  email?: string;
 };
 
 export type TierName = "GOLD" | "SILVER" | "PLATINUM";

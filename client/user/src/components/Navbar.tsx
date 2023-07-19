@@ -2,7 +2,6 @@
 
 import { ArrowRight, Bell, LogOut, Settings, User2 } from "lucide-react";
 import { DarkMode, Profile } from "./ui/icons";
-// import { IoMdNotifications, IoMdSettings } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
 
 import { BsArrowRight } from "react-icons/bs";
@@ -13,6 +12,8 @@ import Link from "next/link";
 import { ThemeChanger } from "@/components/ui/theme";
 import { menuData } from "../utils/Constant";
 import { usePathname } from "next/navigation";
+
+// import { IoMdNotifications, IoMdSettings } from "react-icons/io";
 
 const Navbar = () => {
   const [searchText, setSearchText] = useState("");
@@ -72,9 +73,9 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="h-[10vh] sticky mr-6 top-0 left-0 py-2 ">
-        <div className="flex items-center h-full px-4 rounded-lg justify-between bg-opacity-40">
-          <div className="p-[10px] font-semibold ml-2 bg-muted rounded-md">
+      <div className="h-[10vh] bg-muted px-6 sticky top-0 left-0 py-2 ">
+        <div className="flex items-center px-4 h-full rounded-lg justify-between bg-opacity-40">
+          <div className="p-[10px] font-semibold bg-background rounded-md">
             <span className="flex items-center space-x-3 pr-3">
               <ArrowRight size={20} />
               <span className="sm:text-sm ">{getActiveLabel()}</span>

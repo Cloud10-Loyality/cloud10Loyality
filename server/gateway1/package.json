@@ -18,7 +18,7 @@
     ]
   },
   "dependencies": {
-    "@c10lms/common": "^1.0.43",
+    "@c10lms/common": "^1.0.45",
     "@types/express-serve-static-core": "^4.17.35",
     "cors": "^2.8.5",
     "express": "^4.18.2",
@@ -27,7 +27,8 @@
     "node-nats-streaming": "^0.3.2",
     "swagger-jsdoc": "5.0.1",
     "swagger-ui-express": "^4.6.3",
-    "validator": "^13.9.0"
+    "validator": "^13.9.0",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

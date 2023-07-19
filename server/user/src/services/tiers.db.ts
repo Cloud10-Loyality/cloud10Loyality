@@ -25,6 +25,14 @@ export class TierService {
     return res;
   }
 
+  public async getAllManagerTiers(
+    managerId: Types.ObjectId
+  ): Promise<TierType[]> {
+    const res = await this.model.find().byManager(managerId);
+
+    return res;
+  }
+
   //   public async getAllTiersByManagerId(id: Types.ObjectId): Promise<TierType[]> {
   //     const res = await Promise.all([
   //       this.goldModel.find({ manager: id }),

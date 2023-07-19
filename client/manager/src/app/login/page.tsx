@@ -1,8 +1,8 @@
 import Image from "next/image";
-import React from "react";
-import login from "./../../../public/illustrations/login.svg";
-import RegisterForm from "@/components/auth/RegisterForm";
 import LoginForm from "@/components/auth/LoginForm";
+import React from "react";
+import RegisterForm from "@/components/auth/RegisterForm";
+import login from "./../../../public/illustrations/login.svg";
 
 type Props = {
   // searchParams: URLSearchParams

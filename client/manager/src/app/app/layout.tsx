@@ -54,9 +54,6 @@ export default function DashboardLayout({ children }: Props) {
     router.push(`${pathname}?q=${q}`);
   }
 
-  // useEffect(() => {
-  // }, [pathname]);
-
   return (
     <Container type="dashboard">
       <Sidebar />

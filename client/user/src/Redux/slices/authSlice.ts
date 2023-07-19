@@ -12,13 +12,18 @@ const AuthSlice = createSlice({
       state: Draft<typeof authState>,
       action: PayloadAction<(typeof authState)["accessToken"]>
     ) {
-      console.log(action.payload, "In the redux slice");
       state.accessToken = action.payload;
+    },
+    setUser(
+      state: Draft<typeof authState>,
+      action: PayloadAction<(typeof authState)["user"]>
+    ) {
+      state.user = action.payload;
     },
   },
 });
 
-export const { setAccessToken } = AuthSlice.actions;
+export const { setAccessToken, setUser } = AuthSlice.actions;
 
 // export const login =
 //   (data: { email: string; password: string }) =>
