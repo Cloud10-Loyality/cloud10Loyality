@@ -962,9 +962,9 @@
     to-fast-properties "^2.0.0"
 
 "@c10lms/common@^1.0.43":
-  version "1.0.43"
-  resolved "https://registry.yarnpkg.com/@c10lms/common/-/common-1.0.43.tgz#e09a7cd89446d6080adf8d1ca67db30d7c73fc7c"
-  integrity sha512-NmRsMOU5P94TLlwa+89K73n+MxomWUq6+57+yrIAfNJh+2oDag9Q3RcjZTLa123bf7P92T1N/X8PuF2qBHlZRA==
+  version "1.0.45"
+  resolved "https://registry.npmjs.org/@c10lms/common/-/common-1.0.45.tgz"
+  integrity sha512-fg6Zlbebmq97MOYRHRPotV9u7Y17ndYNYAtOYDzjlP4Tj4eMTZdRB99nJ4tfqWUWOAscGfBM8Nt783xpCb+7Cg==
   dependencies:
     bcryptjs "^2.4.3"
     express "^4.18.2"

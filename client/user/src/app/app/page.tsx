@@ -5,6 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { CircleDotDashed, CheckCheck, Award } from "lucide-react";
+
 import React, { useEffect, useState } from "react";
 
 type Props = {};
@@ -13,14 +15,14 @@ export default function page({}: Props) {
   return (
     <div className=" font-light h-full">
       <div className="flex flex-row  ml-3">
-        <Card className="w-90">
+        <Card className="w-[25%] bg-[#0072f5] border-none text-white rounded-xl drop-shadow-xl">
           <CardHeader>
             <CardTitle>Total Spending</CardTitle>
             <CardDescription>{"totalSpending"}</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="text-md space-y-3">
-              <li className="flex place-content-between gap-4 ">
+              <li className="flex place-content-between gap-x-8 ">
                 <h4>Avg Booking Value</h4>
                 <span>{""}</span>
               </li>
@@ -28,7 +30,7 @@ export default function page({}: Props) {
                 <h4>Bookings</h4>
                 <span>{""}</span>
               </li>
-              <li className="flex place-content-between gap-4">
+              <li className="flex place-content-between gap-x-8">
                 <h4>Last booking</h4>
                 <span>{""}</span>
               </li>
@@ -36,7 +38,7 @@ export default function page({}: Props) {
           </CardContent>
         </Card>
 
-        <Card className="w-80 ml-8">
+        <Card className="w-[25%] ml-8 bg-[#16181a] border-none text-white rounded-xl drop-shadow-xl">
           <CardHeader>
             <CardTitle>Active Points</CardTitle>
             <CardDescription>{"points"}</CardDescription>
@@ -59,7 +61,7 @@ export default function page({}: Props) {
           </CardContent>
         </Card>
 
-        <Card className="w-80 ml-8">
+        <Card className="w-[25%] ml-8 bg-[#17c964] border-none text-white rounded-xl drop-shadow-xl">
           <CardHeader>
             <CardTitle>Current Tier</CardTitle>
             <CardDescription>Silver</CardDescription>

@@ -105,7 +105,7 @@ const Navbar = () => {
             </form>
           </div> */}
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center mr-6 gap-4">
             {/* <div ref={notificationRef}> */}
             <Button
               variant="outline"

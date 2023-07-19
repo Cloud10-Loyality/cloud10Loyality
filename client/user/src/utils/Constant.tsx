@@ -20,7 +20,7 @@ import {
 export const menuData = [
   {
     id: 1,
-    icon: <LayoutGrid size={20} />,
+    icon: <LayoutGrid size={23} />,
     label: "Home",
     link: "/app",
   },
@@ -32,27 +32,27 @@ export const menuData = [
   },
   {
     id: 3,
-    icon: <GalleryVerticalEnd size={20} />,
+    icon: <GalleryVerticalEnd size={23} />,
     label: "Stay History",
     link: "/app/stay-history",
   },
   {
     id: 4,
-    icon: <Boxes size={20} />,
+    icon: <Boxes size={23} />,
     label: "Tier Beneifits",
     link: "/app/tier-beneifits",
     disabled: true,
   },
   {
     id: 5,
-    icon: <PiggyBank size={20} />,
+    icon: <PiggyBank size={23} />,
     label: "Points Redemption",
     link: "/app/points-redemption",
     disabled: true,
   },
   {
     id: 6,
-    icon: <RefreshCcwDot size={20} />,
+    icon: <RefreshCcwDot size={23} />,
     label: "Referal Programs",
     link: "/app/referal-programs",
     disabled: true,
