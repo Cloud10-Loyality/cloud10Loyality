@@ -16,6 +16,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import { ScrollArea } from "../ui/scrollarea";
 import { Tier } from "@/app/app/tier/page";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -67,7 +68,7 @@ const TierCard = ({ tiers }: Props) => {
   };
 
   return (
-    <div className="flex flex-col w-1/2 gap-2 mb-2">
+    <ScrollArea className="flex flex-col w-1/2 h-[85vh] gap-2 mb-2">
       {!tiers?.length ? (
         <Card>
           <CardHeader>
@@ -98,7 +99,7 @@ const TierCard = ({ tiers }: Props) => {
       ) : (
         tiers?.map((tier) => {
           return (
-            <Card key={tier?._id} className="max-w-full">
+            <Card key={tier?._id} className="max-w-full mb-4">
               <div className="flex items-center justify-between">
                 <CardHeader>
                   <CardTitle>{tier?.name}</CardTitle>
@@ -136,7 +137,7 @@ const TierCard = ({ tiers }: Props) => {
           );
         })
       )}
-    </div>
+    </ScrollArea>
   );
 };
 
