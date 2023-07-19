@@ -43,13 +43,13 @@ export const menuData = [
         id: 3,
         icon: <Settings2 size={15} />,
         label: "Set up",
-        link: "/app/stay-history",
+        link: "/app/setup",
       },
       {
         id: 4,
         icon: <LineChart size={15} />,
         label: "Analytics",
-        link: "/app/tier-benefits",
+        link: "/app/analytics",
         disabled: true,
       },
       {

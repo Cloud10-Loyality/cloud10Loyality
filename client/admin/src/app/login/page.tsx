@@ -9,7 +9,7 @@ export default function LoginPage({}: Props) {
   return (
     <section className="h-screen w-screen flex items-center ">
       <Image
-        src="/assets/login-1.jpg"
+        src="/assets/login-2.jpg"
         // height={600}
         // width={600}
         alt="Registration Page Illustration"
@@ -24,7 +24,7 @@ export default function LoginPage({}: Props) {
             height={200}
             width={200}
           />
-          <h1 className="text-4xl font-bold drop-shadow-xl shadow-transparent ">
+          <h1 className="text-4xl font-bold drop-shadow-xl shadow-2xl text-white ">
             Welcome to Admin Dashboard
           </h1>
         </div>

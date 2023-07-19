@@ -12,7 +12,7 @@ type Props = {
 
 const BookingTable = ({ column, data }: Props) => {
   return (
-    <div>
+    <div className="ml-3">
       <DataTable columns={column} data={data} />
     </div>
   );

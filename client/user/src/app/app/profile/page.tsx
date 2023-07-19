@@ -31,13 +31,13 @@ export default function UserProfile() {
       ) : user.length !== 0 ? (
         <div>
           <Card>
-            <CardHeader className="text-2xl">
+            <CardHeader className="text-3xl">
               <h1>
                 Welcome, <span>{user.firstname}!</span>
               </h1>
             </CardHeader>
             <CardContent>
-              <p className="flex items-center mb-2">
+              <p className="flex items-center mb-2 ">
                 <span className=" mr-2">Full Name:</span>
                 <CardDescription>
                   {user.firstname} {user.lastname}

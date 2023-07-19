@@ -37,7 +37,7 @@ export const Sidebar = (props: Props) => {
       >
         <div className="cursor-pointer text-lg flex px-2 place-items-center h-[10vh] relative">
           <button onClick={toggleSidebar}>
-            <Menu size={20} />
+            <Menu size={23} />
           </button>
         </div>
         <ul className="flex flex-col space-y-3">

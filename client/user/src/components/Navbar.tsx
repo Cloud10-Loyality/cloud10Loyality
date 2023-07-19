@@ -72,7 +72,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="h-[10vh] sticky mr-6 top-0 left-0 py-2 ">
+      <div className="h-[10vh] sticky  top-0 left-0 py-2 ">
         <div className="flex items-center h-full px-4 rounded-lg justify-between bg-opacity-40">
           <div className="p-[10px] font-semibold ml-2 bg-muted rounded-md">
             <span className="flex items-center space-x-3 pr-3">
@@ -104,7 +104,7 @@ const Navbar = () => {
             </form>
           </div> */}
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center mr-6 gap-4">
             {/* <div ref={notificationRef}> */}
             <Button
               variant="outline"
