@@ -1,5 +1,6 @@
+import { Express, Response as BaseResponse } from "express";
 import { Types } from "mongoose";
-import { Request as BaseRequest } from "express-serve-static-core";
+import { Request as BaseRequest, Send } from "express-serve-static-core";
 
 export type ReservationType = {
   _id?: Types.ObjectId;
@@ -49,8 +50,10 @@ export interface PaymentCard {
 
 type Role = "ADMIN" | "MANAGER" | "USER";
 
-export type Request<Manager = unknown, Role = unknown> = BaseRequest & {
-  jwt: string;
-  manager: Manager;
-  role: Role;
+export type ResponseBody = {
+  status: "success" | "fail";
+  error: boolean;
+  message: string;
+  totalRecords?: number;
+  data: any;
 };

@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import { UserTierType } from "../../types";
-import { UserTiers } from "../models/userTiers.mode";
+import { UserTiers } from "../models/userTiers.model";
 
 export class UserTiersService {
   private model = UserTiers;
@@ -29,6 +29,12 @@ export class UserTiersService {
       points,
       tier,
     });
+
+    return res;
+  }
+
+  public async deleteUserTiers(email: string): Promise<any> {
+    const res = await this.model.deleteMany().byUserEmail(email);
 
     return res;
   }

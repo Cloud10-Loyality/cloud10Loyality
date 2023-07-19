@@ -7,6 +7,8 @@ import {
 } from "../controllers/reservation.controller";
 
 import { Router } from "express";
+import { createReservationSchema } from "../schemas/reservationReqSchema";
+import { validateBody } from "../middlewares/validateBody";
 
 const router = Router();
 
@@ -150,7 +152,8 @@ const router = Router();
 router
   .route("/")
   .get(getReservations as any)
-  .post(createReservation as any).delete(deleteAllReservations as any)
+  .post(createReservation as any)
+  .delete(deleteAllReservations as any);
 
 /**
  * @openapi

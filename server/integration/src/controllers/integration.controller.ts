@@ -1,5 +1,5 @@
 import { AppError, Request, catchAsync } from "@c10lms/common";
-import { ManagerType, Role } from "../../types";
+import { ManagerType, ResponseBody, Role } from "../../types";
 import { NextFunction, Response } from "express";
 
 import { IntegrationCreatedPublisher } from "../events/publishers/integration-created-publisher";
@@ -10,7 +10,7 @@ import { natsClient } from "../nats-client";
 const getIntegrations = catchAsync(
   async (
     req: Request<ManagerType, Role>,
-    res: Response,
+    res: Response<ResponseBody>,
     next: NextFunction
   ) => {
     // FIXME: Dont't forget to uncomment the below lines
@@ -37,9 +37,10 @@ const getIntegrations = catchAsync(
     );
 
     res.status(200).json({
-      message: "success",
+      status: "success",
       error: false,
       totalRecords: integrations.length,
+      message: "Integrations fetched successfully",
       data: integrations,
     });
   }
@@ -48,7 +49,7 @@ const getIntegrations = catchAsync(
 const getIntegration = catchAsync(
   async (
     req: Request<ManagerType, Role>,
-    res: Response,
+    res: Response<ResponseBody>,
     next: NextFunction
   ) => {
     const { id } = req.params;
@@ -64,7 +65,8 @@ const getIntegration = catchAsync(
     }
 
     res.status(200).json({
-      message: "success",
+      status: "success",
+      message: "Integration fetched successfully",
       error: false,
       data: integration,
     });
@@ -74,7 +76,7 @@ const getIntegration = catchAsync(
 const updateIntegration = catchAsync(
   async (
     req: Request<ManagerType, Role>,
-    res: Response,
+    res: Response<ResponseBody>,
     next: NextFunction
   ) => {
     const { id } = req.params;
@@ -98,7 +100,8 @@ const updateIntegration = catchAsync(
     // });
 
     res.status(200).json({
-      message: "success",
+      status: "success",
+      message: "Integration updated successfully",
       error: false,
       data: newData,
     });
@@ -108,7 +111,7 @@ const updateIntegration = catchAsync(
 const deleteIntegration = catchAsync(
   async (
     req: Request<ManagerType, Role>,
-    res: Response,
+    res: Response<ResponseBody>,
     next: NextFunction
   ) => {
     const { id } = req.params;
@@ -137,7 +140,8 @@ const deleteIntegration = catchAsync(
     });
 
     res.status(200).json({
-      message: "success",
+      status: "success",
+      message: "Integration deleted successfully",
       error: false,
       data: null,
     });
