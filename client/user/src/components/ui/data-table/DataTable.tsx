@@ -87,7 +87,7 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                   className={
-                    row.index % 2 === 1 ? "bg-gray-100 text-black" : ""
+                    row.index % 2 === 1 ? "bg-muted dark:text-white" : ""
                   }
                 >
                   {row.getVisibleCells().map((cell) => (

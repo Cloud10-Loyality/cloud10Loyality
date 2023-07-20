@@ -11,7 +11,7 @@ import { FiSearch } from "react-icons/fi";
 import Link from "next/link";
 import { ThemeChanger } from "@/components/ui/theme";
 import { menuData } from "../utils/Constant";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 // import { IoMdNotifications, IoMdSettings } from "react-icons/io";
 
@@ -35,6 +35,8 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
+    const router = useRouter();
+    router.push("/login");
     localStorage.removeItem("accessToken");
   };
 
