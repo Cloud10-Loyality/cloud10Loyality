@@ -1,10 +1,8 @@
 import { Listener, PointsCreatedEvent, Subjects } from "@c10lms/common";
 
 import { Types } from "mongoose";
-import { UserTiers } from "../../models/userTiers.model";
 import { integrationsService } from "../../services/integrations.db";
 import { tierService } from "../../services/tiers.db";
-import { userService } from "../../services/user.db";
 import { userTiersService } from "../../services/userTiers.db";
 
 export class PointsCreatedListener extends Listener<PointsCreatedEvent> {

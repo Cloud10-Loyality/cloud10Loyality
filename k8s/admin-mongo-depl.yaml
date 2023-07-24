@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: admin-mongo-depl
+spec:
+  serviceName: admin-mongo-srv
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-mongo
+  template:
+    metadata:
+      labels:
+        app: admin-mongo
+    spec:
+      containers:
+        - name: admin-mongo
+          image: mongo
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-storage
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-mongo-srv
+spec:
+  selector:
+    app: admin-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

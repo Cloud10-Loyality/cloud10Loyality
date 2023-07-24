@@ -4,6 +4,15 @@ metadata:
   name: cloud10lms
 build:
   artifacts:
+  - image: cloud10lms/admin
+    context: ./server/admin
+    docker:
+      dockerfile: Dockerfile
+      noCache: false
+    sync:
+      manual:
+      - src: "src/**/*.ts"
+        dest: .
   - image: cloud10lms/gateway1
     context: ./server/gateway1
     sync:

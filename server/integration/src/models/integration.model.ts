@@ -1,4 +1,4 @@
-import { InferSchemaType, Model, Schema, model } from "mongoose";
+import { Model, Schema, model } from "mongoose";
 
 import { ManagerType } from "../../types";
 import { createHash } from "@c10lms/common";
