@@ -1,16 +1,24 @@
-import React, { useReducer } from "react";
+import React, { FormEvent, useReducer, useTransition } from "react";
 import { RootState, useSelector } from "@/redux/store";
 
 import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input/Input";
 import { Label } from "@/components/ui/label/Label";
 import { ManagerType } from "../../../types";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import { Separator } from "@radix-ui/react-separator";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 const ProfileForm = (props?: Props) => {
-  const { manager } = useSelector((state: RootState) => state.authReducer);
+  const { manager, accessToken } = useSelector(
+    (state: RootState) => state.authReducer
+  );
+
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const [inputs, updateInputs] = useReducer(
     (prev: ManagerType, next: any) => {
@@ -27,15 +35,49 @@ const ProfileForm = (props?: Props) => {
       state: manager?.state,
       pin: manager?.pin,
       description: manager?.description,
+      isLoading: false,
     }
   );
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    updateInputs({ isLoading: true });
+
+    try {
+      await axios.patch(
+        `http://cloud10lms.com/api/v1/manager/${manager?._id}`,
+        {
+          name: inputs?.name,
+          username: inputs?.username,
+          email: inputs?.email,
+          city: inputs?.city,
+          state: inputs?.state,
+          pin: inputs?.pin,
+          description: inputs?.description,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      startTransition(() => {
+        router.refresh();
+        updateInputs({ isLoading: false });
+      });
+    } catch (err) {
+      console.log(err);
+      updateInputs({ isLoading: false });
+    }
+  };
 
   return (
     <div className="px-4">
       <h1 className="text-2xl font-bold">Profile</h1>
       <p className="text-sm text-muted-foreground">This is your profile</p>
       <Separator className="my-8" />
-      <form className="w-1/2">
+      <form onSubmit={handleSubmit} className="w-1/2">
         <div className="space-y-2 mb-8">
           <Label htmlFor="_id" className="">
             ID
@@ -124,7 +166,12 @@ const ProfileForm = (props?: Props) => {
         </div>
 
         <div className="flex items-center justify-end">
-          <Button className="ml-auto">Update</Button>
+          <Button type="submit" className="ml-auto">
+            {inputs?.isLoading && (
+              <ReloadIcon className="h-4 w-4 mr-2 animate-spin" />
+            )}
+            Update
+          </Button>
         </div>
       </form>
     </div>
