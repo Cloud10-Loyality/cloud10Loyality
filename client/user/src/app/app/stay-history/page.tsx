@@ -7,7 +7,7 @@ import { useBooking } from "@/utils/hooks/use-bookings";
 
 type Props = {};
 
-export default function Bookings({ }: Props) {
+export default function Bookings({}: Props) {
   const { bookings, loading } = useBooking();
 
   return (
@@ -20,4 +20,3 @@ export default function Bookings({ }: Props) {
     </>
   );
 }
-

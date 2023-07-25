@@ -7,8 +7,6 @@ import {
 } from "@/components/ui/card";
 import { CircleDotDashed, CheckCheck, Award } from "lucide-react";
 
-import React, { useEffect, useState } from "react";
-
 type Props = {};
 
 export default function page({}: Props) {

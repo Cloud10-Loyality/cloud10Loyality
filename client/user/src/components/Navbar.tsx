@@ -1,13 +1,9 @@
-"use client";
+// "use client";
 
 import { ArrowRight, Bell, LogOut, Settings, User2 } from "lucide-react";
 import { DarkMode, Profile } from "./ui/icons";
-import { useEffect, useRef, useState } from "react";
-
-import { BsArrowRight } from "react-icons/bs";
+// import { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
-import { FiLogOut } from "react-icons/fi";
-import { FiSearch } from "react-icons/fi";
 import Link from "next/link";
 import { ThemeChanger } from "@/components/ui/theme";
 import { menuData } from "../utils/Constant";
@@ -16,46 +12,46 @@ import { usePathname, useRouter } from "next/navigation";
 // import { IoMdNotifications, IoMdSettings } from "react-icons/io";
 
 const Navbar = () => {
-  const [searchText, setSearchText] = useState("");
+  // const [searchText, setSearchText] = useState("");
   const pathName = usePathname();
-  const [showNotification, setShowNotification] = useState(false);
-  const notificationRef = useRef<HTMLDivElement>(null);
+  // const [showNotification, setShowNotification] = useState(false);
+  // const notificationRef = useRef<HTMLDivElement>(null);
 
-  const handleClick = () => {
-    setShowNotification(!showNotification);
-  };
+  // const handleClick = () => {
+  //   setShowNotification(!showNotification);
+  // };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      notificationRef.current &&
-      !notificationRef.current.contains(event.target as Node)
-    ) {
-      setShowNotification(false);
-    }
-  };
+  // const handleClickOutside = (event: MouseEvent) => {
+  //   if (
+  //     notificationRef.current &&
+  //     !notificationRef.current.contains(event.target as Node)
+  //   ) {
+  //     setShowNotification(false);
+  //   }
+  // };
 
-  const handleLogout = () => {
-    const router = useRouter();
-    router.push("/login");
-    localStorage.removeItem("accessToken");
-  };
+  // const handleLogout = () => {
+  //   const router = useRouter();
+  //   router.push("/login");
+  //   localStorage.removeItem("accessToken");
+  // };
 
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener("click", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("click", handleClickOutside);
+  //   };
+  // }, []);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-  };
+  // const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchText(e.target.value);
+  // };
 
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Handle search submit logic here
-    console.log("Search submitted:", searchText);
-  };
+  // const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   // Handle search submit logic here
+  //   console.log("Search submitted:", searchText);
+  // };
 
   const getActiveLabel = () => {
     const currentPath = pathName;
@@ -112,7 +108,7 @@ const Navbar = () => {
             <Button
               variant="outline"
               disabled={isNotificationDisabled}
-              onClick={handleClick}
+              // onClick={handleClick}
             >
               <Bell size={20} />
             </Button>
@@ -143,7 +139,7 @@ const Navbar = () => {
             <div className="cursor-pointer bg-muted text-lg rounded-md">
               <ThemeChanger />
             </div>
-            <Button variant="destructive" onClick={handleLogout}>
+            <Button variant="destructive">
               <LogOut size={20} className="mr-2" />
               Logout
             </Button>

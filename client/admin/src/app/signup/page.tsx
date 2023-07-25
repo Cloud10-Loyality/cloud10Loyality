@@ -1,6 +1,5 @@
-import Login from "@/components/auth/LoginForm";
+import SignUp from "@/components/auth/SignForm";
 import Image from "next/image";
-// import LoginForm from "@/components/auth/LoginForm";
 import React from "react";
 
 type Props = {};
@@ -10,8 +9,6 @@ export default function LoginPage({}: Props) {
     <section className="h-screen w-screen flex items-center ">
       <Image
         src="/assets/login-2.jpg"
-        // height={600}
-        // width={600}
         alt="Registration Page Illustration"
         className="object-cover object-center"
         fill
@@ -29,7 +26,7 @@ export default function LoginPage({}: Props) {
           </h1>
         </div>
         <div className="ml-9">
-          <Login />
+          <SignUp />
         </div>
       </div>
     </section>
