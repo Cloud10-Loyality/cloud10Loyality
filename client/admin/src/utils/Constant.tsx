@@ -35,8 +35,8 @@ export const menuData = [
       {
         id: 2,
         icon: <BadgeDollarSign size={15} />,
-        label: "Marketplace",
-        link: "/app/marketplace",
+        label: "Bookings",
+        link: "/app/bookings",
         disabled: true,
       },
       {

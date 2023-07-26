@@ -8,12 +8,20 @@ import Link from "next/link";
 import { ThemeChanger } from "@/components/ui/theme";
 import { menuData } from "../utils/Constant";
 import { usePathname, useRouter } from "next/navigation";
+import React from "react";
 
-// import { IoMdNotifications, IoMdSettings } from "react-icons/io";
+type Props = {
+  handleLogout: () => void;
+};
 
-const Navbar = () => {
-  // const [searchText, setSearchText] = useState("");
+const Navbar = ({}: Props) => {
+  const router = useRouter();
   const pathName = usePathname();
+
+  const handleLogoutClick = () => {
+    router.push("/login");
+  };
+  // const [searchText, setSearchText] = useState("");
   // const [showNotification, setShowNotification] = useState(false);
   // const notificationRef = useRef<HTMLDivElement>(null);
 
@@ -139,10 +147,12 @@ const Navbar = () => {
             <div className="cursor-pointer bg-muted text-lg rounded-md">
               <ThemeChanger />
             </div>
-            <Button variant="destructive">
-              <LogOut size={20} className="mr-2" />
-              Logout
-            </Button>
+            <div onClick={handleLogoutClick}>
+              <Button variant="destructive">
+                <LogOut size={20} className="mr-2" />
+                Logout
+              </Button>
+            </div>
           </div>
         </div>
       </div>

@@ -51,6 +51,8 @@ const ProfileForm = ({ user }: Props) => {
     }
   );
 
+  const isDisable = true;
+
   return (
     <>
       <form className="grid grid-cols-3 gap-2 space-y-4 w-full">
@@ -217,7 +219,7 @@ const ProfileForm = ({ user }: Props) => {
         </div>
       </form>
       <div className="flex w-full items-center justify-end">
-        <Button>Update</Button>
+        <Button disabled={isDisable}>Update</Button>
       </div>
     </>
   );

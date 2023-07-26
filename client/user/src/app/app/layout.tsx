@@ -52,7 +52,11 @@ export default function DashboardLayout({ children }: Props) {
   return (
     <Container type="dashboard">
       <Sidebar />
-      <Navbar />
+      <Navbar
+        handleLogout={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
       <div className="h-[90vh] py-4 px-6 overflow-y-auto">{children}</div>
     </Container>
   );

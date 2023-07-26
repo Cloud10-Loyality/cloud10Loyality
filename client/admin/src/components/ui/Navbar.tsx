@@ -3,10 +3,16 @@ import { ThemeChanger } from "./theme";
 import { Button } from "./button";
 import { Bell, LogOut, User2 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 const Navbar = (props: Props) => {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    router.push("/login");
+  };
   return (
     <div className="h-[10vh] sticky top-0 right-0 flex justify-end items-center mr-4 pr-4">
       <Button variant="outline">
@@ -26,7 +32,12 @@ const Navbar = (props: Props) => {
         <ThemeChanger />
       </div>
 
-      <Button variant="ghost" className="ml-4 bg-red-600">
+      <Button
+        variant="ghost"
+        className="ml-4 bg-red-600 "
+        // onClick={() => router.replace("/login")}
+        onClick={handleLogout}
+      >
         <LogOut size={20} className="mr-2" />
         Logout
       </Button>
