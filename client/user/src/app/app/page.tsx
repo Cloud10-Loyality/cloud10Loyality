@@ -13,7 +13,7 @@ export default function page({}: Props) {
   return (
     <div className=" font-light h-full">
       <div className="flex flex-row  ml-3">
-        <Card className="w-[25%] bg-[#0072f5] border-none text-white rounded-xl drop-shadow-xl">
+        <Card className="w-[25%]  border rounded-xl drop-shadow-xl">
           <CardHeader>
             <CardTitle>Total Spending</CardTitle>
             <CardDescription>{"totalSpending"}</CardDescription>
@@ -36,7 +36,7 @@ export default function page({}: Props) {
           </CardContent>
         </Card>
 
-        <Card className="w-[25%] ml-8 bg-[#16181a] border-none text-white rounded-xl drop-shadow-xl">
+        <Card className="w-[25%] ml-8 border  rounded-xl drop-shadow-xl">
           <CardHeader>
             <CardTitle>Active Points</CardTitle>
             <CardDescription>{"points"}</CardDescription>
@@ -59,7 +59,7 @@ export default function page({}: Props) {
           </CardContent>
         </Card>
 
-        <Card className="w-[25%] ml-8 bg-[#17c964] border-none text-white rounded-xl drop-shadow-xl">
+        <Card className="w-[25%] ml-8  border  rounded-xl drop-shadow-xl">
           <CardHeader>
             <CardTitle>Current Tier</CardTitle>
             <CardDescription>Silver</CardDescription>

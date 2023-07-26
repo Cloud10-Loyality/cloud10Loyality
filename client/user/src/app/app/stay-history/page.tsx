@@ -12,11 +12,7 @@ export default function Bookings({}: Props) {
 
   return (
     <>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <BookingTable column={BOOKING_COLUMN} data={bookings} />
-      )}
+      <BookingTable column={BOOKING_COLUMN} data={bookings} />
     </>
   );
 }

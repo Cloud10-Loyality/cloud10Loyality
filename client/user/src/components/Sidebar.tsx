@@ -65,7 +65,7 @@ export const Sidebar = (props: Props) => {
               return (
                 <li
                   key={menuItem.id}
-                  className="px-2 w-full rounded-md py-2 cursor-not-allowed "
+                  className="px-2 w-full rounded-md py-2 text-gray-500 cursor-not-allowed "
                 >
                   {linkContent}
                 </li>
