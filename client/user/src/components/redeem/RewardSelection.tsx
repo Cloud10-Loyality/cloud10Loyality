@@ -13,7 +13,7 @@ const RewardSelection: React.FC<RewardSelectionProps> = ({
 }) => {
   const handleSelectReward = (reward: string) => {
     if (selectedReward === reward) {
-      onSelectReward(null); // Deselect the reward if it's already selected
+      // onSelectReward(null); // Deselect the reward if it's already selected
     } else {
       onSelectReward(reward); // Select the reward
     }

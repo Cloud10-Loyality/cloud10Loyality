@@ -1,23 +1,39 @@
-import { RootState } from '@/Redux/store';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { RootState } from "@/Redux/store";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+interface Booking {
+  id: string;
+  hotelName: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  checkIn: string; // or Date if you prefer
+  checkOut: string; // or Date if you prefer
+  country: string;
+  paymentMethod: string;
+  amount: number;
+}
 
 export default function HistoryTable() {
-  const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const { accessToken } = useSelector((state: RootState) => state.authReducer);
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get('http://cloud10lms.com/api/v1/user/bookings/me', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const response = await axios.get(
+          "http://cloud10lms.com/api/v1/user/bookings/me",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
         setBookings(response.data.data.bookings);
       } catch (error) {
-        console.error('Error fetching bookings:', error);
+        console.error("Error fetching bookings:", error);
       }
     };
 
@@ -49,10 +65,16 @@ export default function HistoryTable() {
                 <td className="py-2 px-4 align-middle">{booking.city}</td>
                 <td className="py-2 px-4 align-middle">{booking.state}</td>
                 <td className="py-2 px-4 align-middle">{booking.zipCode}</td>
-                <td className="py-2 px-4 align-middle">{new Date(booking.checkIn).toLocaleDateString()}</td>
-                <td className="py-2 px-4 align-middle">{new Date(booking.checkOut).toLocaleDateString()}</td>
+                <td className="py-2 px-4 align-middle">
+                  {new Date(booking.checkIn).toLocaleDateString()}
+                </td>
+                <td className="py-2 px-4 align-middle">
+                  {new Date(booking.checkOut).toLocaleDateString()}
+                </td>
                 <td className="py-2 px-4 align-middle">{booking.country}</td>
-                <td className="py-2 px-4 align-middle">{booking.paymentMethod}</td>
+                <td className="py-2 px-4 align-middle">
+                  {booking.paymentMethod}
+                </td>
                 <td className="py-2 px-4 align-middle">{booking.amount}</td>
               </tr>
             ))}

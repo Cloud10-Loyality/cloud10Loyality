@@ -27,11 +27,13 @@ const Page = () => {
                 Silver
               </h2>
               <div>
-                <h5 className="font-bold text-sm">Complimentary Room Upgrades</h5>
+                <h5 className="font-bold text-sm">
+                  Complimentary Room Upgrades
+                </h5>
                 <p className="text-sm">
                   We believe in making your experience exceptional. As a Silver
-                  member, you'll receive complimentary upgrades to higher room
-                  categories, allowing you to indulge in more luxurious
+                  member, you`&apos` ll receive complimentary upgrades to higher
+                  room categories, allowing you to indulge in more luxurious
                   accommodations during your stay.
                 </p>
               </div>
@@ -61,14 +63,15 @@ const Page = () => {
               <div>
                 <h5 className="font-bold text-sm">All Silver Tier Benefits</h5>
                 <p className="text-sm">
-                  You'll continue to enjoy all the privileges of the Silver Tier.
+                  You`&apos`ll continue to enjoy all the privileges of the
+                  Silver Tier.
                 </p>
               </div>
               <div className="mt-4">
                 <h5 className="font-bold text-sm">Guaranteed Availability</h5>
                 <p className="text-sm">
-                  Never worry about room availability again. As a Gold member, we
-                  guarantee a room for you, even during our busiest periods.
+                  Never worry about room availability again. As a Gold member,
+                  we guarantee a room for you, even during our busiest periods.
                   Simply make a reservation in advance, and your room will be
                   ready upon arrival.
                 </p>
@@ -101,8 +104,8 @@ const Page = () => {
                   All Silver and Gold Tier Benefits
                 </h5>
                 <p className="text-sm">
-                  As a Platinum member, you'll receive all the benefits and
-                  privileges of both the Silver and Gold tiers.
+                  As a Platinum member, you`&apos;`ll receive all the benefits
+                  and privileges of both the Silver and Gold tiers.
                 </p>
               </div>
               <div className="mt-4">
@@ -110,14 +113,17 @@ const Page = () => {
                   Personalized Concierge Service
                 </h5>
                 <p className="text-sm">
-                  Our dedicated concierge team is at your service round the clock.
-                  From arranging transportation and making reservations to
-                  providing insider tips and recommendations, our concierge will
-                  ensure every aspect of your stay exceeds your expectations.
+                  Our dedicated concierge team is at your service round the
+                  clock. From arranging transportation and making reservations
+                  to providing insider tips and recommendations, our concierge
+                  will ensure every aspect of your stay exceeds your
+                  expectations.
                 </p>
               </div>
               <div className="mt-4">
-                <h5 className="font-bold text-sm">Complimentary Spa Treatment</h5>
+                <h5 className="font-bold text-sm">
+                  Complimentary Spa Treatment
+                </h5>
                 <p className="text-sm">
                   Indulge in a luxurious spa treatment on us. Enjoy a relaxing
                   massage, rejuvenating facial, or other pampering services to
@@ -128,9 +134,9 @@ const Page = () => {
                 <h5 className="font-bold text-sm">VIP Airport Transfers</h5>
                 <p className="text-sm">
                   Begin and end your journey in ultimate comfort with
-                  complimentary VIP airport transfers. Our chauffeur will meet you
-                  at the airport, ensuring a seamless transition from your flight
-                  to our hotel.
+                  complimentary VIP airport transfers. Our chauffeur will meet
+                  you at the airport, ensuring a seamless transition from your
+                  flight to our hotel.
                 </p>
               </div>
             </div>

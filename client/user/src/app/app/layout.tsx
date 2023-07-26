@@ -29,7 +29,7 @@ export default function DashboardLayout({ children }: Props) {
     revalidateOnMount: false,
   });
 
-  console.log({ accessToken, user });
+  // console.log({ accessToken, user });
 
   useEffect(() => {
     !accessToken && router.push("/login");
