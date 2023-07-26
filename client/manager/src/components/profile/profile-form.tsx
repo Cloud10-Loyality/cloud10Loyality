@@ -8,6 +8,7 @@ import { ManagerType } from "../../../types";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { Separator } from "@radix-ui/react-separator";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 type Props = {};
@@ -44,7 +45,7 @@ const ProfileForm = (props?: Props) => {
     updateInputs({ isLoading: true });
 
     try {
-      await axios.patch(
+      const res = await axios.patch(
         `http://cloud10lms.com/api/v1/manager/${manager?._id}`,
         {
           name: inputs?.name,
@@ -62,6 +63,7 @@ const ProfileForm = (props?: Props) => {
         }
       );
 
+      toast.success(res?.data?.message);
       startTransition(() => {
         router.refresh();
         updateInputs({ isLoading: false });

@@ -82,6 +82,7 @@ export const updateManager = catchAsync(
     res.status(200).json({
       status: "success",
       error: false,
+      message: "Manager updated successfully",
       data: {
         manager,
       },
