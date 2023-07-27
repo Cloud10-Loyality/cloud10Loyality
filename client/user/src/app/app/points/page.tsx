@@ -51,7 +51,7 @@ const getTiers = async (accessToken: string) => {
       }
     );
 
-    console.log(res.data.data.tiers);
+    // console.log(res.data.data.tiers);
     return res.data.data.tiers;
   } catch (err) {
     // console.log(err);

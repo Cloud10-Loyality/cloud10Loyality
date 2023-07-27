@@ -43,7 +43,7 @@ export default function LoginForm({
     setIsLoading(false);
 
     // if (!response.data || response.data.message === "User not found") {
-    //   toast.error("Incorrect email or password");
+    //   toast.error("Something went wrong");
     //   return;
     // }
 

@@ -10,7 +10,7 @@ type Props = {
   data: Integration[];
 };
 
-const BookingTable = ({ column, data }: Props) => {
+const IntegrationTable = ({ column, data }: Props) => {
   return (
     <div>
       <DataTable columns={column} data={data} />
@@ -18,4 +18,4 @@ const BookingTable = ({ column, data }: Props) => {
   );
 };
 
-export default BookingTable;
+export default IntegrationTable;

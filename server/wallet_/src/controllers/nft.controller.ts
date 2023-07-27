@@ -123,13 +123,13 @@ export const mintTokenMetadata = catchAsync(
       .selectWalletFromSeed(secretSeed)
       .wallet.address();
 
-    await nftService.handleBurning({
-      metadata,
-      policyId,
-      txHash,
-      address,
-      tokenName,
-    });
+    // await nftService.handleBurning({
+    //   metadata,
+    //   policyId,
+    //   txHash,
+    //   address,
+    //   tokenName,
+    // });
 
     return res.status(201).json({
       status: "success",

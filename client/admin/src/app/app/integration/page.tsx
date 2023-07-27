@@ -4,7 +4,6 @@ import React from "react";
 import axios from "axios";
 import { decodeStr } from "@/libs/utils";
 import { Integration } from "@/libs/hooks/use-integration";
-// import { useBooking } from "@/libs/hooks/use-bookings";
 
 type Props = {};
 
@@ -47,11 +46,9 @@ const getIntegration = async (accessToken: string): Promise<Integartion[]> => {
       },
     }
   );
-
   if (res.data.error) {
     throw new Error(res.data.message);
   }
-
   return res.data.data.integration;
 };
 
