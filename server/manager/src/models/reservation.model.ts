@@ -168,7 +168,7 @@ const Reservation = model<ReservationType, ReservationModelType>(
   reservationSchema
 );
 
-// Reservation.collection.dropIndex(user.email);
+// Reservation.collection.dropIndex("user.email_1");
 // Reservation.collection.dropIndex("user.phone_1");
 
 export default Reservation;

@@ -1,5 +1,4 @@
 import { Listener, ReservationCreatedEvent } from "@c10lms/common";
-
 import { PointsCreatedPublisher } from "../publishers/points-created-publisher";
 import { Subjects } from "@c10lms/common/build/events/subjects";
 import { natsClient } from "../../nats-client";
@@ -11,32 +10,46 @@ export class ReservationCreatedListener extends Listener<ReservationCreatedEvent
   queueGroupName = "wallet-service";
 
   async onMessage(data: ReservationCreatedEvent["data"], msg: any) {
-    const {
-      user: { email, firstname, lastname },
-      managerId,
-    } = data;
+    try {
+      const {
+        user: { email, firstname, lastname },
+        managerId,
+      } = data;
 
-    const { txHash, UNIT_VALUE, metadata } = await nftService.mintNFTMetadata({
-      email,
-      description: "This is a token for " + firstname + lastname,
-      label: 20,
-      tokenName: firstname + lastname,
-      name: firstname,
-      managerId: data.managerId,
-    });
+      const randomCharacter = String.fromCharCode(
+        65 + Math.floor(Math.random() * 26)
+      );
+      const randomNumber = Math.floor(Math.random() * 100) + 1;
+      const uniqueTokenName = `${firstname}_${randomCharacter}${randomNumber}`;
 
-    const totalUnits = await nftService.getPoints(email, managerId);
+      const { txHash, UNIT_VALUE, metadata } = await nftService.mintNFTMetadata(
+        {
+          email,
+          description: "This is a token for " + firstname + lastname,
+          label: 20,
+          tokenName: uniqueTokenName,
+          name: firstname + lastname,
+          managerId: data.managerId,
+        }
+      );
 
-    await new PointsCreatedPublisher(natsClient.client).publish({
-      email: email,
-      points: totalUnits,
-      managerId: data.managerId,
-    });
+      const totalUnits = await nftService.getPoints(email, managerId);
 
-    console.log({ txHash, UNIT_VALUE, metadata });
+      await new PointsCreatedPublisher(natsClient.client).publish({
+        email: email,
+        points: totalUnits,
+        managerId: data.managerId,
+      });
 
-    const user = await userService.getUserByEmail(email);
-    // await reservationService.createReservation(data);
-    msg.ack();
+      console.log({ txHash, UNIT_VALUE, metadata });
+
+      const user = await userService.getUserByEmail(email);
+      // await reservationService.createReservation(data);
+
+      msg.ack();
+    } catch (error) {
+      console.error("Error in ReservationCreatedListener:", error);
+      msg.ack();
+    }
   }
 }

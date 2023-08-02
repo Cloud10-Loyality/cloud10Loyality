@@ -88,12 +88,13 @@ class NftService {
     const UNIT_VALUE = 1n;
 
     const metadata: NFTMetadataDetails = {
-      email: data.email,
-      description: data.description,
-      label: "ERC20",
-      policyId: policyId,
-      tokenName: data.tokenName,
-      managerId: data.managerId,
+      [policyId]: {
+        [data.tokenName]: {
+          email: data.email,
+          managerId: data.managerId,
+          policyId: policyId,
+        },
+      },
       name: data.name,
       image: "",
     };

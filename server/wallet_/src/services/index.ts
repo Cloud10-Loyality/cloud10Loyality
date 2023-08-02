@@ -11,7 +11,6 @@ import {
 import { secretSeed, BlockFrostKey } from "./seed";
 import { walletService } from "./wallet.db";
 
-
 let lucid: Lucid;
 let policyId: PolicyId;
 let mintingPolicy: MintingPolicy;
@@ -48,5 +47,3 @@ Lucid.new(
   });
 
 export { lucid, policyId, mintingPolicy };
-
-
