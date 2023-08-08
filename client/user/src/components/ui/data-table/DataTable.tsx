@@ -46,7 +46,7 @@ export function DataTable<TData, TValue>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    // getPaginationRowModel: getPaginationRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     state: {
@@ -106,7 +106,24 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  <div className=" pt-10 max-w-6xl  animate-pulse">
+                    <div className="h-8 max-w-[800px] bg-muted rounded-md mb-2.5 "></div>
+                    <div className="h-8 max-w-[800px] bg-muted rounded-md mb-2.5 "></div>
+                    <div className="h-8 max-w-[800px] bg-muted rounded-md mb-2.5 "></div>
+                    <div className="h-8 max-w-[800px] bg-muted rounded-md mb-2.5 "></div>
+                  </div>
+                  <div className=" pt-10 max-w-6xl  animate-pulse">
+                    <div className="h-8 max-w-[800px] bg-muted rounded-md mb-2.5 "></div>
+                    <div className="h-8 max-w-[800px] bg-muted rounded-md mb-2.5 "></div>
+                    <div className="h-8 max-w-[800px] bg-muted rounded-md mb-2.5 "></div>
+                    <div className="h-8 max-w-[800px] bg-muted rounded-md mb-2.5 "></div>
+                  </div>
+                  <div className=" pt-10 max-w-6xl  animate-pulse">
+                    <div className="h-8 max-w-[800px] bg-muted rounded-md mb-2.5 "></div>
+                    <div className="h-8 max-w-[800px] bg-muted rounded-md mb-2.5 "></div>
+                    <div className="h-8 max-w-[800px] bg-muted rounded-md mb-2.5 "></div>
+                    <div className="h-8 max-w-[800px] bg-muted rounded-md mb-2.5 "></div>
+                  </div>
                 </TableCell>
               </TableRow>
             )}
@@ -114,7 +131,7 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      {/* <DataTablePagination table={table} /> */}
+      <DataTablePagination table={table} />
     </>
   );
 }

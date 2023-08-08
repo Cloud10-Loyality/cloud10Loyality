@@ -31,7 +31,7 @@ export const Sidebar = (props: Props) => {
   return (
     <>
       <div
-        className={`h-full row-span-3 px-6 ${
+        className={`h-screen row-span-3 px-6 ${
           isNavShowing ? "min-w-[200px]" : "w-max"
         } row-span-2 border-2 border-muted relative`}
       >
